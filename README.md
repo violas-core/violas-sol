@@ -22,7 +22,7 @@ violas ethereum sol
 [ViolasMProofState](ViolasMProofState.sol) is violas proof state value ang change 
 
 
-#install:
+# install and new mapping transaction:
 
 ```
 **Deploy**
