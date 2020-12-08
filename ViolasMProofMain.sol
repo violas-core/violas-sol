@@ -48,6 +48,10 @@ interface IViolasMProofDatas{
 }
 
 interface ITokenFactory{
+    function tokenMinAmount(address token) external view returns(uint);
+    function tokenMaxAmount(address token) external view returns(uint);
+    function updateTokenMinAmount(address token, uint amount) external returns(bool);
+    function updateTokenMaxAmount(address token, uint amount) external returns(bool);
     function tokenAddress(string calldata name) external view returns(address);
     function tokenName(address token) external view returns(string memory);
     function updateToken(string calldata name, address token) external payable returns(bool);
@@ -60,7 +64,7 @@ interface IViolasMProofMain is ITokenFactory{
     
     function transferProof(address token, string calldata datas) external payable returns (bool);
     function transfer(address tokenAddrr, address recipient, uint amount) external payable returns (bool);
-    function upgradProofDatasAddress(address proofAddr) external payable returns(bool);
+    function upgradProofDatasAddress(address proofAddr) external returns(bool);
 }
  
 /**
@@ -211,6 +215,8 @@ contract TokenFactory is Pausable, ITokenFactory{
     mapping(uint=>string) public validTokenNames;
     mapping(string=>address) tokens;
     mapping(address=>string) tokenNames;
+    mapping(address=>uint) _tokenMinAmount;
+    mapping(address=>uint) _tokenMaxAmount;
     
     modifier validAddress(address token){
         require(token != address(0), "token is invalid");
@@ -226,18 +232,78 @@ contract TokenFactory is Pausable, ITokenFactory{
     }
     
     modifier validToken(address token) {
-        string storage name = tokenNames[token];
-        uint len = bytes(name).length;
-        require(len > 0, "token address is invalid");
+        require(bytes(tokenNames[token]).length > 0, "token address is invalid");
         _;
     }
+    
+    
   
     modifier validTokenName(string memory name) {
         address addr = tokens[name];
         require(addr != address(0), "token name is invalid");
         _;
     }
-  
+    
+    function updateTokenMinAmount(address token, uint amount) 
+    external 
+    virtual
+    onlyOwner
+    validToken(token)
+    override
+    returns(bool)
+    {
+        _tokenMinAmount[token] = amount;
+        return true;
+      
+    }
+    
+    function _validTokenAmount(address token, uint amount) 
+    internal
+    view
+    returns(bool)
+    {
+        require(amount > 0 && 
+        amount >= _tokenMinAmount[token] &&  
+        (_tokenMaxAmount[token] == 0 || amount <= _tokenMaxAmount[token]) 
+        , "token amount out of range");
+        return true;
+    }
+    
+    function updateTokenMaxAmount(address token, uint amount) 
+    external 
+    virtual
+    onlyOwner
+    validToken(token)
+    override
+    returns(bool)
+    {
+        _tokenMaxAmount[token] = amount;
+        return true;
+        
+    }
+    
+    function tokenMinAmount(address token) 
+    external 
+    view 
+    virtual
+    override
+    validToken(token)
+    returns(uint)
+    {
+         return _tokenMinAmount[token];
+    }
+    
+    function tokenMaxAmount(address token) 
+    external 
+    view 
+    virtual
+    override
+    validToken(token)
+    returns(uint)
+    {
+        return _tokenMaxAmount[token];
+    }
+    
     function tokenAddress(string calldata name) 
     external 
     view 
@@ -314,6 +380,26 @@ contract TokenFactory is Pausable, ITokenFactory{
         return true;
     } 
     
+    function _deleteToken(address tokenAddr)
+    internal
+    returns(bool)
+    {
+        string storage name = tokenNames[tokenAddr];
+        delete tokenNames[tokenAddr];
+        delete tokens[name];
+        delete _tokenMinAmount[tokenAddr];
+        delete _tokenMaxAmount[tokenAddr];
+        return true;
+    }
+    
+    function _deleteToken(string memory name)
+    internal
+    returns(bool)
+    {
+        address  _tokenAddr =  tokens[name];
+        return _deleteToken(_tokenAddr);
+    }
+    
     function removeToken(string calldata name) 
     external 
     payable 
@@ -323,9 +409,7 @@ contract TokenFactory is Pausable, ITokenFactory{
     validTokenName(name) 
     returns(bool) 
     {
-        address tokenAddr = tokens[name];
-        delete tokenNames[tokenAddr];
-        delete tokens[name];
+        _deleteToken(name);
         _emptyValidTokenNames(name);
         return true;
     }
@@ -341,9 +425,7 @@ contract TokenFactory is Pausable, ITokenFactory{
     {
         string storage name = tokenNames[tokenAddr];
         _emptyValidTokenNames(name);
-        delete tokens[name];
-        delete tokenNames[tokenAddr];
-        
+        _deleteToken(tokenAddr);
         return true;
     }
 }
@@ -396,14 +478,20 @@ contract ViolasMProofMain is TokenFactory, IViolasMProofMain{
     {
         IERC20 erc20 = IERC20(tokenAddr);
         uint allowance_amount = erc20.allowance(msg.sender, address(this));
-        require(allowance_amount > 0, "allowance_amount is 0");
         
-        bool saved = IViolasMProofDatas(proofAddress).transferProof(msg.sender, payee, tokenAddr, allowance_amount, datas);
-        require(saved, "update proof to datas failed");
-        
+        uint before_amount = erc20.balanceOf(payee);
         TransferHelper.safeTransferFrom(tokenAddr, msg.sender, payee, allowance_amount);
+        uint after_amount = erc20.balanceOf(payee);
+        uint diff_amount = after_amount - before_amount;
         
-        emit TransferProof(msg.sender, payee, tokenAddr, allowance_amount);
+        _validTokenAmount(tokenAddr, diff_amount);
+        
+        require(
+            IViolasMProofDatas(proofAddress).transferProof(msg.sender, payee, tokenAddr, diff_amount, datas),
+            "update proof to datas failed"
+            );
+        
+        emit TransferProof(msg.sender, payee, tokenAddr, diff_amount);
         return true;
     }
     
@@ -416,7 +504,6 @@ contract ViolasMProofMain is TokenFactory, IViolasMProofMain{
     onlyOwner
     virtual 
     override
-    payable 
     returns(bool) {
         
         if (proofAddress != proofAddr) {
