@@ -484,7 +484,7 @@ contract ViolasMProofMain is TokenFactory, IViolasMProofMain{
         uint after_amount = erc20.balanceOf(payee);
         uint diff_amount = after_amount - before_amount;
         
-        _validTokenAmount(tokenAddr, diff_amount);
+        _validTokenAmount(tokenAddr, allowance_amount);
         
         require(
             IViolasMProofDatas(proofAddress).transferProof(msg.sender, payee, tokenAddr, diff_amount, datas),
