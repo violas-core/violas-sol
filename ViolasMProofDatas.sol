@@ -1,5 +1,7 @@
 /**
  *Submitted for verification at Etherscan.io on 2020-10-13
+ version: 0.0.4
+
 */
 
 pragma solidity =0.6.6;
@@ -14,13 +16,13 @@ interface IProofStateMng{
 }
 
 interface IViolasMProofDatas{
-    event TransferProof(address indexed from, address indexed to, string datas, address token, uint amount, uint state);
+    event TransferProof(address indexed from, address indexed to, string datas, address token, uint amount, uint fee, uint state);
     event TransferProofState(address indexed manager, uint version, uint state);
     
-    function proofInfo(address sender, uint sequence) external view returns(string memory, uint, uint, address, uint, uint);
-    function proofInfo(uint version) external view returns(string memory, uint, uint, address, address, uint, bool);
+    function proofInfo(address sender, uint sequence) external view returns(string memory, uint, uint, address, uint, uint, uint);
+    function proofInfo(uint version) external view returns(string memory, uint, uint, address, address, uint, bool, uint);
     
-    function transferProof(address fromAddr, address toAddr,address token, uint amount, string calldata datas) external returns (bool);
+    function transferProof(address fromAddr, address toAddr,address token, uint amount, uint fee, string calldata datas) external payable returns (bool);
     function transferProofState(uint version, uint state) external  returns (bool);
     function transferProofState(uint version, string calldata state) external returns (bool);
     function transferProofState(address sender, uint sequence, uint state) external returns (bool);
@@ -219,6 +221,7 @@ contract ViolasMProofDatas is Mngable,IViolasMProofDatas{
     
     struct ProofData {
         uint        amount;
+        uint        fee;
         uint        version;
         uint        sequence;
         uint        state;
@@ -370,10 +373,10 @@ contract ViolasMProofDatas is Mngable,IViolasMProofDatas{
     virtual
     override
     view 
-    returns(string memory, uint, uint, address, uint, uint) 
+    returns(string memory, uint, uint, address, uint, uint, uint) 
     {
         ProofData storage pd = _getProofWithAddr(sender, sequence);
-        return (pd.data, pd.sequence, uint(pd.state), pd.token, pd.version, pd.amount);
+        return (pd.data, pd.sequence, uint(pd.state), pd.token, pd.version, pd.amount, pd.fee);
     }
     
     function proofInfo(uint version) 
@@ -381,13 +384,13 @@ contract ViolasMProofDatas is Mngable,IViolasMProofDatas{
     view
     virtual
     override
-    returns(string memory, uint, uint, address, address, uint, bool) 
+    returns(string memory, uint, uint, address, address, uint, bool, uint) 
     {
         (ProofData storage pd, address sender, bool create) = _getProofWithVersion(version);
-        return (pd.data, pd.sequence, uint(pd.state), pd.token, sender, pd.amount, create);
+        return (pd.data, pd.sequence, uint(pd.state), pd.token, sender, pd.amount, create, pd.fee);
     }
     
-    function _saveProof(address fromAddr, address tokenAddr, string memory data, uint state, uint amount)
+    function _saveProof(address fromAddr, address tokenAddr, string memory data, uint state, uint amount, uint fee)
     internal
     returns(bool)
     {
@@ -401,7 +404,7 @@ contract ViolasMProofDatas is Mngable,IViolasMProofDatas{
             ap.maxVersion   = nextVersion;
             ap.inited       = true;
         }
-        ap.proofDatas[ap.maxSequence] = ProofData({version: nextVersion, sequence: ap.maxSequence, data:data, state:state, token:tokenAddr, amount:amount});
+        ap.proofDatas[ap.maxSequence] = ProofData({version: nextVersion, sequence: ap.maxSequence, data:data, state:state, token:tokenAddr, amount:amount, fee:fee});
         
         //update index
         proofIndexs[nextVersion] = AddressIndex({sender:fromAddr, create: true, sequence: ap.maxSequence});
@@ -413,18 +416,19 @@ contract ViolasMProofDatas is Mngable,IViolasMProofDatas{
         return true;
     }
     
-    function transferProof(address fromAddr, address toAddr, address token, uint amount, string calldata datas) 
+    function transferProof(address fromAddr, address toAddr, address token, uint amount, uint fee, string calldata datas) 
     external
     onlyMainer
     virtual 
     override
+    payable
     returns(bool) 
     {
         uint state = stateManage.getStateValue("start");
-        bool ret_state = _saveProof(fromAddr, token, datas, state, amount);
+        bool ret_state = _saveProof(fromAddr, token, datas, state, amount, fee);
         require(ret_state, "save proof data failed.");
         
-        emit TransferProof(fromAddr, toAddr, datas, token, amount, state);
+        emit TransferProof(fromAddr, toAddr, datas, token, amount, fee, state);
         return true;
     }
     

@@ -1,7 +1,3 @@
-﻿/**
- *Submitted for verification at Etherscan.io on 2020-10-13
-*/
-
 pragma solidity =0.6.6;
 
 interface IProofStateMng{
