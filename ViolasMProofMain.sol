@@ -29,13 +29,13 @@ interface IERC20 {
  * 
  */
 interface IViolasMProofDatas{
-    event TransferProof(address indexed from, address indexed to, string datas, address token, uint amount, uint state);
+    event TransferProof(address indexed from, address indexed to, string datas, address token, uint amount, uint fee, uint state);
     event TransferProofState(address indexed manager, uint version, uint state);
     
     function proofInfo(address sender, uint sequence) external view returns(string memory, uint, uint, address, uint, uint);
     function proofInfo(uint version) external view returns(string memory, uint, uint, address, address, uint, bool);
     
-    function transferProof(address fromAddr, address toAddr,address token, uint amount, string calldata datas) external payable returns (bool);
+    function transferProof(address fromAddr, address toAddr,address token, uint amount, uint fee, string calldata datas) external payable returns (bool);
     function transferProofState(uint version, uint state) external payable returns (bool);
     function transferProofState(uint version, string calldata state) external payable returns (bool);
     function transferProofState(address sender, uint sequence, uint state) external payable returns (bool);
@@ -60,7 +60,7 @@ interface ITokenFactory{
 }
 
 interface IViolasMProofMain is ITokenFactory{
-    event TransferProof(address indexed from, address indexed to, address token, uint amount);
+    event TransferProof(address indexed from, address indexed to, address token, uint amount, uint fee);
     
     function transferProof(address token, string calldata datas) external payable returns (bool);
     function transfer(address tokenAddrr, address recipient, uint amount) external payable returns (bool);
@@ -478,20 +478,25 @@ contract ViolasMProofMain is TokenFactory, IViolasMProofMain{
     {
         IERC20 erc20 = IERC20(tokenAddr);
         uint allowance_amount = erc20.allowance(msg.sender, address(this));
-        
         uint before_amount = erc20.balanceOf(payee);
+
         TransferHelper.safeTransferFrom(tokenAddr, msg.sender, payee, allowance_amount);
+
         uint after_amount = erc20.balanceOf(payee);
-        uint diff_amount = after_amount - before_amount;
+        uint diffi_amount = after_amount - before_amount;
         
         _validTokenAmount(tokenAddr, allowance_amount);
+
+        require(diffi_amount <= allowance_amount, "diff amount value is incorrect");
+        uint fee_amount = allowance_amount - diffi_amount;
+        string memory save_datas = datas;
         
         require(
-            IViolasMProofDatas(proofAddress).transferProof(msg.sender, payee, tokenAddr, diff_amount, datas),
+            IViolasMProofDatas(proofAddress).transferProof(msg.sender, payee, tokenAddr, diffi_amount, fee_amount, save_datas),
             "update proof to datas failed"
             );
         
-        emit TransferProof(msg.sender, payee, tokenAddr, diff_amount);
+        emit TransferProof(msg.sender, payee, tokenAddr, diffi_amount, fee_amount);
         return true;
     }
     
