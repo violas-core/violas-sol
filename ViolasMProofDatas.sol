@@ -29,6 +29,7 @@ interface IViolasMProofDatas{
     function transferProofState(address sender, uint sequence, string calldata state) external returns (bool);
     function transferContinuousComplete(uint verion) external returns (bool);
     
+    function accountIsExists(address account) external view returns(bool);
     function accountSequence(address account) external view returns(uint);
     function accountVersion(address account, uint sequence) external view returns(uint);
     function accountLatestVersion(address account) external view returns(uint);
@@ -303,6 +304,17 @@ contract ViolasMProofDatas is Mngable,IViolasMProofDatas{
         sender = ai.sender;
         create = ai.create;
     }
+
+    function accountIsExists(address account) 
+    external 
+    virtual
+    override
+    view 
+    returns(bool)
+    {
+        return proofs[account].inited;
+    }
+
     function accountSequence(address account) 
     external 
     virtual
