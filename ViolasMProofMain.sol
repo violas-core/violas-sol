@@ -155,6 +155,11 @@ contract Payeeable is Ownable{
         payee = msg.sender;
     }
 
+    modifier canProof(){
+        require(msg.sender != payee, "The payment account and receiving account are same.");
+        _;
+    }
+
     function transferPayeeship(address newPayee) public onlyOwner {
         if (newPayee != address(0)) {
             payee = newPayee;
@@ -471,6 +476,7 @@ contract ViolasMProofMain is TokenFactory, IViolasMProofMain{
     external
     whenNotPaused
     validToken(tokenAddr)
+    canProof
     virtual 
     override
     payable 
@@ -483,20 +489,20 @@ contract ViolasMProofMain is TokenFactory, IViolasMProofMain{
         TransferHelper.safeTransferFrom(tokenAddr, msg.sender, payee, allowance_amount);
 
         uint after_amount = erc20.balanceOf(payee);
-        uint diffi_amount = after_amount - before_amount;
+        uint payment_amount = after_amount - before_amount;
         
         _validTokenAmount(tokenAddr, allowance_amount);
 
-        require(diffi_amount <= allowance_amount, "diff amount value is incorrect");
-        uint fee_amount = allowance_amount - diffi_amount;
+        require(payment_amount <= allowance_amount && payment_amount > 0, "diff amount value is incorrect");
+        uint fee_amount = allowance_amount - payment_amount;
         string memory save_datas = datas;
         
         require(
-            IViolasMProofDatas(proofAddress).transferProof(msg.sender, payee, tokenAddr, diffi_amount, fee_amount, save_datas),
+            IViolasMProofDatas(proofAddress).transferProof(msg.sender, payee, tokenAddr, payment_amount, fee_amount, save_datas),
             "update proof to datas failed"
             );
         
-        emit TransferProof(msg.sender, payee, tokenAddr, diffi_amount, fee_amount);
+        emit TransferProof(msg.sender, payee, tokenAddr, payment_amount, fee_amount);
         return true;
     }
     

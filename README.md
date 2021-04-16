@@ -1,3 +1,6 @@
+# insetall
+apt install solc-select(https://github.com/crytic/solc-select)
+
 # violas-sol
 violas ethereum sol
 
