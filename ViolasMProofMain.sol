@@ -32,8 +32,8 @@ interface IViolasMProofDatas{
     event TransferProof(address indexed from, address indexed to, string datas, address token, uint amount, uint fee, uint state);
     event TransferProofState(address indexed manager, uint version, uint state);
     
-    function proofInfo(address sender, uint sequence) external view returns(string memory, uint, uint, address, uint, uint);
-    function proofInfo(uint version) external view returns(string memory, uint, uint, address, address, uint, bool);
+    function proofInfo(address sender, uint sequence) external view returns(string memory, uint, uint, address, uint, uint, uint);
+    function proofInfo(uint version) external view returns(string memory, uint, uint, address, address, uint, bool, uint);
     
     function transferProof(address fromAddr, address toAddr,address token, uint amount, uint fee, string calldata datas) external payable returns (bool);
     function transferProofState(uint version, uint state) external payable returns (bool);
