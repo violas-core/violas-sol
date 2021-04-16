@@ -484,17 +484,18 @@ contract ViolasMProofMain is TokenFactory, IViolasMProofMain{
     {
         IERC20 erc20 = IERC20(tokenAddr);
         uint allowance_amount = erc20.allowance(msg.sender, address(this));
+        _validTokenAmount(tokenAddr, allowance_amount);
+
         uint before_amount = erc20.balanceOf(payee);
 
         TransferHelper.safeTransferFrom(tokenAddr, msg.sender, payee, allowance_amount);
 
         uint after_amount = erc20.balanceOf(payee);
-        uint payment_amount = after_amount - before_amount;
-        
-        _validTokenAmount(tokenAddr, allowance_amount);
+        uint payment_amount = after_amount.sub(before_amount);
 
         require(payment_amount <= allowance_amount && payment_amount > 0, "diff amount value is incorrect");
-        uint fee_amount = allowance_amount - payment_amount;
+
+        uint fee_amount = allowance_amount.sub(payment_amount);
         string memory save_datas = datas;
         
         require(
