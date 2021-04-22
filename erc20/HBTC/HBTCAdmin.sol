@@ -4,11 +4,18 @@ import "./Container.sol";
 
 contract HBTCAdmin is Container{
 
+    /*
     bytes32 internal constant OWNERHASH = 0x02016836a56b71f0d02689e69e326f4f4c1b9057164ef592671cf0d37c8040c0;
     bytes32 internal constant OPERATORHASH = 0x46a52cf33029de9f84853745a87af28464c80bf0346df1b32e205fc73319f622;
     bytes32 internal constant PAUSERHASH = 0x0cc58340b26c619cd4edc70f833d3f4d9d26f3ae7d5ef2965f81fe5495049a4f;
     bytes32 internal constant STOREHASH = 0xe41d88711b08bdcd7556c5d2d24e0da6fa1f614cf2055f4d7e10206017cd1680;
     bytes32 internal constant LOGICHASH = 0x397bc5b97f629151e68146caedba62f10b47e426b38db589771a288c0861f182;
+    */
+    bytes32 internal constant OWNERHASH = 0xd9d391285dc25e61f5e15de203d95d543f626972b389d9c431c4dae62a9693bf;
+    bytes32 internal constant OPERATORHASH = 0x7670c45a545ce1d18463bf3ae2a8711efe7d83b6533ffdfa31f2f22b78eff33d;
+    bytes32 internal constant PAUSERHASH = 0xffb601a23179f1ab4ba60ed11be31f46d4eebc0c3109cc81f613e493a7921637;
+    bytes32 internal constant STOREHASH = 0x046066fcd4633f22dce77abad154a047d467788c0513ab8800e868d1d72be434;
+    bytes32 internal constant LOGICHASH = 0x59bac3ddc1c47fc1c00f324d1d4606b8d895d8885fa30215563e57b8bd2e8ee8;
     uint256 internal constant MAXUSERNUM = 255;
     bytes32[] private classHashArray;
 
