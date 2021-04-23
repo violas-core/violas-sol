@@ -4,6 +4,7 @@
 
 #flow
    HBTCToken ->  HBTCLogic -> HBTCStorage
+
 ## Deploy args:
 contract    |   args    | desc
       ---   |   ---     | --- 
@@ -11,6 +12,7 @@ HBTCLogic   | HBTCToken Address |
 HBTCStorage | HBTCLogic Address |
 
 ## Modify admin Address
+  default： multi sign(2/3)
 
   1. vlslogic
   2. vlsstore
@@ -20,7 +22,7 @@ HBTCStorage | HBTCLogic Address |
   2. pause
 
 ## Add vlsoperator
-  addAddress vlsoperator  wallet account
+  addAddress vlsoperator  + wallet account
    
 
 ## mint 
