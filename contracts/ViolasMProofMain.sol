@@ -1,8 +1,10 @@
-   /**
+// SPDX-License-Identifier: MIT
+
+/**
  *Submitted for verification at Etherscan.io on 2020-10-13
 */
 
-pragma solidity =0.6.6;
+pragma solidity ^0.8.0;
 
 /**
  * @title ERC20 interface

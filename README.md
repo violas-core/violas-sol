@@ -1,5 +1,7 @@
 # insetall
 apt install solc-select(https://github.com/crytic/solc-select)
+[use nvm install npm](https://github.com/nvm-sh/nvm#installing-and-updating)
+[openzeppelin-project](https://docs.openzeppelin.com/learn/)
 
 # violas-sol
 violas ethereum sol

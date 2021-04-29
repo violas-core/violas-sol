@@ -4,10 +4,9 @@ async function main() {
     const accounts = await ethers.provider.listAccounts();
     console.log(accounts);
 
-    const address = "0x5fbdb2315678afecb367f032d93f642f64180aa3"
+    const address = "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"
     const Box = await ethers.getContractFactory("Box");
     const box = await Box.attach(address);
-    await box.store(3);
     value = await box.retrieve();
     console.log("Box value is", value.toString());
 }
