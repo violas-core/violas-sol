@@ -2,22 +2,27 @@
 
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
-import "./interface/IProofStateMng.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "./interface/IViolasMProofState.sol";
 
 /**
  * @title Mapping State Manage
  * @dev 
 */
-contract ProofStateMng is Initializable, IProofStateMng{
+contract ViolasMProofState is Initializable, IViolasMProofState{
     mapping(uint=>string) states;
     mapping(string=>uint) statesswap;
     uint public maxStateValue;
     string public name;
     string public symbol;
-    function initialize(string memory contractName, string memory contractSymbol) public initializer {
-        name = contractName;
-        symbol = contractSymbol;
+
+    function initialize() 
+    public 
+    initializer 
+    {
+        name = "Violas Proof State";
+        symbol = "VPS";
+
         maxStateValue = 1;
         states[maxStateValue++] = "start";  //1
         states[maxStateValue++] = "stop";   //3

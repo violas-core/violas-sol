@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-interface IProofStateMng{
+interface IViolasMProofState{
     function getStateName(uint stateValue) external view returns(string memory);
     function getStateValue(string calldata stateName) external view returns(uint);
     function checkStateChange(uint fromState, uint toState) external view returns(bool);

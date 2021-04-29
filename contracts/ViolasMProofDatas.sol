@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
-import "./interface/IProofStateMng.sol";
+import "./interface/IViolasMProofState.sol";
 import "./interface/IViolasMProofDatas.sol";
 
 /**
@@ -21,12 +21,17 @@ contract Mngable is OwnableUpgradeable{
       * @dev The Ownable constructor sets the original `owner` of the contract to the sender
       * account.
       */
-    function __Mngable_init() internal initializer {
+    function __Mngable_init()
+    internal 
+    initializer 
+    {
         __Ownable_init();
         __Mngable_init_unchained();
     }
 
-    function __Mngable_init_unchained() internal initializer {
+    function __Mngable_init_unchained() 
+    internal initializer 
+    {
         managers[msg.sender] = true;
         manager[0] = msg.sender;
         managerMaxCount++;
@@ -148,7 +153,7 @@ contract ViolasMProofDatas is Mngable,IViolasMProofDatas{
 
     //proof state contract upgraded
     address public stateAddress;
-    IProofStateMng  stateManage;
+    IViolasMProofState stateManage;
     
     //main contract 
     address public mainAddress;
@@ -160,10 +165,14 @@ contract ViolasMProofDatas is Mngable,IViolasMProofDatas{
         _;
     }
     
-    function initialize(string memory _name, string memory _symbol) initializer public {
+    function initialize() 
+    initializer 
+    public 
+    {
         __Mngable_init();
-        name        = _name;
-        symbol      = _symbol;
+
+        name        = "Violas Proof Datas";
+        symbol      = "VPD";
         nextVersion = 0;
         continuousComplete = 0;
     }
@@ -432,7 +441,7 @@ contract ViolasMProofDatas is Mngable,IViolasMProofDatas{
     returns(bool) {
         require(stateAddr != address(0), "mainAddr is invalid.");
         stateAddress = stateAddr;
-        stateManage = IProofStateMng(stateAddress);
+        stateManage = IViolasMProofState(stateAddress);
         return true;
     }
     
