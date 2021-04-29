@@ -1,10 +1,11 @@
+// SPDX-License-Identifier: MIT
 /**
  *Submitted for verification at Etherscan.io on 2020-10-13
  version: 0.0.4
 
 */
 
-pragma solidity =0.6.6;
+pragma solidity ^0.8.0;
 
 interface IProofStateMng{
     function getStateName(uint stateValue) external view returns(string memory);
