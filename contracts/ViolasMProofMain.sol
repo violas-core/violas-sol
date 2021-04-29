@@ -6,48 +6,11 @@
 
 pragma solidity ^0.8.0;
 
-/**
- * @title ERC20 interface
- * @dev see https://github.com/ethereum/EIPs/issues/20
- */
-interface IERC20 {
-    event Approval(address indexed owner, address indexed spender, uint value);
-    event Transfer(address indexed from, address indexed to, uint value);
-
-    function name() external view returns (string memory);
-    function symbol() external view returns (string memory);
-    function decimals() external view returns (uint8);
-    function totalSupply() external view returns (uint);
-    function balanceOf(address owner) external view returns (uint);
-    function allowance(address owner, address spender) external view returns (uint);
-
-    function approve(address spender, uint value) external returns (bool);
-    function transfer(address to, uint value) external returns (bool);
-    function transferFrom(address from, address to, uint value) external returns (bool);
-}
-
-/**
- * @title Violas mapping proof datas
- * 
- */
-interface IViolasMProofDatas{
-    event TransferProof(address indexed from, address indexed to, string datas, address token, uint amount, uint fee, uint state);
-    event TransferProofState(address indexed manager, uint version, uint state);
-    
-    function proofInfo(address sender, uint sequence) external view returns(string memory, uint, uint, address, uint, uint, uint);
-    function proofInfo(uint version) external view returns(string memory, uint, uint, address, address, uint, bool, uint);
-    
-    function transferProof(address fromAddr, address toAddr,address token, uint amount, uint fee, string calldata datas) external payable returns (bool);
-    function transferProofState(uint version, uint state) external payable returns (bool);
-    function transferProofState(uint version, string calldata state) external payable returns (bool);
-    function transferProofState(address sender, uint sequence, uint state) external payable returns (bool);
-    function transferProofState(address sender, uint sequence, string calldata state) external payable returns (bool);
-    
-    //proof state
-    function upgradStateAddress(address stateAddr) external returns(bool);
-    //proof main
-    function upgradMainAddress(address mainAddr) external returns(bool);
-}
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol";
+import "./interface/IViolasMProofDatas.sol";
 
 interface ITokenFactory{
     function tokenMinAmount(address token) external view returns(uint);
@@ -67,150 +30,9 @@ interface IViolasMProofMain is ITokenFactory{
     function transferProof(address token, string calldata datas) external payable returns (bool);
     function transfer(address tokenAddrr, address recipient, uint amount) external payable returns (bool);
     function upgradProofDatasAddress(address proofAddr) external returns(bool);
-}
- 
-/**
- * @title SafeMath
- * @dev Math operations with safety checks that throw on error
- */
-library SafeMath {
-    function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        if (a == 0) {
-            return 0;
-        }
-        uint256 c = a * b;
-        assert(c / a == b);
-        return c;
-    }
-
-    function div(uint256 a, uint256 b) internal pure returns (uint256) {
-        // assert(b > 0); // Solidity automatically throws when dividing by 0
-        uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
-        return c;
-    }
-
-    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
-        assert(b <= a);
-        return a - b;
-    }
-
-    function add(uint256 a, uint256 b) internal pure returns (uint256) {
-        uint256 c = a + b;
-        assert(c >= a);
-        return c;
-    }
+    function transferPayeeship(address newPayee) external returns(address);
 }
 
-/**
- * @title Ownable
- * @dev The Ownable contract has an owner address, and provides basic authorization control
- * functions, this simplifies the implementation of "user permissions".
- */
-contract  Ownable{
-    address public owner;
-
-    /**
-      * @dev The Ownable constructor sets the original `owner` of the contract to the sender
-      * account.
-      */
-    constructor() public {
-        owner = msg.sender;
-    }
-
-    /**
-      * @dev Throws if called by any account other than the owner.
-      */
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Owner role required");
-        _;
-    }
-
-    /**
-      * @dev Throws if called by any account other than the owner.
-      */
-    modifier notOwner() {
-        require(msg.sender != owner, "Other role required, not Owner");
-        _;
-    }
-    
-    /**
-    * @dev Allows the current owner to transfer control of the contract to a newOwner.
-    * @param newOwner The address to transfer ownership to.
-    */
-    function transferOwnership(address newOwner) public onlyOwner {
-        if (newOwner != address(0)) {
-            owner = newOwner;
-        }
-    }
-
-}
-
-contract Payeeable is Ownable{
-    address public payee;
-
-    /**
-      * @dev The Ownable constructor sets the original `owner` of the contract to the sender
-      * account.
-      */
-    constructor() public {
-        payee = msg.sender;
-    }
-
-    modifier canProof(){
-        require(msg.sender != payee, "The payment account and receiving account are same.");
-        _;
-    }
-
-    function transferPayeeship(address newPayee) public onlyOwner {
-        if (newPayee != address(0)) {
-            payee = newPayee;
-        }
-    }
-
-}
-
-/**
- * @title Pausable
- * @dev Base contract which allows children to implement an emergency stop mechanism.
- */
-contract Pausable is Payeeable {
-  event Pause();
-  event Unpause();
-
-  bool public paused = false;
-
-  /**
-   * @dev Modifier to make a function callable only when the contract is not paused.
-   */
-  modifier whenNotPaused() {
-    require(!paused, "paused is true");
-    _;
-  }
-
-  /**
-   * @dev Modifier to make a function callable only when the contract is paused.
-   */
-  modifier whenPaused() {
-    require(paused, "paused is false");
-    _;
-  }
-
-  /**
-   * @dev called by the owner to pause, triggers stopped state
-   */
-  function pause() onlyOwner whenNotPaused public {
-    paused = true;
-    emit Pause();
-  }
-
-  /**
-   * @dev called by the owner to unpause, returns to normal state
-   */
-  function unpause() onlyOwner whenPaused public {
-    paused = false;
-    emit Unpause();
-  }
 }
 
 /**
@@ -445,16 +267,37 @@ contract ViolasMProofMain is TokenFactory, IViolasMProofMain{
     //base info
     string public name;
     string public symbol;
-    
     bool public deprecated;
-    
+    address public payee;
     address public proofAddress;
     constructor(string memory _name, string memory _symbol) public {
         name        = _name;
         symbol      = _symbol;
+        payee = msg.sender;
         //stateManage = new ProofStateMng("root state manage", "root");
     }
-    
+
+    modifier canProof(){
+        require(msg.sender != payee, "The payment account and receiving account are same.");
+        _;
+    }
+
+    function transferPayeeship(address newPayee) 
+    public 
+    onlyOwner 
+    virtual
+    override
+    payable 
+    returns (address)
+    {
+
+        require(newPayee != address(0), "address is 0x0");
+        require(newPayee != payee, "the same address.");
+        address oldPayee = payee;
+        payee = newPayee;
+        return oldPayee;
+    }
+
     function transfer(address tokenAddrr, address recipient, uint amount) 
     external 
     onlyOwner
@@ -484,7 +327,7 @@ contract ViolasMProofMain is TokenFactory, IViolasMProofMain{
     payable 
     returns(bool) 
     {
-        IERC20 erc20 = IERC20(tokenAddr);
+        IERC20Upgradeable erc20 = IERC20Upgradeable(tokenAddr);
         uint allowance_amount = erc20.allowance(msg.sender, address(this));
         _validTokenAmount(tokenAddr, allowance_amount);
 
