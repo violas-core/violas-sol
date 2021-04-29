@@ -1,133 +1,18 @@
 // SPDX-License-Identifier: MIT
-/**
- *Submitted for verification at Etherscan.io on 2020-10-13
- version: 0.0.4
-
-*/
 
 pragma solidity ^0.8.0;
 
-interface IProofStateMng{
-    function getStateName(uint stateValue) external view returns(string memory);
-    function getStateValue(string calldata stateName) external view returns(uint);
-    function checkStateChange(uint fromState, uint toState) external view returns(bool);
-    function checkStateChange(string calldata fromState, string calldata toState) external view returns(bool);
-    function checkState(string calldata stateName) external view returns (bool);
-    function checkState(uint stateValue) external view returns (bool);
-}
-
-interface IViolasMProofDatas{
-    event TransferProof(address indexed from, address indexed to, string datas, address token, uint amount, uint fee, uint state);
-    event TransferProofState(address indexed manager, uint version, uint state);
-    
-    function proofInfo(address sender, uint sequence) external view returns(string memory, uint, uint, address, uint, uint, uint);
-    function proofInfo(uint version) external view returns(string memory, uint, uint, address, address, uint, bool, uint);
-    
-    function transferProof(address fromAddr, address toAddr,address token, uint amount, uint fee, string calldata datas) external payable returns (bool);
-    function transferProofState(uint version, uint state) external  returns (bool);
-    function transferProofState(uint version, string calldata state) external returns (bool);
-    function transferProofState(address sender, uint sequence, uint state) external returns (bool);
-    function transferProofState(address sender, uint sequence, string calldata state) external returns (bool);
-    function transferContinuousComplete(uint verion) external returns (bool);
-    
-    function accountIsExists(address account) external view returns(bool);
-    function accountSequence(address account) external view returns(uint);
-    function accountVersion(address account, uint sequence) external view returns(uint);
-    function accountLatestVersion(address account) external view returns(uint);
-    
-    //use for update new logic
-    function addressIndex(uint version) external view returns (uint sequence, address sender, bool create);
-    function addressProof(address sender) external view returns (uint maxSequence, uint minVersion, uint maxVersion, bool inited);
-    
-    //proof state
-    function upgradStateAddress(address stateAddr) external returns(bool);
-    //proof main
-    function upgradMainAddress(address mainAddr) external returns(bool);
-}
-
-/**
- * @title SafeMath
- * @dev Math operations with safety checks that throw on error
- */
-library SafeMath {
-    function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        if (a == 0) {
-            return 0;
-        }
-        uint256 c = a * b;
-        assert(c / a == b);
-        return c;
-    }
-
-    function div(uint256 a, uint256 b) internal pure returns (uint256) {
-        // assert(b > 0); // Solidity automatically throws when dividing by 0
-        uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
-        return c;
-    }
-
-    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
-        assert(b <= a);
-        return a - b;
-    }
-
-    function add(uint256 a, uint256 b) internal pure returns (uint256) {
-        uint256 c = a + b;
-        assert(c >= a);
-        return c;
-    }
-}
-
-/**
- * @title Ownable
- * @dev The Ownable contract has an owner address, and provides basic authorization control
- * functions, this simplifies the implementation of "user permissions".
- */
-contract  Ownable{
-    address public owner;
-
-    /**
-      * @dev The Ownable constructor sets the original `owner` of the contract to the sender
-      * account.
-      */
-    constructor() public {
-        owner = msg.sender;
-    }
-
-    /**
-      * @dev Throws if called by any account other than the owner.
-      */
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Owner role required");
-        _;
-    }
-
-    /**
-      * @dev Throws if called by any account other than the owner.
-      */
-    modifier notOwner() {
-        require(msg.sender != owner, "Other role required, not Owner");
-        _;
-    }
-    
-    /**
-    * @dev Allows the current owner to transfer control of the contract to a newOwner.
-    * @param newOwner The address to transfer ownership to.
-    */
-    function transferOwnership(address newOwner) public onlyOwner {
-        if (newOwner != address(0)) {
-            owner = newOwner;
-        }
-    }
-
-}
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
+import "./interface/IProofStateMng.sol";
+import "./interface/IViolasMProofDatas.sol";
 
 /**
  * @title Mngable
  * @dev The Mngable contract has an managers address, and provides basic authorization control
  * functions, this simplifies the implementation of "user permissions".
  */
-contract Mngable is Ownable{
+contract Mngable is OwnableUpgradeable{
     mapping(address=>bool) managers;
     mapping(uint=>address) public manager;
     uint public managerMaxCount = 0;
@@ -136,7 +21,12 @@ contract Mngable is Ownable{
       * @dev The Ownable constructor sets the original `owner` of the contract to the sender
       * account.
       */
-    constructor() public {
+    function __Mngable_init() internal initializer {
+        __Ownable_init();
+        __Mngable_init_unchained();
+    }
+
+    function __Mngable_init_unchained() internal initializer {
         managers[msg.sender] = true;
         manager[0] = msg.sender;
         managerMaxCount++;
@@ -146,7 +36,7 @@ contract Mngable is Ownable{
       * @dev Throws if called by any account other than the owner.
       */
     modifier onlyManager() {
-        require((managers[msg.sender] || (msg.sender == owner)), "only manager or owner role required");
+        require((managers[msg.sender] || (msg.sender == owner())), "only manager or owner role required");
         _;
     }
 
@@ -174,7 +64,7 @@ contract Mngable is Ownable{
     */
     function revokeMngPermission(address managerAddr) public onlyOwner {
         require(managerAddr != address(0), "address(0x0) is invalid");
-        require(managerAddr != owner, "can not revoke self permission");
+        require(managerAddr != owner(), "can not revoke self permission");
         
         managers[managerAddr] = false;
         _emptyValidManager(managerAddr);
@@ -219,7 +109,7 @@ contract Mngable is Ownable{
 
 
 contract ViolasMProofDatas is Mngable,IViolasMProofDatas{
-    using SafeMath for uint;
+    using SafeMathUpgradeable for uint;
     
     struct ProofData {
         uint        amount;
@@ -266,11 +156,12 @@ contract ViolasMProofDatas is Mngable,IViolasMProofDatas{
       * @dev Throws if called by any account other than the owner or mainer.
       */
     modifier onlyMainer() {
-        require((mainAddress == msg.sender || (msg.sender == owner)), "only mainer or owner role required");
+        require((mainAddress == msg.sender || (msg.sender == owner())), "only mainer or owner role required");
         _;
     }
     
-    constructor(string memory _name, string memory _symbol) public {
+    function initialize(string memory _name, string memory _symbol) initializer public {
+        __Mngable_init();
         name        = _name;
         symbol      = _symbol;
         nextVersion = 0;
