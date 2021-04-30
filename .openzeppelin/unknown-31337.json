@@ -38,10 +38,77 @@
           }
         }
       }
+    },
+    "18c5c5d30f06f5e8ac1cd4dc34fd8c0c66bfe1271c6d9fa258b4c455ea8bda69": {
+      "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "txHash": "0x04e4cddfe9ac993495db6131b4699bfd7ded1cea05ce3b7327626f00d84b4591",
+      "layout": {
+        "storage": [
+          {
+            "contract": "Initializable",
+            "label": "_initialized",
+            "type": "t_bool",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:25"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initializing",
+            "type": "t_bool",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:30"
+          },
+          {
+            "contract": "ViolasMProofState",
+            "label": "states",
+            "type": "t_mapping(t_uint256,t_string_storage)",
+            "src": "contracts/ViolasMProofState.sol:13"
+          },
+          {
+            "contract": "ViolasMProofState",
+            "label": "statesswap",
+            "type": "t_mapping(t_string_memory_ptr,t_uint256)",
+            "src": "contracts/ViolasMProofState.sol:14"
+          },
+          {
+            "contract": "ViolasMProofState",
+            "label": "maxStateValue",
+            "type": "t_uint256",
+            "src": "contracts/ViolasMProofState.sol:15"
+          },
+          {
+            "contract": "ViolasMProofState",
+            "label": "name",
+            "type": "t_string_storage",
+            "src": "contracts/ViolasMProofState.sol:16"
+          },
+          {
+            "contract": "ViolasMProofState",
+            "label": "symbol",
+            "type": "t_string_storage",
+            "src": "contracts/ViolasMProofState.sol:17"
+          }
+        ],
+        "types": {
+          "t_mapping(t_uint256,t_string_storage)": {
+            "label": "mapping(uint256 => string)"
+          },
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_string_storage": {
+            "label": "string"
+          },
+          "t_mapping(t_string_memory_ptr,t_uint256)": {
+            "label": "mapping(string => uint256)"
+          },
+          "t_bool": {
+            "label": "bool"
+          }
+        }
+      }
     }
   },
   "admin": {
-    "address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
-    "txHash": "0xcdbed6061794a82fe217f66c2524c1f03c612bf9a209dc84b30488c83be5a8f8"
+    "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    "txHash": "0x77fd8c58111e1ff120ca4e285e1e2904f923b64b33f16580f986d100fc661ae7"
   }
 }
