@@ -15,7 +15,7 @@ import "./interface/IViolasMProofDatas.sol";
 contract Mngable is OwnableUpgradeable{
     mapping(address=>bool) managers;
     mapping(uint=>address) public manager;
-    uint public managerMaxCount = 0;
+    uint public managerMaxCount;
 
     /**
       * @dev The Ownable constructor sets the original `owner` of the contract to the sender
@@ -34,7 +34,7 @@ contract Mngable is OwnableUpgradeable{
     {
         managers[msg.sender] = true;
         manager[0] = msg.sender;
-        managerMaxCount++;
+        managerMaxCount = 1;
     }
 
     /**

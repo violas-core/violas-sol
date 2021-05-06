@@ -11,7 +11,7 @@ import "./TokenFactory.sol";
 contract ViolasMProofMain is TokenFactory, IViolasMProofMain{
     using SafeMathUpgradeable for uint;
     
-    uint public contractVersion = 1;
+    uint public contractVersion;
     
     //base info
     string public name;
