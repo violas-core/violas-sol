@@ -14,7 +14,7 @@ import "./interface/ITokenFactory.sol";
 */
 contract TokenFactory is PausableUpgradeable, OwnableUpgradeable, ITokenFactory{
     using SafeMathUpgradeable for uint;
-    uint public tokenMaxCount = 0;
+    uint public tokenMaxCount;
     mapping(uint=>string) public validTokenNames;
     mapping(string=>address) tokens;
     mapping(address=>string) tokenNames;
