@@ -1,0 +1,26 @@
+{
+	"state": {
+		"name": "ViolasMProofState",
+		"address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+		"deploy": false,
+		"upgrade": false,
+		"params": [],
+		"address_old": "0x1fA02b2d6A771842690194Cf62D91bdd92BfE28d"
+	},
+	"datas": {
+		"name": "ViolasMProofDatas",
+		"address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+		"deploy": false,
+		"upgrade": false,
+		"params": [],
+		"address_old": "0x82e01223d51Eb87e16A03E24687EDF0F294da6f1"
+	},
+	"main": {
+		"name": "ViolasMProofMain",
+		"address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+		"deploy": false,
+		"upgrade": false,
+		"params": [],
+		"address_old": "0x2bdCC0de6bE1f7D2ee689a0342D76F52E8EFABa3"
+	}
+}
