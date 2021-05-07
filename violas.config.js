@@ -1,7 +1,7 @@
 const path = require("path");
 
 configs = {
-    defaultNetwork : "kovan",
+    defaultNetwork : "localhost",
     datas_path : "./datas",
     networks : {
         localhost: {

@@ -2,14 +2,16 @@
 
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
 import "./interface/IViolasMProofState.sol";
 
 /**
  * @title Mapping State Manage
  * @dev 
 */
-contract ViolasMProofState is Initializable, IViolasMProofState{
+contract ViolasMProofState is OwnableUpgradeable, IViolasMProofState{
+    using SafeMathUpgradeable for uint;
     mapping(uint=>string) states;
     mapping(string=>uint) statesswap;
     uint public maxStateValue;
@@ -17,9 +19,11 @@ contract ViolasMProofState is Initializable, IViolasMProofState{
     string public symbol;
 
     function initialize() 
-    public 
     initializer 
+    public 
     {
+        __Ownable_init();
+
         name = "Violas Proof State";
         symbol = "VPS";
 
