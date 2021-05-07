@@ -2,6 +2,7 @@
 const { ethers, upgrades } = require("hardhat");
 const violas = require("../violas.config.js");
 const {main, datas, state} = require(violas.vlscontract_conf);
+const {tokens}= require(violas.tokens_conf);
 
 async function show(item, type) {
     if (type == "log") {
@@ -20,6 +21,10 @@ async function run(type) {
     }
     console.log("************violas conf************")
     await show(violas_conf, type);
+    console.log("************tokens conf(" + tokens.length + ")************")
+    for(var i = 0; i < tokens.length; i++) {
+        await show(tokens[i], type);
+    }
     console.log("************main************")
     await show(main, type)
     console.log("************datas************")

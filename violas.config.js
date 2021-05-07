@@ -5,24 +5,36 @@ configs = {
     datas_path : "./datas",
     networks : {
         localhost: {
-            config:"vlscontract_localhost.json"
+            contracts:"./jsons/contracts/vlscontract_localhost.json",
+            tokens:"./jsons/tokens/erc20_tokens_localhost.json"
         },
         kovan: {
-            config:"vlscontract_kovan.json"
+            contracts:"./jsons/contracts/vlscontract_kovan.json"
         },
         mainnet: {
-            config:"vlscontract_mainnet.json"
+            contracts:"./jsons/contracts/vlscontract_mainnet.json"
         },
     },
 };
 
 function vlscontract_conf() {
-    filename = configs["networks"][configs.defaultNetwork].config;
+    filename = configs["networks"][configs.defaultNetwork].contracts;
     if (path.isAbsolute(filename)) {
         return filename;
     }
 
-    return path.join(__dirname, configs["networks"][configs.defaultNetwork].config);
+    return path.join(__dirname, configs["networks"][configs.defaultNetwork].contracts);
+}
+
+function tokens_conf() {
+    filename = configs["networks"][configs.defaultNetwork].tokens;
+    if (path.isAbsolute(filename)) {
+        return filename;
+    }
+
+    var pathname =  path.join(__dirname, configs["networks"][configs.defaultNetwork].tokens);
+    console.log(pathname);
+    return pathname;
 }
 
 function caches(type) {
@@ -34,6 +46,8 @@ function caches(type) {
 module.exports = {
     configs,
     vlscontract_conf : vlscontract_conf(),
-    caches
+    caches_contracts : caches("contracts"),
+    caches_tokens: caches("tokens"),
+    tokens_conf : tokens_conf()
 };
 

@@ -43,6 +43,23 @@ async function main_env() {
         owner : await cobj.owner(),
     }
     show_msg(sdatas, "main");
+
+    validTokens = {};
+    tokenMaxCount = await cobj.tokenMaxCount();
+    show_msg("tokens count: " + tokenMaxCount);
+    show_msg("tokens address: " + await cobj.tokenAddress("usdt"));
+    for(var i = 0; i< tokenMaxCount; i++) {
+        tokenName = await cobj.validTokenNames(i);
+        show_msg("tokens name: " + tokenName);
+        if(tokenName.length > 0) {
+            validTokens[tokenName] = await cobj.tokenAddress(tokenName);
+            var min = await cobj.tokenMinAmount(validTokens[tokenName]);
+            var max = await cobj.tokenMaxAmount(validTokens[tokenName]); 
+            validTokens[tokenName + "_min"] = min;
+            validTokens[tokenName + "_max"] = max;
+        }
+    }
+    show_msg(validTokens, "main.tokens");
 }
 
 async function state_env() {

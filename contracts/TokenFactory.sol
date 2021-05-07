@@ -118,7 +118,6 @@ contract TokenFactory is PausableUpgradeable, OwnableUpgradeable, ITokenFactory{
     returns(address tokenAddrr) 
     {
         tokenAddrr = tokens[name];
-        require(tokenAddrr != address(0), "token name is invalid");
     }
     
     function tokenName(address tokenAddr) 
