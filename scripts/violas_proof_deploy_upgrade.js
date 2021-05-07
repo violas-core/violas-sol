@@ -1,14 +1,35 @@
 // scripts/deploy_upgradeable_xxx.js
-const { ethers, upgrades } = require("hardhat");
-const vlscontract_conf = "vlscontract.json";
-const bak_path = "./baks/confs/";
-const {main, datas, state} = require("../" + vlscontract_conf);
 const fs = require('fs');
 const path = require("path");
+const program = require('commander');
+const { ethers, upgrades } = require("hardhat");
+const utils = require("./utils");
+const violas = require("../violas.config.js");
+const vlscontract_conf = violas.vlscontract_conf;
+
+
+const bak_path =  violas.caches("configs");
+const {main, datas, state} = require(vlscontract_conf);
+
+async function date_format(dash = "-", colon = ":", space = " ") {
+    return await utils.date_format(dash, colon, space);
+}
+
+async function get_contract(name, address) {
+    return await utils.get_contract(name, address);
+}
+
+async function show_msg(msg, title = "") {
+    utils.show_msg(msg, title);
+}
+
+async function write_json(filename, data) {
+    utils.write_json(filename, data);
+}
 
 async function deploy(name) {
     const cf = await ethers.getContractFactory(name);
-    console.log("Deploying " + name + " ...");
+    await show_msg("Deploying " + name + " ...");
     const dp = await upgrades.deployProxy(cf);
     await dp.deployed();
     await show_msg(name + " deployed to: " + dp.address);
@@ -17,29 +38,10 @@ async function deploy(name) {
 
 async function upgrade(name, address) {
     const cf = await ethers.getContractFactory(name);
-    console.log("Upgrading " + name + " address: " + address + " ...");
+    await show_msg("Upgrading " + name + " address: " + address + " ...");
     const up = await upgrades.upgradeProxy(address, cf);
-    console.log(name + " upgraded");
+    await show_msg(name + " upgraded");
     return up;
-}
-
-async function date_format(dash = "-", colon = ":", space = " ") {
-    function pad(n) {return n < 10 ? "0" + n : n}
-    function _date(p, split, val ) { return p.length > 0 ? p + split + pad(val): "" + pad(val)}
-    d = new Date();
-    var ret = _date("", dash, d.getFullYear());
-    ret = _date(ret, dash, d.getMonth() + 1);
-    ret = _date(ret, dash, d.getDate());
-    ret = _date(ret, space, d.getHours());
-    ret = _date(ret, colon, d.getMinutes());
-    ret = _date(ret, colon, d.getSeconds());
-    return ret;
-}
-
-async function get_contract(name, address) {
-    const cf = await ethers.getContractFactory(name);
-    const c = await cf.attach(address);
-    return c;
 }
 
 async function check_and_deploy(item) {
@@ -49,7 +51,7 @@ async function check_and_deploy(item) {
     var address = item.address;
     var dp;
 
-    await show_msg(item, "check_and_deploy(" + name + ")")
+    await show_msg("switch: " + item.deploy, "check_and_deploy(" + name + ")")
 
     if (create) {
         dp = await deploy(name, params);
@@ -69,7 +71,7 @@ async function check_and_upgrade(item) {
     var create = item.upgrade;
     var dp;
 
-    await show_msg(item, "check_and_upgrade(" + name + ")")
+    await show_msg("switch: " + item.upgrade, "check_and_upgrade(" + name + ")")
 
     if (create) {
         dp = await upgrade(name, address);
@@ -81,27 +83,6 @@ async function check_and_upgrade(item) {
         }
     }
     return dp;
-}
-
-async function show_msg(msg, title = "") {
-    if (title.length > 0) {
-        var split_symbol = "-------------------------------------";
-        console.log(split_symbol + title + split_symbol)
-    }
-    msg = JSON.stringify(msg);
-    if (typeof(msg) == "string") {
-        msg = await date_format() + ": " + msg;
-    }
-    console.log(msg);
-}
-
-async function write_json(filename, data) {
-    save_data = JSON.stringify(data, null, "\t");
-    if (fs.existsSync(filename)) {
-        fs.writeFileSync(filename, save_data);
-    } else {
-        fs.writeFileSync(filename, save_data);
-    }
 }
 
 async function update_conf(filename) {
@@ -120,17 +101,21 @@ function mkdirsSync(dirname) {
     }
 }
 
-async function bak_conf(filename) {
-    data = {state : state, datas : datas, main : main};
+async function bak_conf(pathname) {
     var mark = await date_format("", "", "");
+    filename = path.basename(pathname)
+    var new_pathname = bak_path + mark + "_" + filename;
+
+    await show_msg("save old config to: " + new_pathname , "bak_conf(" + filename + ")");
+    data = {state : state, datas : datas, main : main};
     if (!fs.existsSync(bak_path)) {
         mkdirsSync(bak_path);
     }
-    await write_json(bak_path + mark + "_" + filename, data);
+    await write_json(new_pathname, data);
 }
+
 async function close_deploy(item, address) {
     if (item.deploy) {
-        item["address_old"] = item.address;
         item.address = address;
         item.deploy = false;
         await update_conf(vlscontract_conf);
@@ -157,9 +142,15 @@ async function check_upgrade_value(item) {
 
 async function check_conf() {
     var items = [state, datas, main];
+    var has_work = false;
     for (var i = 0; i < items.length; i++) {
         await check_deploy_upgrade_value(items[i]);
         await check_upgrade_value(items[i]);
+        has_work = has_work || items[i].deploy || items[i].upgrade;
+    }
+
+    if (!has_work) {
+        //throw Error("config is ok, but all switch is false.")
     }
 }
 async function run() {
@@ -182,13 +173,6 @@ async function run() {
     await close_upgrade(datas);
     const u_main  = await check_and_upgrade(main);
     await close_upgrade(main);
-
-    /* use d_xxx
-    const c_state = await get_contract(state.name, d_state.address);
-    const c_datas = await get_contract(datas.name, d_datas.address);
-    const c_main  = await get_contract(main.name, d_main.address);
-    */
-
 }
 
 run()

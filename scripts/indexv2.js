@@ -1,12 +1,14 @@
 // scripts/index.js
-async function main() {
-    // Our code will go here
+const utils = require("./utils");
+async function show_accounts() {
     const accounts = await ethers.provider.listAccounts();
     console.log(accounts);
+}
 
-    //const address = "0x5fbdb2315678afecb367f032d93f642f64180aa3"
-    //const address = "0x222493c8827eF8a01F04b8Fa733EC8ec6440BA84" //kovan
-    //const address = "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707" //upgrades local
+const {main, datas, state} = require("../" + vlscontract_conf);
+
+async function main() {
+
     const address = "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"
     const Box = await ethers.getContractFactory("BoxV2");
     const box = await Box.attach(address);

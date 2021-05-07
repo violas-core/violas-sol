@@ -1,5 +1,5 @@
 output/
-baks/
+datas/
 node_modules
 
 #Hardhat files

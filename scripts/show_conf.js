@@ -1,6 +1,7 @@
 // scripts/deploy_upgradeable_xxx.js
 const { ethers, upgrades } = require("hardhat");
-const {main, datas, state} = require("../vlscontract.json");
+const violas = require("../violas.config.js");
+const {main, datas, state} = require(violas.vlscontract_conf);
 
 async function show(item, type) {
     if (type == "log") {
@@ -13,6 +14,12 @@ async function show(item, type) {
 }
 
 async function run(type) {
+    var violas_conf = {
+        config : violas.vlscontract_conf,
+        network : violas.configs.defaultNetwork
+    }
+    console.log("************violas conf************")
+    await show(violas_conf, type);
     console.log("************main************")
     await show(main, type)
     console.log("************datas************")
