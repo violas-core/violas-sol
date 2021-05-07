@@ -22,16 +22,20 @@ async function get_contract(name, address) {
     return c;
 }
 
-async function show_msg(msg, title = "") {
+async function show_msg(msg, title = "", format = true, type = "log") {
     if (title.length > 0) {
         var split_symbol = "-------------------------------------";
         console.log(split_symbol + title + split_symbol)
     }
-    msg = JSON.stringify(msg);
-    if (typeof(msg) == "string") {
+    if (format) {
+        msg = JSON.stringify(msg);
         msg = await date_format() + ": " + msg;
     }
-    console.log(msg);
+    if (type == "table" || type == "t") {
+        console.table(msg);
+    } else {
+        console.log(msg);
+    }
 }
 
 async function write_json(filename, data) {

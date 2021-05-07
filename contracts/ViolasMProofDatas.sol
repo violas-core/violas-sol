@@ -13,6 +13,7 @@ import "./interface/IViolasMProofDatas.sol";
  * functions, this simplifies the implementation of "user permissions".
  */
 contract Mngable is OwnableUpgradeable{
+    using SafeMathUpgradeable for uint;
     mapping(address=>bool) managers;
     mapping(uint=>address) public manager;
     uint public managerMaxCount;
@@ -439,7 +440,9 @@ contract ViolasMProofDatas is Mngable,IViolasMProofDatas{
     onlyOwner
     override
     returns(bool) {
-        require(stateAddr != address(0), "mainAddr is invalid.");
+        require(stateAddr != address(0), "The input address is invalid.");
+        require(stateAddr != stateAddress, "The input address is the same as the current address.");
+
         stateAddress = stateAddr;
         stateManage = IViolasMProofState(stateAddress);
         return true;
@@ -452,6 +455,7 @@ contract ViolasMProofDatas is Mngable,IViolasMProofDatas{
     override
     returns(bool) {
         require(mainAddr != address(0), "mainAddr is invalid.");
+        require(mainAddr!= mainAddress, "The input address is the same as the current address.");
         mainAddress = mainAddr;
         return true;
     }

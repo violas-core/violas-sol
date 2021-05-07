@@ -1,21 +1,21 @@
 {
 	"state": {
 		"name": "ViolasMProofState",
-		"address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+		"address": "0x70e0bA845a1A0F2DA3359C97E0285013525FFC49",
 		"deploy": false,
 		"upgrade": false,
 		"params": []
 	},
 	"datas": {
 		"name": "ViolasMProofDatas",
-		"address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+		"address": "0xf5059a5D33d5853360D16C683c16e67980206f36",
 		"deploy": false,
 		"upgrade": false,
 		"params": []
 	},
 	"main": {
 		"name": "ViolasMProofMain",
-		"address": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+		"address": "0x95401dc811bb5740090279Ba06cfA8fcF6113778",
 		"deploy": false,
 		"upgrade": false,
 		"params": []

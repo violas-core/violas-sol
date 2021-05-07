@@ -114,6 +114,8 @@ contract ViolasMProofMain is TokenFactory, IViolasMProofMain{
     virtual 
     override
     returns(bool) {
+        require(proofAddr != address(0), "The input address is invalid.");
+        require(proofAddr != proofAddress, "The input address is the same as the current address.");
         
         if (proofAddress != proofAddr) {
             contractVersion += 1;

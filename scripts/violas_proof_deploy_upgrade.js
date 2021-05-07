@@ -6,10 +6,8 @@ const { ethers, upgrades } = require("hardhat");
 const utils = require("./utils");
 const violas = require("../violas.config.js");
 const vlscontract_conf = violas.vlscontract_conf;
-
-
-const bak_path =  violas.caches("configs");
 const {main, datas, state} = require(vlscontract_conf);
+const bak_path = violas.caches("configs");
 
 async function date_format(dash = "-", colon = ":", space = " ") {
     return await utils.date_format(dash, colon, space);
