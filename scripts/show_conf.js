@@ -1,7 +1,7 @@
 // scripts/deploy_upgradeable_xxx.js
 const violas    = require("../violas.config.js");
 const utils     = require("./utils");
-const {tokens}  = require(violas.tokens_conf);
+
 const {ethers, upgrades} = require("hardhat");
 const {main, datas, state} = require(violas.vlscontract_conf);
 
@@ -22,7 +22,13 @@ async function run() {
     }
 
     await show_msg(vls_conf,    "violas");
-    await show_msg(tokens,      "tokens");
+
+    if(violas.tokens_conf != undefined) {
+        const {tokens}  = require(violas.tokens_conf);
+        await show_msg(tokens,      "tokens");
+    } else {
+        await show_msg("tokens config not found.", "tokens");
+    }
     await show_msg(contracts_conf, "contracts");
 }
 

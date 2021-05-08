@@ -1,7 +1,8 @@
 const path = require("path");
+const hardhat_conf= require("./hardhat.config.js");
 
 configs = {
-    defaultNetwork : "localhost",
+    defaultNetwork : hardhat_conf.defaultNetwork,
     datas_path : "./datas",
     networks : {
         localhost: {
@@ -9,7 +10,8 @@ configs = {
             tokens:"./jsons/tokens/erc20_tokens_localhost.json"
         },
         kovan: {
-            contracts:"./jsons/contracts/vlscontract_kovan.json"
+            contracts:"./jsons/contracts/vlscontract_kovan.json",
+            tokens:"./jsons/tokens/erc20_tokens_kovan.json"
         },
         mainnet: {
             contracts:"./jsons/contracts/vlscontract_mainnet.json"
@@ -19,7 +21,7 @@ configs = {
 
 function vlscontract_conf() {
     filename = configs["networks"][configs.defaultNetwork].contracts;
-    if (path.isAbsolute(filename)) {
+    if (filename == undefined || path.isAbsolute(filename)) {
         return filename;
     }
 
@@ -28,7 +30,7 @@ function vlscontract_conf() {
 
 function tokens_conf() {
     filename = configs["networks"][configs.defaultNetwork].tokens;
-    if (path.isAbsolute(filename)) {
+    if (filename == undefined || path.isAbsolute(filename)) {
         return filename;
     }
 
