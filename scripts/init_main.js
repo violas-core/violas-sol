@@ -14,10 +14,6 @@ async function get_contract(name, address) {
     return await utils.get_contract(name, address);
 }
 
-async function show_msg(msg, title = "") {
-    utils.show_msg(msg, title);
-}
-
 async function update_tokens(cobj) {
     for(var i = 0; i < tokens.length; i++) {
         token = tokens[i];
@@ -25,39 +21,42 @@ async function update_tokens(cobj) {
             var tokenAddress = await cobj.tokenAddress(token.name);
             if(tokenAddress != token.address && tokenAddress.length > 0) {
                 await cobj.updateToken(token.name, token.address)
-                show_msg("upgrade " + token.name +" address: " + token.address);
-                show_msg("tokens address: " + await cobj.tokenAddress(token.name));
+                utils.warning("upgrade " + token.name +" address: " + token.address);
+                utils.debug("tokens address: " + await cobj.tokenAddress(token.name));
             } else {
-                show_msg(token.name + " address is already " + token.address);
+                utils.info(token.name + " address is already " + token.address);
             }
             min = await cobj.tokenMinAmount(token.address);
             max = await cobj.tokenMaxAmount(token.address);
             if (min != token.min) {
                 await cobj.updateTokenMinAmount(token.address, token.min);
-                show_msg("upgrade " + token.name +" min: " + token.min);
+                utils.warning("upgrade " + token.name +" min: " + token.min);
             } else {
-                show_msg(token.name + "(" + token.address + ") min is already " + min);
+                utils.info(token.name + "(" + token.address + ") min is already " + min);
             }
             if (max != token.max) {
                 await cobj.updateTokenMaxAmount(token.address, token.max);
-                show_msg("upgrade " + token.name +" max: " + token.max);
+                utils.warning("upgrade " + token.name +" max: " + token.max);
             } else {
-                show_msg(token.name + "(" + token.address + ") max is already " + max);
+                utils.info(token.name + "(" + token.address + ") max is already " + max);
             }
         }
     }
 }
 
-async function run() {
-    cobj = await get_contract(main.name, main.address);
+async function update_proof_address(cobj) {
     proofAddress = await cobj.proofAddress();
     if (proofAddress != datas.address) {
         await cobj.upgradProofDatasAddress(datas.address);
-        show_msg("upgrade proof datas address: " + datas.address);
+        utils.warning("upgrade proof datas address: " + datas.address);
     } else {
-        show_msg("The current datas address is already " + datas.address);
+        utils.info("The current datas address is already " + datas.address);
     }
+}
+async function run() {
+    cobj = await get_contract(main.name, main.address);
 
+    await update_proof_address(cobj);
     await update_tokens(cobj);
 }
 
