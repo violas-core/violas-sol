@@ -16,10 +16,10 @@ async function get_contract(name, address) {
 async function run() {
     utils.debug("start working...", "init_main");
 
-    cobj = await get_contract(datas.name, datas.address);
+    let cobj = await get_contract(datas.name, datas.address);
 
-    stateAddress = await cobj.stateAddress();
-    mainAddress = await cobj.mainAddress();
+    let stateAddress = await cobj.stateAddress();
+    let mainAddress = await cobj.mainAddress();
 
     //check state address for datas contract, upgrade it or no
     if (stateAddress != state.address) {

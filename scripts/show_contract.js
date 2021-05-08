@@ -4,11 +4,6 @@ const violas    = require("../violas.config.js");
 const vlscontract_conf = violas.vlscontract_conf;
 const {main, datas, state} = require(vlscontract_conf);
 
-async function show_accounts() {
-    const accounts = await ethers.provider.listAccounts();
-    console.log(accounts);
-}
-
 async function get_contract(name, address) {
     return await utils.get_contract(name, address);
 }
@@ -17,9 +12,26 @@ async function show_msg(msg, title = "") {
     utils.show_msg(msg, title, {"format": false, "type": "table"});
 }
 
+async function chain_env() {
+    let sdatas = {
+        network:    await ethers.provider.getNetwork(),
+    }
+    show_msg(sdatas, "chain");
+}
+
+async function account_info() {
+    const accounts = await ethers.provider.listAccounts();
+
+    let sdatas = {};
+    for(let i = 0; i < accounts.length; i++) {
+        sdatas[accounts[i]] = (await ethers.provider.getBalance(accounts[i])).toString();
+    }
+    show_msg(sdatas, "accounts");
+}
+
 async function datas_env() {
-    cobj = await get_contract(datas.name, datas.address);
-    sdatas = {
+    let cobj = await get_contract(datas.name, datas.address);
+    let sdatas = {
         name:           datas.name,
         contractname:   await cobj.name(),
         contractsymbol: await cobj.symbol(),
@@ -27,13 +39,14 @@ async function datas_env() {
         stateAddress:   await cobj.stateAddress(),
         mainAddress:    await cobj.mainAddress(),
         owner:          await cobj.owner(),
+        proofVersion:   (await cobj.nextVersion()).toString(),
     }
     show_msg(sdatas, "datas");
 }
 
 async function main_env() {
-    cobj = await get_contract(main.name, main.address);
-    sdatas = {
+    let cobj = await get_contract(main.name, main.address);
+    let sdatas = {
         name:           main.name,
         contractname:   await cobj.name(),
         contractsymbol: await cobj.symbol(),
@@ -44,17 +57,17 @@ async function main_env() {
     }
     show_msg(sdatas, "main");
 
-    var validTokens = {};
-    tokenMaxCount = await cobj.tokenMaxCount();
-    for(var i = 0; i< tokenMaxCount; i++) {
-        tokenName = await cobj.validTokenNames(i);
-        var validToken = {};
+    let validTokens = {};
+    let tokenMaxCount = await cobj.tokenMaxCount();
+    for(let i = 0; i< tokenMaxCount; i++) {
+        let tokenName = await cobj.validTokenNames(i);
+        let validToken = {};
         if(tokenName.length > 0) {
             validToken["address"] = await cobj.tokenAddress(tokenName);
-            var min = await cobj.tokenMinAmount(validToken["address"]);
-            var max = await cobj.tokenMaxAmount(validToken["address"]); 
-            validToken["min"] = parseInt(min._hex);
-            validToken["max"] = parseInt(max._hex);
+            let min = await cobj.tokenMinAmount(validToken["address"]);
+            let max = await cobj.tokenMaxAmount(validToken["address"]); 
+            validToken["min"] = min.toString();
+            validToken["max"] = max.toString();
         }
         validTokens[tokenName] = validToken;
     }
@@ -62,8 +75,8 @@ async function main_env() {
 }
 
 async function state_env() {
-    cobj = await get_contract(state.name, state.address);
-    sdatas = {
+    let cobj = await get_contract(state.name, state.address);
+    let sdatas = {
         name: state.name,
         contractname: await cobj.name(),
         contractsymbol: await cobj.symbol(),
@@ -74,6 +87,8 @@ async function state_env() {
 }
 async function run() {
     utils.debug("start working...", "chain contract");
+    await chain_env();
+    await account_info();
     await state_env();
     await datas_env();
     await main_env();

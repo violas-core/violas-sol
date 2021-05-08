@@ -1,13 +1,12 @@
 // scripts/deploy_upgradeable_xxx.js
-const fs = require('fs');
-const path = require("path");
-const program = require('commander');
-const { ethers, upgrades } = require("hardhat");
-const utils = require("./utils");
-const violas = require("../violas.config.js");
-const vlscontract_conf = violas.vlscontract_conf;
-const {main, datas, state} = require(vlscontract_conf);
-const bak_path = violas.caches_contracts;
+const fs        = require('fs');
+const path      = require("path");
+const program   = require('commander');
+const utils     = require("./utils");
+const violas    = require("../violas.config.js");
+const bak_path  = violas.caches_contracts;
+const {main, datas, state}  = require(violas.vlscontract_conf);
+const {ethers, upgrades}    = require("hardhat");
 
 async function date_format(dash = "-", colon = ":", space = " ") {
     return utils.date_format(dash, colon, space);
@@ -43,11 +42,11 @@ async function upgrade(name, address) {
 }
 
 async function check_and_deploy(item) {
-    var name = item.name;
-    var create = item.deploy;
-    var params = item.params;
-    var address = item.address;
-    var dp;
+    let name = item.name;
+    let create = item.deploy;
+    let params = item.params;
+    let address = item.address;
+    let dp;
 
     utils.info("switch: " + item.deploy, "check_and_deploy(" + name + ")")
 
@@ -64,10 +63,10 @@ async function check_and_deploy(item) {
 }
 
 async function check_and_upgrade(item) {
-    var name = item.name;
-    var address = item.address;
-    var create = item.upgrade;
-    var dp;
+    let name = item.name;
+    let address = item.address;
+    let create = item.upgrade;
+    let dp;
 
     utils.info("switch: " + item.upgrade, "check_and_upgrade(" + name + ")")
 
@@ -100,9 +99,9 @@ function mkdirsSync(dirname) {
 }
 
 async function bak_conf(pathname) {
-    var mark = await date_format("", "", "");
-    filename = path.basename(pathname)
-    var new_pathname = bak_path + mark + "_" + filename;
+    let mark = await date_format("", "", "");
+    let filename = path.basename(pathname)
+    let new_pathname = bak_path + mark + "_" + filename;
 
     utils.info("save old config to: " + new_pathname , "bak_conf(" + filename + ")");
     data = {state : state, datas : datas, main : main};
@@ -116,13 +115,13 @@ async function close_deploy(item, address) {
     if (item.deploy) {
         item.address = address;
         item.deploy = false;
-        await update_conf(vlscontract_conf);
+        await update_conf(violas.vlscontract_conf);
     }
 }
 async function close_upgrade(item) {
     if (item.upgrade) {
         item.upgrade= false;
-        await update_conf(vlscontract_conf);
+        await update_conf(violas.vlscontract_conf);
     }
 }
 
@@ -139,9 +138,9 @@ async function check_upgrade_value(item) {
 }
 
 async function check_conf() {
-    var items = [state, datas, main];
-    var has_work = false;
-    for (var i = 0; i < items.length; i++) {
+    let items = [state, datas, main];
+    let has_work = false;
+    for (let i = 0; i < items.length; i++) {
         await check_deploy_upgrade_value(items[i]);
         await check_upgrade_value(items[i]);
         has_work = has_work || items[i].deploy || items[i].upgrade;
@@ -154,7 +153,7 @@ async function check_conf() {
 async function run() {
     utils.debug("start working...", "deploy or upgrade");
     await check_conf();
-    await bak_conf(vlscontract_conf);
+    await bak_conf(violas.vlscontract_conf);
     //logic for state datas and main: deploy or upgrade
     //d_xxx must have address
     const d_state = await check_and_deploy(state);
