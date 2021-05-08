@@ -13,26 +13,22 @@ async function get_contract(name, address) {
     return await utils.get_contract(name, address);
 }
 
-async function show_msg(msg, title = "") {
-    utils.show_msg(msg, title);
-}
-
 async function run() {
     cobj = await get_contract(datas.name, datas.address);
     stateAddress = await cobj.stateAddress();
     mainAddress = await cobj.mainAddress();
     if (stateAddress != state.address) {
         await cobj.upgradStateAddress(state.address);
-        show_msg("upgrade state address: " + state.address);
+        utils.warning("upgrade state address: " + state.address);
     } else {
-        show_msg("The current state address is already " + state.address);
+        utils.info("The current state address is already " + state.address);
     }
 
     if (mainAddress != main.address) {
         await cobj.upgradMainAddress(main.address);
-        show_msg("upgrade main address: " + main.address);
+        utils.warning("upgrade main address: " + main.address);
     } else {
-        show_msg("The current main address is already " + main.address);
+        utils.info("The current main address is already " + main.address);
     }
 }
 

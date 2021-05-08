@@ -1,39 +1,32 @@
 // scripts/deploy_upgradeable_xxx.js
-const { ethers, upgrades } = require("hardhat");
-const violas = require("../violas.config.js");
+const violas    = require("../violas.config.js");
+const utils     = require("./utils");
+const {tokens}  = require(violas.tokens_conf);
+const {ethers, upgrades} = require("hardhat");
 const {main, datas, state} = require(violas.vlscontract_conf);
-const {tokens}= require(violas.tokens_conf);
 
-async function show(item, type) {
-    if (type == "log") {
-        for(k in item) {
-            console.log(k + "\t: " + item[k])
-        }
-    } else {
-        console.table(item)
-    }
+async function show_msg(msg, title = "") {
+    utils.show_msg(msg, title, {"format": false, "type": "table"});
 }
 
-async function run(type) {
-    var violas_conf = {
-        config : violas.vlscontract_conf,
-        network : violas.configs.defaultNetwork
+async function run() {
+    var vls_conf = {
+        config:     violas.vlscontract_conf,
+        network:    violas.configs.defaultNetwork
     }
-    console.log("************violas conf************")
-    await show(violas_conf, type);
-    console.log("************tokens conf(" + tokens.length + ")************")
-    for(var i = 0; i < tokens.length; i++) {
-        await show(tokens[i], type);
+
+    var contracts_conf = {
+        main:   main,
+        datas:  datas,
+        state:  state
     }
-    console.log("************main************")
-    await show(main, type)
-    console.log("************datas************")
-    await show(datas, type)
-    console.log("************state************")
-    await show(state, type)
+
+    await show_msg(vls_conf,    "violas");
+    await show_msg(tokens,      "tokens");
+    await show_msg(contracts_conf, "contracts");
 }
 
-run("table")
+run()
   .then(() => process.exit(0))
   .catch(error => {
     console.error(error);

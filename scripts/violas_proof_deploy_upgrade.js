@@ -10,7 +10,7 @@ const {main, datas, state} = require(vlscontract_conf);
 const bak_path = violas.caches_contracts;
 
 async function date_format(dash = "-", colon = ":", space = " ") {
-    return await utils.date_format(dash, colon, space);
+    return utils.date_format(dash, colon, space);
 }
 
 async function get_contract(name, address) {
@@ -27,18 +27,18 @@ async function write_json(filename, data) {
 
 async function deploy(name) {
     const cf = await ethers.getContractFactory(name);
-    await show_msg("Deploying " + name + " ...");
+    utils.debug("Deploying " + name + " ...");
     const dp = await upgrades.deployProxy(cf);
     await dp.deployed();
-    await show_msg(name + " deployed to: " + dp.address);
+    utils.info(name + " deployed to: " + dp.address);
     return dp
 }
 
 async function upgrade(name, address) {
     const cf = await ethers.getContractFactory(name);
-    await show_msg("Upgrading " + name + " address: " + address + " ...");
+    utils.debug("Upgrading " + name + " address: " + address + " ...");
     const up = await upgrades.upgradeProxy(address, cf);
-    await show_msg(name + " upgraded");
+    utils.info(name + " upgraded");
     return up;
 }
 
@@ -49,7 +49,7 @@ async function check_and_deploy(item) {
     var address = item.address;
     var dp;
 
-    await show_msg("switch: " + item.deploy, "check_and_deploy(" + name + ")")
+    utils.info("switch: " + item.deploy, "check_and_deploy(" + name + ")")
 
     if (create) {
         dp = await deploy(name, params);
@@ -69,7 +69,7 @@ async function check_and_upgrade(item) {
     var create = item.upgrade;
     var dp;
 
-    await show_msg("switch: " + item.upgrade, "check_and_upgrade(" + name + ")")
+    utils.info("switch: " + item.upgrade, "check_and_upgrade(" + name + ")")
 
     if (create) {
         dp = await upgrade(name, address);
@@ -104,7 +104,7 @@ async function bak_conf(pathname) {
     filename = path.basename(pathname)
     var new_pathname = bak_path + mark + "_" + filename;
 
-    await show_msg("save old config to: " + new_pathname , "bak_conf(" + filename + ")");
+    utils.info("save old config to: " + new_pathname , "bak_conf(" + filename + ")");
     data = {state : state, datas : datas, main : main};
     if (!fs.existsSync(bak_path)) {
         mkdirsSync(bak_path);
