@@ -10,12 +10,12 @@ async function show_msg(msg, title = "") {
 }
 
 async function run() {
-    var vls_conf = {
+    let vls_conf = {
         config:     violas.vlscontract_conf,
         network:    violas.configs.defaultNetwork
     }
 
-    var contracts_conf = {
+    let contracts_conf = {
         main:   main,
         datas:  datas,
         state:  state

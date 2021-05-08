@@ -20,18 +20,18 @@ async function update_tokens(cobj) {
     }
     const {tokens}= require(violas.tokens_conf);
 
-    for(var i = 0; i < tokens.length; i++) {
-        token = tokens[i];
+    for(let i = 0; i < tokens.length; i++) {
+        let token = tokens[i];
         if(token.use) {
-            var tokenAddress = await cobj.tokenAddress(token.name);
+            let tokenAddress = await cobj.tokenAddress(token.name);
             if(tokenAddress != token.address && tokenAddress.length > 0) {
                 await cobj.updateToken(token.name, token.address)
                 utils.warning("upgrade " + token.name +" address: " + token.address);
             } else {
                 utils.info(token.name + " address is already " + token.address);
             }
-            min = await cobj.tokenMinAmount(token.address);
-            max = await cobj.tokenMaxAmount(token.address);
+            let min = await cobj.tokenMinAmount(token.address);
+            let max = await cobj.tokenMaxAmount(token.address);
             if (min != token.min) {
                 await cobj.updateTokenMinAmount(token.address, token.min);
                 utils.warning("upgrade " + token.name +" min: " + token.min);
@@ -49,7 +49,7 @@ async function update_tokens(cobj) {
 }
 
 async function update_proof_address(cobj) {
-    proofAddress = await cobj.proofAddress();
+    let proofAddress = await cobj.proofAddress();
     if (proofAddress != datas.address) {
         await cobj.upgradProofDatasAddress(datas.address);
         utils.warning("upgrade proof datas address: " + datas.address);
@@ -59,7 +59,7 @@ async function update_proof_address(cobj) {
 }
 async function run() {
     utils.debug("start working...", "init_main");
-    cobj = await get_contract(main.name, main.address);
+    let cobj = await get_contract(main.name, main.address);
 
     await update_proof_address(cobj);
     await update_tokens(cobj);
