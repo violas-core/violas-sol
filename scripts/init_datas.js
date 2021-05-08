@@ -14,9 +14,14 @@ async function get_contract(name, address) {
 }
 
 async function run() {
+    utils.debug("start working...", "init_main");
+
     cobj = await get_contract(datas.name, datas.address);
+
     stateAddress = await cobj.stateAddress();
     mainAddress = await cobj.mainAddress();
+
+    //check state address for datas contract, upgrade it or no
     if (stateAddress != state.address) {
         await cobj.upgradStateAddress(state.address);
         utils.warning("upgrade state address: " + state.address);
@@ -24,6 +29,7 @@ async function run() {
         utils.info("The current state address is already " + state.address);
     }
 
+    //check main address for datas contract, upgrade it or no
     if (mainAddress != main.address) {
         await cobj.upgradMainAddress(main.address);
         utils.warning("upgrade main address: " + main.address);

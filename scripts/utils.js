@@ -69,7 +69,7 @@ function show_msg(msg, title = "", kwargs = {}) {
 
     if (format) {
         msg = JSON.stringify(msg);
-        msg = date_format() + ": " + add_color(msg, color);
+        if (msg.length > 0) msg = date_format() + ": " + add_color(msg, color);
     }
     if (type == "table" || type == "t") {
         console.table(msg);

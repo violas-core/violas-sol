@@ -1,26 +1,24 @@
 {
 	"state": {
-		"name": "ViolasMProofState",
-		"address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-		"deploy": false,
-		"upgrade": false,
-		"params": [],
-		"address_old": "0x1fA02b2d6A771842690194Cf62D91bdd92BfE28d"
+		"name":     "ViolasMProofState",
+		"address":  "0x889a4E54348C0D2befE68604D8EdAc7497dEFDB0",
+        "admin":    "0x487a58b44b3e332783d05161E5F32192113f7095",
+		"deploy":   false,
+		"upgrade":  false,
+		"params":   []
 	},
 	"datas": {
-		"name": "ViolasMProofDatas",
-		"address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
-		"deploy": false,
-		"upgrade": false,
-		"params": [],
-		"address_old": "0x82e01223d51Eb87e16A03E24687EDF0F294da6f1"
+		"name":     "ViolasMProofDatas",
+		"address":  "0xDB1d77541F3B90c2aA8aDa1b9589f532E12C025F",
+		"deploy":   false,
+		"upgrade":  false,
+		"params":   []
 	},
 	"main": {
-		"name": "ViolasMProofMain",
-		"address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
-		"deploy": false,
-		"upgrade": false,
-		"params": [],
-		"address_old": "0x2bdCC0de6bE1f7D2ee689a0342D76F52E8EFABa3"
+		"name":     "ViolasMProofMain",
+		"address":  "0xc6aC75b3B3f6E48Ac1228a34C2732d1F0b9BF934",
+		"deploy":   false,
+		"upgrade":  false,
+		"params":   []
 	}
 }

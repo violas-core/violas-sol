@@ -152,6 +152,7 @@ async function check_conf() {
     }
 }
 async function run() {
+    utils.debug("start working...", "deploy or upgrade");
     await check_conf();
     await bak_conf(vlscontract_conf);
     //logic for state datas and main: deploy or upgrade

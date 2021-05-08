@@ -73,6 +73,7 @@ async function state_env() {
     show_msg(sdatas, "state");
 }
 async function run() {
+    utils.debug("start working...", "chain contract");
     await state_env();
     await datas_env();
     await main_env();
