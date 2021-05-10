@@ -31,6 +31,14 @@ async function account_info() {
 
 async function datas_env() {
     let cobj = await get_contract(datas.name, datas.address);
+    let managers = "";
+    for (let i = 0; i < await cobj.managerMaxCount(); i++) {
+        manager = await cobj.manager(i);
+        if (await cobj.manageRoleState(manager)) {
+            managers += manager + " ";
+        }
+    }
+
     let sdatas = {
         name:           datas.name,
         contractname:   await cobj.name(),
@@ -40,6 +48,7 @@ async function datas_env() {
         mainAddress:    await cobj.mainAddress(),
         owner:          await cobj.owner(),
         proofVersion:   (await cobj.nextVersion()).toString(),
+        manager:        managers,
     }
     show_msg(sdatas, "datas");
 }

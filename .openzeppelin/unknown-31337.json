@@ -100,13 +100,13 @@
           {
             "contract": "ViolasMProofDatas",
             "label": "proofs",
-            "type": "t_mapping(t_address,t_struct(AddressProof)1778_storage)",
+            "type": "t_mapping(t_address,t_struct(AddressProof)2294_storage)",
             "src": "contracts/ViolasMProofDatas.sol:152"
           },
           {
             "contract": "ViolasMProofDatas",
             "label": "proofIndexs",
-            "type": "t_mapping(t_uint256,t_struct(AddressIndex)1785_storage)",
+            "type": "t_mapping(t_uint256,t_struct(AddressIndex)2301_storage)",
             "src": "contracts/ViolasMProofDatas.sol:153"
           },
           {
@@ -118,7 +118,7 @@
           {
             "contract": "ViolasMProofDatas",
             "label": "stateManage",
-            "type": "t_contract(IViolasMProofState)3798",
+            "type": "t_contract(IViolasMProofState)4314",
             "src": "contracts/ViolasMProofDatas.sol:157"
           },
           {
@@ -135,13 +135,13 @@
           "t_uint256": {
             "label": "uint256"
           },
-          "t_mapping(t_address,t_struct(AddressProof)1778_storage)": {
+          "t_mapping(t_address,t_struct(AddressProof)2294_storage)": {
             "label": "mapping(address => struct ViolasMProofDatas.AddressProof)"
           },
           "t_address": {
             "label": "address"
           },
-          "t_struct(AddressProof)1778_storage": {
+          "t_struct(AddressProof)2294_storage": {
             "label": "struct ViolasMProofDatas.AddressProof",
             "members": [
               {
@@ -166,17 +166,17 @@
               },
               {
                 "label": "proofDatas",
-                "type": "t_mapping(t_uint256,t_struct(ProofData)1762_storage)"
+                "type": "t_mapping(t_uint256,t_struct(ProofData)2278_storage)"
               }
             ]
           },
           "t_bool": {
             "label": "bool"
           },
-          "t_mapping(t_uint256,t_struct(ProofData)1762_storage)": {
+          "t_mapping(t_uint256,t_struct(ProofData)2278_storage)": {
             "label": "mapping(uint256 => struct ViolasMProofDatas.ProofData)"
           },
-          "t_struct(ProofData)1762_storage": {
+          "t_struct(ProofData)2278_storage": {
             "label": "struct ViolasMProofDatas.ProofData",
             "members": [
               {
@@ -209,10 +209,10 @@
               }
             ]
           },
-          "t_mapping(t_uint256,t_struct(AddressIndex)1785_storage)": {
+          "t_mapping(t_uint256,t_struct(AddressIndex)2301_storage)": {
             "label": "mapping(uint256 => struct ViolasMProofDatas.AddressIndex)"
           },
-          "t_struct(AddressIndex)1785_storage": {
+          "t_struct(AddressIndex)2301_storage": {
             "label": "struct ViolasMProofDatas.AddressIndex",
             "members": [
               {
@@ -229,7 +229,7 @@
               }
             ]
           },
-          "t_contract(IViolasMProofState)3798": {
+          "t_contract(IViolasMProofState)4314": {
             "label": "contract IViolasMProofState"
           },
           "t_mapping(t_address,t_bool)": {

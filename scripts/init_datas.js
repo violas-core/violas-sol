@@ -36,6 +36,20 @@ async function run() {
     } else {
         utils.info("The current main address is already " + main.address);
     }
+
+    if (datas.manager != undefined && datas.manager.length > 0) {
+        if(typeof(datas.manager) == "string" && !(await cobj.manageRoleState(datas.manager))) {
+            utils.warning("upgrade manager address: " + datas.manager);
+            await cobj.grantedMngPermission(datas.manager);
+        } else { //[]
+            for ( i in datas.manager) {
+                if(!(await cobj.manageRoleState(datas.manager[i]))) {
+                    utils.warning("upgrade manager address: " + datas.manager[i]);
+                    await cobj.grantedMngPermission(datas.manager[i]);
+                }
+            }
+        }
+    }
 }
 
 run()

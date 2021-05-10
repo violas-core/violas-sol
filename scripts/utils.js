@@ -41,20 +41,38 @@ function get_kwargs(kwargs, name, defvalue = "") {
     }
 }
 
-function error(msg, title = "") {
-    show_msg(msg, title, {"type":"log", "color":"red"});
+function error(msg, title = "", kwargs = {}) {
+    if(kwargs == undefined) {
+        kwargs          = {"type":"log", "color":"red"};
+    } else {
+        kwargs["type"]  = get_kwargs(kwargs, "type", "log");
+        kwargs["color"] = get_kwargs(kwargs, "color", "red");
+    }
+    show_msg(msg, title, kwargs);
+}
+function __merge_kwargs(kwargs, defkwargs) {
+    if(kwargs == undefined) {
+        kwargs = defkwargs;
+    } else {
+        for(key in defkwargs) {
+            kwargs[key] = get_kwargs(kwargs, key, defkwargs[key]);
+        }
+    }
+    return kwargs;
+}
+function warning(msg, title = "", kwargs = {}) {
+    kwargs = __merge_kwargs(kwargs, {"type":"log", "color":"yellow"});
+    show_msg(msg, title, kwargs);
 }
 
-function warning(msg, title = "") {
-    show_msg(msg, title, {"type":"log", "color":"yellow"});
+function debug(msg, title = "", kwargs = {}) {
+    kwargs = __merge_kwargs(kwargs, {"type":"log"});
+    show_msg(msg, title, kwargs);
 }
 
-function debug(msg, title = "") {
-    show_msg(msg, title, {"type":"log"});
-}
-
-function info(msg, title = "") {
-    show_msg(msg, title, {"type":"log", "color":"blue"});
+function info(msg, title = "", kwargs = {}) {
+    kwargs = __merge_kwargs(kwargs, {"type":"log", "color":"blue"});
+    show_msg(msg, title, kwargs);
 }
 
 function show_msg(msg, title = "", kwargs = {}) {
@@ -67,13 +85,13 @@ function show_msg(msg, title = "", kwargs = {}) {
         console.log(create_split_symbol() + add_color(title, title_color));
     }
 
-    if (format) {
-        msg = JSON.stringify(msg);
-        if (msg.length > 0) msg = date_format() + ": " + add_color(msg, color);
-    }
     if (type == "table" || type == "t") {
         console.table(msg);
     } else {
+        if (format) {
+            msg = JSON.stringify(msg);
+            if (msg.length > 0) msg = date_format() + ": " + add_color(msg, color);
+        }
         console.log(msg);
     }
 }

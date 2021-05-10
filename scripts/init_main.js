@@ -44,6 +44,15 @@ async function update_tokens(cobj) {
             } else {
                 utils.info(token.name + "(" + token.address + ") max is already " + max);
             }
+
+            if (main.payee !== undefined && main.payee.length > 0) {
+                if (main.payee != await cobj.payee()) {
+                    utils.warning("upgrade payee: " + main.payee);
+                    await cobj.transferPayeeship(main.payee);
+                } else {
+                    utils.info(main.payee + " is already payee");
+                }
+            }
         }
     }
 }
