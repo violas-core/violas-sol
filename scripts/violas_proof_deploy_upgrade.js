@@ -147,7 +147,7 @@ async function check_conf() {
     }
 
     if (!has_work) {
-        //throw Error("config is ok, but all switch is false.")
+        throw Error("config is ok, but all switch is false.")
     }
 }
 async function run() {
