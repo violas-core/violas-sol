@@ -62,9 +62,8 @@ async function new_proof(tokenName = "usdt") {
     let dcobj           = await get_contract(datas.name, proofAddress);
     //recever dd: 00000000000000000042524755534454
     vls_receiver        = "00000000000000000042524755534454";
-    let owner           = await __get_account("0x89fF4a850e39A132614dbE517F80603b4A96fa0A");
     let datas_manager   = await __get_account(await dcobj.manager(0));
-    let payer           = await __get_account("0x9382690D0B835b69FD9C0bc23EB772a0Ddb3613F");
+    let payer           = await __get_account("0x49999B466D7d139f88E8eFea87A6D4D227Fb243e");
     let payee           = await mcobj.payee();
 
     let info = {
@@ -78,15 +77,47 @@ async function new_proof(tokenName = "usdt") {
         nextVersion : (await dcobj.nextVersion()).toString(),
         payer       : payer.address,
         payerBalance: (await tcobj.balanceOf(payer.address)).toString(),
-
     }
     utils.debug(info, "", {"type": "table"});
+    let map_amount = 1000000;
+    if (info.payerBalance < map_amount) {
+        throw Error(payer.address + " amount < " + map_amount);
+    }
+    
+    let approve_amount = await tcobj.connect(payer).allowance(payer.address, main.address);
+    let state = false;
+    if (approve_amount == 0) {
+        utils.debug("approve...");
+        state = await tcobj.connect(payer).approve(main.address, map_amount);
+        let times = 0;
+        while (approve_amount <= 0 && times < 5) {
+            utils.debug("allowance...");
+            approve_amount = (await tcobj.connect(payer).allowance(payer.address, main.address)).toString();
+            times += 1;
+        }
 
+    }
+    utils.debug("map amount = " + approve_amount);
+    state = await mcobj.connect(payer).transferProof(tokenAddress, vls_receiver);
+    utils.info("append new proof " + state);
 
+    let info_new = {
+        nextVersion : (await dcobj.nextVersion()).toString(),
+        payeeBalance: (await tcobj.balanceOf(payee)).toString(),
+        payer       : payer.address,
+        payerBalance: (await tcobj.balanceOf(payer.address)).toString(),
+    }
+    utils.debug(info_new, "", {"type": "table"});
+
+    let nextVersion = await dcobj.nextVersion();
+    if (nextVersion > 0) {
+        let proof_info = await dcobj.proofInfo(nextVersion - 1);
+        utils.info(proof_info, " proof info version = " + (nextVersion - 1), {"type": "table"});
+    }
 }
 
 async function run() {
-    utils.debug("start working...", "deploy or upgrade");
+    utils.debug("start working...", "new proof");
     await new_proof();
 }
 

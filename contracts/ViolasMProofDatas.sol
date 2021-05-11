@@ -35,7 +35,6 @@ contract Mngable is OwnableUpgradeable{
     {
         managers[msg.sender] = true;
         manager[0] = msg.sender;
-        managerMaxCount = 1;
     }
 
     /**
@@ -148,7 +147,6 @@ contract ViolasMProofDatas is Mngable,IViolasMProofDatas{
     
     //proof info
     uint public nextVersion;
-    uint public continuousComplete;
     mapping(address=>AddressProof) proofs;
     mapping(uint=>AddressIndex) proofIndexs;
 
@@ -174,8 +172,6 @@ contract ViolasMProofDatas is Mngable,IViolasMProofDatas{
 
         name        = "Violas Proof Datas";
         symbol      = "VPD";
-        nextVersion = 0;
-        continuousComplete = 0;
     }
     
     function addressProof(address sender)
@@ -282,15 +278,22 @@ contract ViolasMProofDatas is Mngable,IViolasMProofDatas{
         pd = _getProofWithAddr(sender, sequence);
     }
     
-    function proofInfo(address sender, uint sequence) 
+    function accountProofInfo(address sender, uint sequence) 
     public 
+    view 
     virtual
     override
-    view 
-    returns(string memory, uint, uint, address, uint, uint, uint) 
+    returns(string memory data, uint seq, uint state, address token, uint version, uint amount, uint fee) 
+
     {
         ProofData storage pd = _getProofWithAddr(sender, sequence);
-        return (pd.data, pd.sequence, uint(pd.state), pd.token, pd.version, pd.amount, pd.fee);
+        data    = pd.data;
+        seq     = pd.sequence;
+        state   = uint(pd.state);
+        token   = pd.token;
+        version = pd.version;
+        amount  = pd.amount;
+        fee     = pd.fee;
     }
     
     function proofInfo(uint version) 
@@ -298,10 +301,17 @@ contract ViolasMProofDatas is Mngable,IViolasMProofDatas{
     view
     virtual
     override
-    returns(string memory, uint, uint, address, address, uint, bool, uint) 
+    returns(string memory data, uint seq, uint state, address token, address sender, uint amount, bool create, uint fee) 
     {
-        (ProofData storage pd, address sender, bool create) = _getProofWithVersion(version);
-        return (pd.data, pd.sequence, uint(pd.state), pd.token, sender, pd.amount, create, pd.fee);
+        (ProofData storage pd, address proof_sender, bool proof_create) = _getProofWithVersion(version);
+        data    = pd.data;
+        seq     = pd.sequence;
+        state   = uint(pd.state);
+        token   = pd.token;
+        amount  = pd.amount;
+        fee     = pd.fee;
+        sender  = proof_sender;
+        create  = proof_create;
     }
     
     function _saveProof(address fromAddr, address tokenAddr, string memory data, uint state, uint amount, uint fee)
@@ -346,17 +356,6 @@ contract ViolasMProofDatas is Mngable,IViolasMProofDatas{
         return true;
     }
     
-    function transferContinuousComplete(uint verion)
-    external
-    virtual
-    override
-    returns(bool)
-    {
-        continuousComplete = verion;
-        return true;
-    }
-    
-    
     function _checkStateChange(uint fromState, uint toState)
     internal
     view
@@ -382,7 +381,7 @@ contract ViolasMProofDatas is Mngable,IViolasMProofDatas{
         return true;
     }
     
-    function transferProofState(uint version, uint state) 
+    function upUUState(uint version, uint state) 
     external
     onlyManager
     override 
@@ -394,7 +393,7 @@ contract ViolasMProofDatas is Mngable,IViolasMProofDatas{
         return _updatProof(pd, sender, state);
     }
     
-    function transferProofState(uint version, string calldata state) 
+    function upUSState(uint version, string calldata state) 
     external
     onlyManager
     override 
@@ -408,7 +407,7 @@ contract ViolasMProofDatas is Mngable,IViolasMProofDatas{
         return _updatProof(pd, sender, stateValue);
     }
     
-    function transferProofState(address sender, uint sequence, uint state) 
+    function upAUUState(address sender, uint sequence, uint state) 
     external
     onlyManager
     override 
@@ -421,7 +420,7 @@ contract ViolasMProofDatas is Mngable,IViolasMProofDatas{
     }
     
     
-    function transferProofState(address sender, uint sequence, string calldata state) 
+    function upAUSState(address sender, uint sequence, string calldata state) 
     external
     onlyManager
     override 
