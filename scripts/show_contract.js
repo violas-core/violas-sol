@@ -1,4 +1,5 @@
 // scripts/index.js
+const prompt    = require('prompt');
 const utils     = require("./utils");
 const violas    = require("../violas.config.js");
 const vlscontract_conf = violas.vlscontract_conf;
@@ -53,6 +54,23 @@ async function datas_env() {
     show_msg(sdatas, "datas");
 }
 
+async function latest_proof() {
+    let cobj = await get_contract(datas.name, datas.address);
+    let managers = "";
+    let last_version = await cobj.nextVersion();
+    if (last_version > 0) {
+        let proof = await cobj.proofInfo(last_version - 1);
+        
+        let proof_formt = []
+        for (let i = 0; i < proof.length; i++) {
+            proof_formt.push(proof[i].toString());
+        }
+        show_msg(proof_formt, "latest proof: version = " + (last_version - 1));
+    } else {
+        utils.info("no proof data");
+    }
+}
+
 async function main_env() {
     let cobj = await get_contract(main.name, main.address);
     let sdatas = {
@@ -96,6 +114,8 @@ async function state_env() {
 }
 async function run() {
     utils.debug("start working...", "chain contract");
+    await latest_proof();
+    return;
     await chain_env();
     await account_info();
     await state_env();

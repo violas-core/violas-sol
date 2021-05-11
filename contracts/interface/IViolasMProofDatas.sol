@@ -6,15 +6,14 @@ interface IViolasMProofDatas{
     event TransferProof(address indexed from, address indexed to, string datas, address token, uint amount, uint fee, uint state);
     event TransferProofState(address indexed manager, uint version, uint state);
     
-    function proofInfo(address sender, uint sequence) external view returns(string memory, uint, uint, address, uint, uint, uint);
-    function proofInfo(uint version) external view returns(string memory, uint, uint, address, address, uint, bool, uint);
+    function accountProofInfo(address sender, uint sequence) external view returns(string memory data, uint seq, uint state, address token, uint version, uint amount, uint fee); 
+    function proofInfo(uint version) external view returns(string memory data, uint seq, uint state, address token, address sender, uint amount, bool create, uint fee); 
     
     function transferProof(address fromAddr, address toAddr,address token, uint amount, uint fee, string calldata datas) external payable returns (bool);
-    function transferProofState(uint version, uint state) external  returns (bool);
-    function transferProofState(uint version, string calldata state) external returns (bool);
-    function transferProofState(address sender, uint sequence, uint state) external returns (bool);
-    function transferProofState(address sender, uint sequence, string calldata state) external returns (bool);
-    function transferContinuousComplete(uint verion) external returns (bool);
+    function upUUState(uint version, uint state) external  returns (bool);
+    function upUSState(uint version, string calldata state) external returns (bool);
+    function upAUUState(address sender, uint sequence, uint state) external returns (bool);
+    function upAUSState(address sender, uint sequence, string calldata state) external returns (bool);
     
     function accountIsExists(address account) external view returns(bool);
     function accountSequence(address account) external view returns(uint);
