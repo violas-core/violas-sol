@@ -5,14 +5,14 @@
             "address": "0x6f08730dA8e7de49a4064d2217c6B68d7E61E727",
             "use":true,
             "min":1,
-            "max":20000000000
+            "max":0
         },
         {
             "name": "wbtc",
             "address": "0xB883664F0095DE55491927B6829fF9BF4ab4d8A1",
             "use":true,
             "min":3,
-            "max":4
+            "max":0
         }
     ]
 }

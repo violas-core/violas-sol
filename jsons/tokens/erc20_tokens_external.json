@@ -1,0 +1,18 @@
+{
+    "tokens": [
+        {
+            "name": "usdt",
+            "address": "0xb64DB0d1810De2548534c003e2E5503564D7f3E5",
+            "use":true,
+            "min":4,
+            "max":0
+        },
+        {
+            "name": "wbtc",
+            "address": "",
+            "use":false,
+            "min":5,
+            "max":0
+        }
+    ]
+}

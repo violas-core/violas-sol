@@ -3,7 +3,7 @@ echo=off
 
 
 
-SRCS= $(wildcard *.sol) 
+SRCS= $(wildcard ./contracts/*.sol) 
 ifneq ($(fs), )
 	SRCS = $(fs)
 endif
@@ -25,13 +25,19 @@ endef
 $(SRCS_OBJS):%_output : %.sol
 
 	$(call show_title, $<)
-	@solc --optimize --overwrite --abi --bin -o $(output)/$@ $<
+	@solc  @openzeppelin=`pwd`/node_modules/@openzeppelin --optimize --overwrite --abi --bin -o $(output)/$@ $<
 	@echo "output-->:"
 	@ls $(output)/$@ 
 
 select:
     ifneq ($(v), )
 		@solc-select use $(v)
+    endif
+
+#v=0.8.0
+install:
+    ifneq ($(v), )
+		@solc-select install $(v)
     endif
 
 clean:
