@@ -9,9 +9,13 @@ configs = {
             contracts:"./jsons/contracts/vlscontract_localhost.json",
             tokens:"./jsons/tokens/erc20_tokens_localhost.json"
         },
-        kovan: {
-            contracts:"./jsons/contracts/vlscontract_kovan.json",
-            tokens:"./jsons/tokens/erc20_tokens_kovan.json"
+        internal: {
+            contracts:"./jsons/contracts/vlscontract_internal.json",
+            tokens:"./jsons/tokens/erc20_tokens_internal.json"
+        },
+        external: {
+            contracts:"./jsons/contracts/vlscontract_external.json",
+            tokens:"./jsons/tokens/erc20_tokens_external.json"
         },
         mainnet: {
             contracts:"./jsons/contracts/vlscontract_mainnet.json"
