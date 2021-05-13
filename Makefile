@@ -79,40 +79,33 @@ types="main state datas"
 opt_value 	= ''
 type_value 	= ''
 opt_file 	= ''
-run_mod 	= ''
+run_mod 	= 'close'
 
-open: openinit update_conf show_conf
-close: close_init update_conf show_conf
-
-openinit:
-    $(run_mod)= "open"
-
-close_init:
-    run_mod = "close"
-
+open: update_conf show_conf
+close: update_conf show_conf
 
 merge_js_file: save_opt_type_value
     ifeq ($(opt_value)'_'$(type_value), '''_''')
-        opt_file = ./scripts/switchs/$(run_mod)_all.js
+    opt_file = ./scripts/switchs/$(run_mod)_all.js
     endif
 
 save_opt_type_value: 
     ifneq ($(opt), )
-		@echo $(opts) | grep -q $(opt)
-        ifneq ($?, 0)
-			@echo "input opt is: " $(opts)
-        else
-		    opt_value = $(opt)
-        endif
+	@echo $(opts) | grep -q $(opt)
+    ifneq ($?, 0)
+	@echo "input opt is: " $(opts)
+    else
+    opt_value = $(opt)
+    endif
     endif
 
     ifneq ($(type), )
-		echo $(types) | grep -q $(type)
-        ifneq ($?, 0)
-			@echo "input opt is: " $(types)
-        else
-		    type_value = $(type)
-        endif
+	echo $(types) | grep -q $(type)
+    ifneq ($?, 0)
+	@echo "input opt is: " $(types)
+    else
+    type_value = $(type)
+    endif
     endif
 
 	@echo "opt = " $(opt) " type = " $(type)
