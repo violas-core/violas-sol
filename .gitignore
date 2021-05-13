@@ -1,6 +1,7 @@
 output/
 datas/
 node_modules
+tags
 
 #Hardhat files
 cache
