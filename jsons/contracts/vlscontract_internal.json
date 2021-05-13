@@ -3,7 +3,7 @@
 		"name": "ViolasMProofState",
 		"address": "0x889a4E54348C0D2befE68604D8EdAc7497dEFDB0",
 		"admin": "0x487a58b44b3e332783d05161E5F32192113f7095",
-		"deploy": false,
+		"deploy": true,
 		"upgrade": false,
 		"params": []
 	},

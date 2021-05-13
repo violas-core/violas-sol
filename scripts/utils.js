@@ -132,6 +132,16 @@ const styles = {
     'yellowBG': ['\x1B[43m', '\x1B[49m']
 };
 
+function mkdirsSync(dirname) {
+    if (fs.existsSync(dirname)) {
+          return true;
+    } else {
+          if (mkdirsSync(path.dirname(dirname))) {
+                 fs.mkdirSync(dirname);
+                 return true;
+          }
+    }
+}
 module.exports = {
     date_format,
     get_contract,
@@ -141,5 +151,6 @@ module.exports = {
     info,
     debug,
     warning,
-    error
+    error,
+    mkdirsSync
 }

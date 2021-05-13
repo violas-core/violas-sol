@@ -88,14 +88,7 @@ async function update_conf(filename) {
 }
 
 function mkdirsSync(dirname) {
-    if (fs.existsSync(dirname)) {
-          return true;
-    } else {
-          if (mkdirsSync(path.dirname(dirname))) {
-                 fs.mkdirSync(dirname);
-                 return true;
-          }
-    }
+    return  utils.mkdirsSync(dirname)
 }
 
 async function bak_conf(pathname) {
