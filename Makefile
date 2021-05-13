@@ -1,8 +1,15 @@
 output=output
 echo=off
 
+# solc = 
+ifneq ($(use_solc), true)
+	HARDHAT=1
+endif
+
+all: main
 
 
+ifndef HARDHAT
 SRCS= $(wildcard ./contracts/*.sol) 
 ifneq ($(fs), )
 	SRCS = $(fs)
@@ -10,12 +17,9 @@ endif
 
 SRCS_OBJS = $(patsubst %.sol, %_output, $(SRCS)) 
 
-all: main
-
 main: select clean build 
 
 build: $(SRCS_OBJS)
-
 define show_title
     @echo -n "--------------------------------------------------------"
 	@echo -n $(1)
@@ -23,7 +27,6 @@ define show_title
 endef
 
 $(SRCS_OBJS):%_output : %.sol
-
 	$(call show_title, $<)
 	@solc  @openzeppelin=`pwd`/node_modules/@openzeppelin --optimize --overwrite --abi --bin -o $(output)/$@ $<
 	@echo "output-->:"
@@ -42,6 +45,17 @@ install:
 
 clean:
 	@echo "clean ${output}"
-	@rm -rf $(output)/*
+	@rm -v -rf $(output)/*
 
-.PHONY: clean select build 
+else
+main: clean build 
+
+build:
+	npx hardhat compile
+clean:
+	#npx
+	npx hardhat clean
+endif
+
+
+.PHONY: select build clean
