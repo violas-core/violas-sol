@@ -115,7 +115,6 @@ async function state_env() {
 async function run() {
     utils.debug("start working...", "chain contract");
     await latest_proof();
-    return;
     await chain_env();
     await account_info();
     await state_env();

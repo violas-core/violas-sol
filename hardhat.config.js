@@ -11,6 +11,8 @@ task("accounts", "Prints the list of accounts", async () => {
   for (const account of accounts) {
     console.log(account.address);
   }
+
+  console.log(ethers.networks);
 });
 
 // You need to export an object to set up your config
@@ -20,19 +22,48 @@ task("accounts", "Prints the list of accounts", async () => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  solidity: "0.8.0",
-  defaultNetwork: "internal",
+  solidity: {
+      compilers: [
+          {
+            version: "0.8.0",
+            settings: {
+                optimizer: {
+                    enabled: true,
+                    runs: 200,
+                }
+            }
+          }
+          //{
+          //  version: "0.6.0",
+          //  settings: {}
+          //}
+      ]
+  },
+  defaultNetwork: "localhost",
   networks: {
+      hardhat: {
+          mining: {
+              auto: false,
+              interval: [10000, 16000]
+          }
+      },
       localhost: {
-          },
-      internal: {
+      },
+
+      internal_alchemy: {
           //url: `https://kovan.infura.io/v3/${key_infura}`,
           url: `https://eth-kovan.alchemyapi.io/v2/${key}`,
           accounts :{mnemonic : mnemonic}
-      }
+      },
+
       external: {
           //url: `https://kovan.infura.io/v3/${key_infura}`,
-          url: `https://eth-kovan.alchemyapi.io/v2/${key}`,
+          //url: `https://eth-kovan.alchemyapi.io/v2/${key}`,
+          url: `https://kovan.infura.io/v3/${key_infura}`,
+          accounts :{mnemonic : mnemonic}
+      },
+      internal: {
+          url: `https://kovan.infura.io/v3/${key_infura}`,
           accounts :{mnemonic : mnemonic}
       }
   },

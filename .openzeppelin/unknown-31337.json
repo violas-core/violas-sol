@@ -20,233 +20,6 @@
         }
       }
     },
-    "3af49e0d820289ebf4151e7c9b251bac3b411f907422c26ae412758e6d28363d": {
-      "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
-      "txHash": "0xea0bbc273f03280b7624bf1eac4ea8fd2ab62961ee85b0d2c120ccf9162c70a5",
-      "layout": {
-        "storage": [
-          {
-            "contract": "Initializable",
-            "label": "_initialized",
-            "type": "t_bool",
-            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:23"
-          },
-          {
-            "contract": "Initializable",
-            "label": "_initializing",
-            "type": "t_bool",
-            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:28"
-          },
-          {
-            "contract": "ContextUpgradeable",
-            "label": "__gap",
-            "type": "t_array(t_uint256)50_storage",
-            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:31"
-          },
-          {
-            "contract": "OwnableUpgradeable",
-            "label": "_owner",
-            "type": "t_address",
-            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:20"
-          },
-          {
-            "contract": "OwnableUpgradeable",
-            "label": "__gap",
-            "type": "t_array(t_uint256)49_storage",
-            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:74"
-          },
-          {
-            "contract": "Mngable",
-            "label": "managers",
-            "type": "t_mapping(t_address,t_bool)",
-            "src": "contracts/ViolasMProofDatas.sol:17"
-          },
-          {
-            "contract": "Mngable",
-            "label": "manager",
-            "type": "t_mapping(t_uint256,t_address)",
-            "src": "contracts/ViolasMProofDatas.sol:18"
-          },
-          {
-            "contract": "Mngable",
-            "label": "managerMaxCount",
-            "type": "t_uint256",
-            "src": "contracts/ViolasMProofDatas.sol:19"
-          },
-          {
-            "contract": "ViolasMProofDatas",
-            "label": "name",
-            "type": "t_string_storage",
-            "src": "contracts/ViolasMProofDatas.sol:146"
-          },
-          {
-            "contract": "ViolasMProofDatas",
-            "label": "symbol",
-            "type": "t_string_storage",
-            "src": "contracts/ViolasMProofDatas.sol:147"
-          },
-          {
-            "contract": "ViolasMProofDatas",
-            "label": "nextVersion",
-            "type": "t_uint256",
-            "src": "contracts/ViolasMProofDatas.sol:150"
-          },
-          {
-            "contract": "ViolasMProofDatas",
-            "label": "continuousComplete",
-            "type": "t_uint256",
-            "src": "contracts/ViolasMProofDatas.sol:151"
-          },
-          {
-            "contract": "ViolasMProofDatas",
-            "label": "proofs",
-            "type": "t_mapping(t_address,t_struct(AddressProof)2294_storage)",
-            "src": "contracts/ViolasMProofDatas.sol:152"
-          },
-          {
-            "contract": "ViolasMProofDatas",
-            "label": "proofIndexs",
-            "type": "t_mapping(t_uint256,t_struct(AddressIndex)2301_storage)",
-            "src": "contracts/ViolasMProofDatas.sol:153"
-          },
-          {
-            "contract": "ViolasMProofDatas",
-            "label": "stateAddress",
-            "type": "t_address",
-            "src": "contracts/ViolasMProofDatas.sol:156"
-          },
-          {
-            "contract": "ViolasMProofDatas",
-            "label": "stateManage",
-            "type": "t_contract(IViolasMProofState)4314",
-            "src": "contracts/ViolasMProofDatas.sol:157"
-          },
-          {
-            "contract": "ViolasMProofDatas",
-            "label": "mainAddress",
-            "type": "t_address",
-            "src": "contracts/ViolasMProofDatas.sol:160"
-          }
-        ],
-        "types": {
-          "t_string_storage": {
-            "label": "string"
-          },
-          "t_uint256": {
-            "label": "uint256"
-          },
-          "t_mapping(t_address,t_struct(AddressProof)2294_storage)": {
-            "label": "mapping(address => struct ViolasMProofDatas.AddressProof)"
-          },
-          "t_address": {
-            "label": "address"
-          },
-          "t_struct(AddressProof)2294_storage": {
-            "label": "struct ViolasMProofDatas.AddressProof",
-            "members": [
-              {
-                "label": "maxSequence",
-                "type": "t_uint256"
-              },
-              {
-                "label": "minVersion",
-                "type": "t_uint256"
-              },
-              {
-                "label": "maxVersion",
-                "type": "t_uint256"
-              },
-              {
-                "label": "account",
-                "type": "t_address"
-              },
-              {
-                "label": "inited",
-                "type": "t_bool"
-              },
-              {
-                "label": "proofDatas",
-                "type": "t_mapping(t_uint256,t_struct(ProofData)2278_storage)"
-              }
-            ]
-          },
-          "t_bool": {
-            "label": "bool"
-          },
-          "t_mapping(t_uint256,t_struct(ProofData)2278_storage)": {
-            "label": "mapping(uint256 => struct ViolasMProofDatas.ProofData)"
-          },
-          "t_struct(ProofData)2278_storage": {
-            "label": "struct ViolasMProofDatas.ProofData",
-            "members": [
-              {
-                "label": "amount",
-                "type": "t_uint256"
-              },
-              {
-                "label": "fee",
-                "type": "t_uint256"
-              },
-              {
-                "label": "version",
-                "type": "t_uint256"
-              },
-              {
-                "label": "sequence",
-                "type": "t_uint256"
-              },
-              {
-                "label": "state",
-                "type": "t_uint256"
-              },
-              {
-                "label": "token",
-                "type": "t_address"
-              },
-              {
-                "label": "data",
-                "type": "t_string_storage"
-              }
-            ]
-          },
-          "t_mapping(t_uint256,t_struct(AddressIndex)2301_storage)": {
-            "label": "mapping(uint256 => struct ViolasMProofDatas.AddressIndex)"
-          },
-          "t_struct(AddressIndex)2301_storage": {
-            "label": "struct ViolasMProofDatas.AddressIndex",
-            "members": [
-              {
-                "label": "sequence",
-                "type": "t_uint256"
-              },
-              {
-                "label": "sender",
-                "type": "t_address"
-              },
-              {
-                "label": "create",
-                "type": "t_bool"
-              }
-            ]
-          },
-          "t_contract(IViolasMProofState)4314": {
-            "label": "contract IViolasMProofState"
-          },
-          "t_mapping(t_address,t_bool)": {
-            "label": "mapping(address => bool)"
-          },
-          "t_mapping(t_uint256,t_address)": {
-            "label": "mapping(uint256 => address)"
-          },
-          "t_array(t_uint256)49_storage": {
-            "label": "uint256[49]"
-          },
-          "t_array(t_uint256)50_storage": {
-            "label": "uint256[50]"
-          }
-        }
-      }
-    },
     "77ae97b38653a9aa71d8d2cad13a17ea0be43ca3606d11f840f3eec78272913c": {
       "address": "0x67d269191c92Caf3cD7723F116c85e6E9bf55933",
       "txHash": "0x691d71e71939dcb13320bab729508e7b2f3ed478ab73894adcececb7a03c0ab9",
@@ -437,7 +210,7 @@
     },
     "8f165b57e538f952a53741764e792f787cbf7e1fbfb75761542f6696c43d0b0e": {
       "address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
-      "txHash": "0x0dab1c2fa4e7231d953efbbbac174d26dda14b9e9fe639185adfdfd3d3553b26",
+      "txHash": "0xd45969f99fc52af10145179c2b9e996969300148f9c55ad89dd3ac211b9b8f24",
       "layout": {
         "storage": [
           {
@@ -579,6 +352,227 @@
           },
           "t_mapping(t_address,t_uint256)": {
             "label": "mapping(address => uint256)"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]"
+          }
+        }
+      }
+    },
+    "9a5aacb550779050f310bbe8e18489de9a82c6d165d69067d91257b31d85a5cb": {
+      "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      "txHash": "0x3a1d137e7fe713811f57077f67d50fb2b04c75e645e4c857ffd2ab04bd85c70f",
+      "layout": {
+        "storage": [
+          {
+            "contract": "Initializable",
+            "label": "_initialized",
+            "type": "t_bool",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:23"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initializing",
+            "type": "t_bool",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:28"
+          },
+          {
+            "contract": "ContextUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:31"
+          },
+          {
+            "contract": "OwnableUpgradeable",
+            "label": "_owner",
+            "type": "t_address",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:20"
+          },
+          {
+            "contract": "OwnableUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)49_storage",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:74"
+          },
+          {
+            "contract": "Mngable",
+            "label": "managers",
+            "type": "t_mapping(t_address,t_bool)",
+            "src": "contracts/ViolasMProofDatas.sol:17"
+          },
+          {
+            "contract": "Mngable",
+            "label": "manager",
+            "type": "t_mapping(t_uint256,t_address)",
+            "src": "contracts/ViolasMProofDatas.sol:18"
+          },
+          {
+            "contract": "Mngable",
+            "label": "managerMaxCount",
+            "type": "t_uint256",
+            "src": "contracts/ViolasMProofDatas.sol:19"
+          },
+          {
+            "contract": "ViolasMProofDatas",
+            "label": "name",
+            "type": "t_string_storage",
+            "src": "contracts/ViolasMProofDatas.sol:145"
+          },
+          {
+            "contract": "ViolasMProofDatas",
+            "label": "symbol",
+            "type": "t_string_storage",
+            "src": "contracts/ViolasMProofDatas.sol:146"
+          },
+          {
+            "contract": "ViolasMProofDatas",
+            "label": "nextVersion",
+            "type": "t_uint256",
+            "src": "contracts/ViolasMProofDatas.sol:149"
+          },
+          {
+            "contract": "ViolasMProofDatas",
+            "label": "proofs",
+            "type": "t_mapping(t_address,t_struct(AddressProof)2290_storage)",
+            "src": "contracts/ViolasMProofDatas.sol:150"
+          },
+          {
+            "contract": "ViolasMProofDatas",
+            "label": "proofIndexs",
+            "type": "t_mapping(t_uint256,t_struct(AddressIndex)2297_storage)",
+            "src": "contracts/ViolasMProofDatas.sol:151"
+          },
+          {
+            "contract": "ViolasMProofDatas",
+            "label": "stateAddress",
+            "type": "t_address",
+            "src": "contracts/ViolasMProofDatas.sol:154"
+          },
+          {
+            "contract": "ViolasMProofDatas",
+            "label": "stateManage",
+            "type": "t_contract(IViolasMProofState)4319",
+            "src": "contracts/ViolasMProofDatas.sol:155"
+          },
+          {
+            "contract": "ViolasMProofDatas",
+            "label": "mainAddress",
+            "type": "t_address",
+            "src": "contracts/ViolasMProofDatas.sol:158"
+          }
+        ],
+        "types": {
+          "t_string_storage": {
+            "label": "string"
+          },
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_mapping(t_address,t_struct(AddressProof)2290_storage)": {
+            "label": "mapping(address => struct ViolasMProofDatas.AddressProof)"
+          },
+          "t_address": {
+            "label": "address"
+          },
+          "t_struct(AddressProof)2290_storage": {
+            "label": "struct ViolasMProofDatas.AddressProof",
+            "members": [
+              {
+                "label": "maxSequence",
+                "type": "t_uint256"
+              },
+              {
+                "label": "minVersion",
+                "type": "t_uint256"
+              },
+              {
+                "label": "maxVersion",
+                "type": "t_uint256"
+              },
+              {
+                "label": "account",
+                "type": "t_address"
+              },
+              {
+                "label": "inited",
+                "type": "t_bool"
+              },
+              {
+                "label": "proofDatas",
+                "type": "t_mapping(t_uint256,t_struct(ProofData)2274_storage)"
+              }
+            ]
+          },
+          "t_bool": {
+            "label": "bool"
+          },
+          "t_mapping(t_uint256,t_struct(ProofData)2274_storage)": {
+            "label": "mapping(uint256 => struct ViolasMProofDatas.ProofData)"
+          },
+          "t_struct(ProofData)2274_storage": {
+            "label": "struct ViolasMProofDatas.ProofData",
+            "members": [
+              {
+                "label": "amount",
+                "type": "t_uint256"
+              },
+              {
+                "label": "fee",
+                "type": "t_uint256"
+              },
+              {
+                "label": "version",
+                "type": "t_uint256"
+              },
+              {
+                "label": "sequence",
+                "type": "t_uint256"
+              },
+              {
+                "label": "state",
+                "type": "t_uint256"
+              },
+              {
+                "label": "token",
+                "type": "t_address"
+              },
+              {
+                "label": "data",
+                "type": "t_string_storage"
+              }
+            ]
+          },
+          "t_mapping(t_uint256,t_struct(AddressIndex)2297_storage)": {
+            "label": "mapping(uint256 => struct ViolasMProofDatas.AddressIndex)"
+          },
+          "t_struct(AddressIndex)2297_storage": {
+            "label": "struct ViolasMProofDatas.AddressIndex",
+            "members": [
+              {
+                "label": "sequence",
+                "type": "t_uint256"
+              },
+              {
+                "label": "sender",
+                "type": "t_address"
+              },
+              {
+                "label": "create",
+                "type": "t_bool"
+              }
+            ]
+          },
+          "t_contract(IViolasMProofState)4319": {
+            "label": "contract IViolasMProofState"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)"
+          },
+          "t_mapping(t_uint256,t_address)": {
+            "label": "mapping(uint256 => address)"
           },
           "t_array(t_uint256)49_storage": {
             "label": "uint256[49]"
