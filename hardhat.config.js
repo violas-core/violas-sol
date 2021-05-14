@@ -44,7 +44,7 @@ module.exports = {
       hardhat: {
           mining: {
               auto: false,
-              interval: [10000, 16000]
+              interval: [1000, 3000]
           }
       },
       localhost: {

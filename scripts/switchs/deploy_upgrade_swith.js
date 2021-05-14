@@ -48,14 +48,14 @@ function show_conf_name() {
 }
 
 function open_deploy(item, save = true) {
-    if (item.deploy) {
-        item.deploy = false;
+    if (!item.deploy) {
+        item.deploy = true;
         if(save) update_conf(violas.vlscontract_conf);
     }
 }
 function open_upgrade(item, save = true) {
-    if (item.upgrade) {
-        item.upgrade= false;
+    if (!item.upgrade) {
+        item.upgrade= true;
         if(save) update_conf(violas.vlscontract_conf);
     }
 }
