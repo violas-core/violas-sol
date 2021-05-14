@@ -85,7 +85,12 @@ define show_conf
 	npx hardhat run ./scripts/switchs/show_confs.js
 endef
 
+define show_tokens
+	npx hardhat run ./scripts/switchs/show_tokens.js
+endef
+
 open: 
+    ifeq ($(type),tokens)
 	$(call show_conf)
 	$(call hardhat_run , open, $(target), $(index))
 	$(call show_conf)

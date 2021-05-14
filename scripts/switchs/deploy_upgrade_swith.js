@@ -6,13 +6,12 @@ const utils     = require("../utils");
 const violas    = require("../../violas.config.js");
 const bak_path  = violas.caches_contracts;
 const {main, datas, state}  = require(violas.vlscontract_conf);
-const {ethers, upgrades}    = require("hardhat");
 
 function date_format(dash = "-", colon = ":", space = " ") {
     return utils.date_format(dash, colon, space);
 }
 
-async function show_msg(msg, title = "") {
+function show_msg(msg, title = "") {
     utils.show_msg(msg, title, {"format": false, "type": "table"});
 }
 
