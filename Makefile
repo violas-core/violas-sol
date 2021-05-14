@@ -48,6 +48,8 @@ clean:
 	@rm -v -rf $(output)/*
 
 else
+#use npx hardhat
+
 main: clean build 
 
 build:
@@ -74,48 +76,33 @@ show_contract:
 	npx hardhat run ./scripts/show_contract.js
 endif
 
-opts="deploy upgrade"
-types="main state datas"
-opt_value 	= ''
-type_value 	= ''
-opt_file 	= ''
-run_mod 	= 'close'
 
-open: update_conf show_conf
-close: update_conf show_conf
+define hardhat_run
+	npx hardhat run ./scripts/switchs/$(subst _.,.,$(subst __,_,$(strip $(1))_$(strip $(2))_$(strip $(3)).js))
+endef
 
-merge_js_file: save_opt_type_value
-    ifeq ($(opt_value)'_'$(type_value), '''_''')
-    opt_file = ./scripts/switchs/$(run_mod)_all.js
-    endif
+define show_conf
+	npx hardhat run ./scripts/switchs/show_confs.js
+endef
 
-save_opt_type_value: 
-    ifneq ($(opt), )
-	@echo $(opts) | grep -q $(opt)
-    ifneq ($?, 0)
-	@echo "input opt is: " $(opts)
-    else
-    opt_value = $(opt)
-    endif
-    endif
+open: 
+	$(call show_conf)
+	$(call hardhat_run , open, $(target), $(index))
+	$(call show_conf)
 
-    ifneq ($(type), )
-	echo $(types) | grep -q $(type)
-    ifneq ($?, 0)
-	@echo "input opt is: " $(types)
-    else
-    type_value = $(type)
-    endif
-    endif
+close: 
+	$(call show_conf)
+	$(call hardhat_run , close, $(target), $(index))
+	$(call show_conf)
 
-	@echo "opt = " $(opt) " type = " $(type)
+closed: update_conf show_conf
 
-	
-update_conf: merge_js_file
-	npx hardhat run $(opt_file)
+
+
+update_conf: show_conf
 
 show_conf:
-	npx hardhat run ./scripts/switchs/show_confs.js
+	$(call show_conf)
 
 
 .PHONY: select build clean deploy init init_main init_datas show_conf show_contract open close
