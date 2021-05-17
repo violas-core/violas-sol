@@ -58,6 +58,8 @@ clean:
 	#npx
 	npx hardhat clean
 
+endif
+
 upgrade:
 	npx hardhat run ./scripts/violas_proof_deploy_upgrade.js
 
@@ -72,10 +74,8 @@ init_main:
 init_datas:
 	npx hardhat run ./scripts/init_datas.js
 
-show_contract:
+show_chain_contract:
 	npx hardhat run ./scripts/show_contract.js
-endif
-
 
 define hardhat_run
 	@npx hardhat run ./scripts/switchs/$(strip $1)/$(subst _.,.,$(subst __,_,$(strip $(2))_$(strip $(3))_$(strip $(4)).js))
@@ -119,5 +119,7 @@ show_tokens:
 show_contracts:
 	$(call show_conf, "contracts")
 
+help:
+	@npx hardhat run scripts/helps.js
 
-.PHONY: select build clean deploy init init_main init_datas show_confs show_contracts show_tokens open close use unuse  init_tokens_script clean_tokens_script
+.PHONY: select build clean deploy init init_main init_datas show_chain_contract show_contracts show_tokens open close use unuse  init_tokens_script clean_tokens_script

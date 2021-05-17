@@ -92,6 +92,8 @@ function show_msg(msg, title = "", kwargs = {}) {
         if (format) {
             msg = JSON.stringify(msg);
             if (msg.length > 0) msg = date_format() + ": " + add_color(msg, color);
+        } else {
+            msg = add_color(msg, color);
         }
         console.log(msg);
     }
