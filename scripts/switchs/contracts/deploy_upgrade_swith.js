@@ -2,8 +2,8 @@
 const fs        = require('fs');
 const path      = require("path");
 const program   = require('commander');
-const utils     = require("../utils");
-const violas    = require("../../violas.config.js");
+const utils     = require("../../utils");
+const violas    = require("../../../violas.config.js");
 const bak_path  = violas.caches_contracts;
 const {main, datas, state}  = require(violas.vlscontract_conf);
 

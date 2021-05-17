@@ -1,6 +1,6 @@
 // scripts/deploy_upgradeable_xxx.js
-const fs = require('fs');
-const path = require("path");
+const fs    = require('fs');
+const path  = require("path");
 const { ethers, upgrades } = require("hardhat");
 
 function date_format(dash = "-", colon = ":", space = " ") {
@@ -50,6 +50,7 @@ function error(msg, title = "", kwargs = {}) {
     }
     show_msg(msg, title, kwargs);
 }
+
 function __merge_kwargs(kwargs, defkwargs) {
     if(kwargs == undefined) {
         kwargs = defkwargs;
@@ -96,14 +97,34 @@ function show_msg(msg, title = "", kwargs = {}) {
     }
 }
 
-function write_json(filename, data) {
-    save_data = JSON.stringify(data, null, "\t");
+function get_files(pathname) {
+    let files = fs.readdirSync(pathname)
+    let file_names = new Array();
+    for (let i = 0; i < files.length; i++) {
+        stat = fs.statSync(path.join(pathname, files[i]));
+        if (stat.isFile()) {
+            file_names.push(files[i]);
+        }
+    }
+    return file_names;
+}
+
+function write_datas(filename, data) {
     if (fs.existsSync(filename)) {
-        fs.writeFileSync(filename, save_data);
+        fs.writeFileSync(filename, data);
     } else {
-        fs.writeFileSync(filename, save_data);
+        fs.writeFileSync(filename, data);
     }
     return true;
+}
+
+function file_exists(filename) {
+    return fs.existsSync(filename);
+}
+
+function write_json(filename, data) {
+    save_data = JSON.stringify(data, null, "\t");
+    return write_datas(filename, save_data);
 }
 const styles = {
     '': ['', ''],
@@ -132,11 +153,11 @@ const styles = {
     'yellowBG': ['\x1B[43m', '\x1B[49m']
 };
 
-function mkdirsSync(dirname) {
+function mkdirs_sync(dirname) {
     if (fs.existsSync(dirname)) {
           return true;
     } else {
-          if (mkdirsSync(path.dirname(dirname))) {
+          if (mkdirs_sync(path.dirname(dirname))) {
                  fs.mkdirSync(dirname);
                  return true;
           }
@@ -146,11 +167,14 @@ module.exports = {
     date_format,
     get_contract,
     show_msg,
+    file_exists,
     write_json,
+    write_datas,
     add_color,
     info,
     debug,
     warning,
     error,
-    mkdirsSync
+    mkdirs_sync,
+    get_files,
 }

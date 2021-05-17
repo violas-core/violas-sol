@@ -1,2 +1,2 @@
 const switchs = require("./tokens_swith.js");
-switchs.close_all_token();
+switchs.open_token_with_name("usdt");
