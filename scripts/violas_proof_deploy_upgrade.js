@@ -87,8 +87,8 @@ async function update_conf(filename) {
     await write_json(filename, data);
 }
 
-function mkdirsSync(dirname) {
-    return  utils.mkdirsSync(dirname)
+function mkdirs_sync(dirname) {
+    return  utils.mkdirs_sync(dirname)
 }
 
 async function bak_conf(pathname) {
@@ -99,7 +99,7 @@ async function bak_conf(pathname) {
     utils.info("save old config to: " + new_pathname , "bak_conf(" + filename + ")");
     data = {state : state, datas : datas, main : main};
     if (!fs.existsSync(bak_path)) {
-        mkdirsSync(bak_path);
+        mkdirs_sync(bak_path);
     }
     await write_json(new_pathname, data);
 }

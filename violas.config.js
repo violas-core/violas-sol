@@ -39,7 +39,6 @@ function tokens_conf() {
     }
 
     var pathname =  path.join(__dirname, configs["networks"][configs.defaultNetwork].tokens);
-    console.log(pathname);
     return pathname;
 }
 

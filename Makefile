@@ -78,36 +78,46 @@ endif
 
 
 define hardhat_run
-	npx hardhat run ./scripts/switchs/$(subst _.,.,$(subst __,_,$(strip $(1))_$(strip $(2))_$(strip $(3)).js))
+	@npx hardhat run ./scripts/switchs/$(strip $1)/$(subst _.,.,$(subst __,_,$(strip $(2))_$(strip $(3))_$(strip $(4)).js))
 endef
 
 define show_conf
-	npx hardhat run ./scripts/switchs/show_confs.js
+	@npx hardhat run ./scripts/switchs/$(strip $1)/show_confs.js
 endef
 
-define show_tokens
-	npx hardhat run ./scripts/switchs/show_tokens.js
-endef
 
 open: 
-    ifeq ($(type),tokens)
-	$(call show_conf)
-	$(call hardhat_run , open, $(target), $(index))
-	$(call show_conf)
+	$(call show_conf, "contracts")
+	$(call hardhat_run , "contracts", open, $(target), $(index))
+	$(call show_conf, "contracts")
 
 close: 
-	$(call show_conf)
-	$(call hardhat_run , close, $(target), $(index))
-	$(call show_conf)
+	$(call show_conf, "contracts")
+	$(call hardhat_run , "contracts", close, $(target), $(index))
+	$(call show_conf, "contracts")
 
-closed: update_conf show_conf
-
-
-
-update_conf: show_conf
-
-show_conf:
-	$(call show_conf)
+use: init_tokens_script
+	$(call show_conf, "tokens")
+	$(call hardhat_run, "tokens", open, $(target))
+	$(call show_conf, "tokens")
 
 
-.PHONY: select build clean deploy init init_main init_datas show_conf show_contract open close
+unuse: init_tokens_script
+	$(call show_conf, "tokens")
+	$(call hardhat_run , "tokens", close, $(target))
+	$(call show_conf, "tokens")
+
+init_tokens_script:
+	@npx hardhat run scripts/switchs/tokens/update_token_scripts.js
+
+clean_tokens_script:
+	@npx hardhat run scripts/switchs/tokens/clean_tokens_scripts.js
+
+show_tokens:
+	$(call show_conf, "tokens")
+
+show_contracts:
+	$(call show_conf, "contracts")
+
+
+.PHONY: select build clean deploy init init_main init_datas show_confs show_contracts show_tokens open close use unuse  init_tokens_script clean_tokens_script

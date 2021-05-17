@@ -1,12 +1,9 @@
-// scripts/deploy_upgradeable_xxx.js
 const fs        = require('fs');
 const path      = require("path");
 const program   = require('commander');
-const utils     = require("../utils");
-const violas    = require("../../violas.config.js");
-const bak_path  = violas.caches_contracts;
-const {main, datas, state}  = require(violas.vlscontract_conf);
-const {tokens}              = require(violas.tokens_conf);
+const utils     = require("../../utils");
+const violas    = require("../../../violas.config.js");
+const {tokens}  = require(violas.tokens_conf);
 
 function date_format(dash = "-", colon = ":", space = " ") {
     return utils.date_format(dash, colon, space);
@@ -55,11 +52,12 @@ function update_max(item, max, save = true) {
 
 function show_conf() {
     show_msg(tokens, violas.tokens_conf)
+}
 
 
 function close_token_with_name(name) {
     for(let i = 0; i < tokens.length; i++) {
-        if (tokens[i].name = name) {
+        if (tokens[i].name == name) {
             close_token(tokens[i])
             return true;
         }
@@ -69,7 +67,7 @@ function close_token_with_name(name) {
 
 function open_token_with_name(name) {
     for(let i = 0; i < tokens.length; i++) {
-        if (tokens[i].name = name) {
+        if (tokens[i].name == name) {
             open_token(tokens[i])
             return true;
         }
@@ -77,17 +75,17 @@ function open_token_with_name(name) {
     return false;
 }
 
-function close_all_token() {
+function close_all() {
     for(let i = 0; i < tokens.length; i++) {
         close_token(tokens[i], false)
     }
-    update_conf(viols.tokens_conf);
+    update_conf(violas.tokens_conf);
     return false;
 }
 
 function update_token_min_with_name(name, min) {
     for(let i = 0; i < tokens.length; i++) {
-        if (tokens[i].name = name) {
+        if (tokens[i].name == name) {
             update_min(tokens[i], min);
             return true;
         }
@@ -97,7 +95,7 @@ function update_token_min_with_name(name, min) {
 
 function update_token_max_with_name(name, min) {
     for(let i = 0; i < tokens.length; i++) {
-        if (tokens[i].name = name) {
+        if (tokens[i].name == name) {
             update_max(tokens[i], min);
             return true;
         }
@@ -109,12 +107,48 @@ function show_conf_name() {
     show_msg(violas.tokens_conf, "file name")
 }
 
+function create_open_script(token, always = false, basepath = "") {
+    let filename = path.join(basepath, "open_" + token + ".js");
+    let script = "const switchs = require(\"./tokens_swith.js\");\nswitchs.open_token_with_name(\"" + token + "\");";
+    if (!utils.file_exists(filename) || always) {
+        utils.debug("create_open_script: " + filename);
+        utils.write_datas(filename, script);
+    }
+}
+
+function create_close_script(token, always = false, basepath = "") {
+    let filename = path.join(basepath,  "close_" + token + ".js");
+    let script = "const switchs = require(\"./tokens_swith.js\");\nswitchs.close_token_with_name(\"" + token + "\");";
+    if (!utils.file_exists(filename) || always) {
+        utils.debug("create_close_script: " + filename);
+        utils.write_datas(filename, script);
+    }
+}
+
+function create_token_script(token, basepath = "./", always = false) {
+    if (basepath != undefined && !path.isAbsolute(basepath)) {
+        basepath = path.join(__dirname, basepath);
+    }
+    create_open_script(token, always, basepath);
+    create_close_script(token, always, basepath);
+}
+
+function token_names() {
+    let names = new Array();
+    for (let i = 0; i < tokens.length; i++) {
+        names.push(tokens[i].name);
+    }
+    return names;
+}
+
 module.exports = {
-    close_all_token,
+    close_all,
     close_token_with_name,
     open_token_with_name,
     update_token_min_with_name,
     update_token_max_with_name,
     show_conf,
-    show_conf_name
+    show_conf_name,
+    create_token_script,
+    token_names
 }
