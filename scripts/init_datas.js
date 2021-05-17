@@ -1,4 +1,3 @@
-// scripts/index.js
 const utils = require("./utils");
 const violas = require("../violas.config.js");
 const vlscontract_conf = violas.vlscontract_conf;
