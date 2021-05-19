@@ -2,14 +2,28 @@
 	"tokens": [
 		{
 			"name": "usdt",
-			"address": "0x6f08730dA8e7de49a4064d2217c6B68d7E61E727",
+			"address": "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
 			"use": false,
 			"min": 1,
 			"max": 20000000000
 		},
 		{
 			"name": "wbtc",
-			"address": "0xB883664F0095DE55491927B6829fF9BF4ab4d8A1",
+			"address": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+			"use": false,
+			"min": 3,
+			"max": 4
+		},
+		{
+			"name": "hbtc",
+			"address": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+			"use": false,
+			"min": 3,
+			"max": 4
+		},
+		{
+			"name": "wfil",
+			"address": "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
 			"use": false,
 			"min": 3,
 			"max": 4

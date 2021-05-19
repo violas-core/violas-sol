@@ -75,25 +75,25 @@ args = [
     {
         "name":     "open",
         "value":    "target=[deploy | upgrade] index=[main | datas | state]",
-        "desc":     "open switchs in json/contracts/vlscontract_NETWORK.json",
+        "desc":     "open switchs in jsons/contracts/vlscontract_NETWORK.json",
         "premise":  "",
     },
     {
         "name":     "close",
         "value":    "[target=[deploy | upgrade | | all]] index=[main | datas | state |]",
-        "desc":     "open switchs in json/contracts/vlscontract_NETWORK.json",
+        "desc":     "open switchs in jsons/contracts/vlscontract_NETWORK.json",
         "premise":  "",
     },
     {
         "name":     "use",
         "value":    "target=[usdt | wbtc |...]",
-        "desc":     "open switch(use=true) in json/tokens/erc20_tokens_NETWORK.json",
+        "desc":     "open switch(use=true) in jsons/tokens/erc20_tokens_NETWORK.json",
         "premise":  "init_tokens_script",
     },
     {
         "name":     "unuse",
         "value":    "target=[usdt | wbtc |...| all]",
-        "desc":     "close switch(use=true) in json/tokens/erc20_tokens_NETWORK.json",
+        "desc":     "close switch(use=true) in jsons/tokens/erc20_tokens_NETWORK.json",
         "premise":  "",
     },
     {
@@ -111,13 +111,25 @@ args = [
     {
         "name":     "show_tokens",
         "value":    "",
-        "desc":     "show json/tokens/erc20_tokens_NETWORK.json info",
+        "desc":     "show jsons/tokens/erc20_tokens_NETWORK.json info",
         "premise":  "",
     },
     {
         "name":     "show_contracts",
         "value":    "",
-        "desc":     "show json/json/contracts/vlscontract_NETWORK.json info",
+        "desc":     "show jsons/contracts/vlscontract_NETWORK.json info",
+        "premise":  "",
+    },
+    {
+        "name":     "deploys_erc20",
+        "value":    "",
+        "desc":     "deploys erc20 tokens jsons/tokens/deploys/erc20_tokens_NETWORK.json",
+        "premise":  "",
+    },
+    {
+        "name":     "show_deploys",
+        "value":    "",
+        "desc":     "show deploys erc20 tokens jsons/tokens/deploys/erc20_tokens_NETWORK.json",
         "premise":  "",
     },
 ]

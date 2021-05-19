@@ -1,16 +1,27 @@
-// scripts/deploy_upgradeable_xxx.js
-const fs        = require('fs');
-const path      = require("path");
-const program   = require('commander');
 const utils     = require("../utils");
-const violas    = require("../../violas.config.js");
-const bak_path  = violas.caches_erc20_tokens;
-const {tokens}  = require(violas.erc20_tokens_conf);
+const deploy    = require("./deploy.js");
 
-base = {
-    "network" : violas.network,
-    "bakpath" : bak_path
+async function main() {
+    tokens = deploy.new_token_list();
+    let infos = []
+    for (let i = 0; i < tokens.length; i++) {
+        let address = tokens[i]["address"];
+        if (address == undefined) continue;
+        let dp = await deploy.get_contract(address);
+        let symbol = await dp.symbol();
+        infos.push({
+            "name" :    await dp.name(),
+            "symbol":   await dp.symbol(),
+            "decimals": (await dp.decimals()).toString(),
+            "totalSupply":  (await dp.totalSupply()).toString(),
+        });
+    }
+    utils.table(infos);
 }
 
-utils.table(base, "base info");
-utils.table(tokens, "deploys tokens");
+main()
+  .then(() => process.exit(0))
+  .catch(error => {
+    console.error(error);
+    process.exit(1);
+  });

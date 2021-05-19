@@ -1,3 +1,35 @@
 {
-    "tokens": []
+	"tokens": [
+		{
+			"name": "vls hbtc",
+			"symbol": "hbtc",
+			"decimals": 18,
+			"address": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+			"create": false,
+			"mint": 0
+		},
+		{
+			"name": "vls wbtc",
+			"symbol": "wbtc",
+			"decimals": 18,
+			"address": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+			"create": false,
+			"mint": 0
+		},
+		{
+			"name": "vls wfil",
+			"symbol": "wfil",
+			"address": "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
+			"create": false,
+			"mint": 0
+		},
+		{
+			"name": "vls usdt",
+			"symbol": "usdt",
+			"decimals": 6,
+			"address": "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
+			"create": false,
+			"mint": 1000000
+		}
+	]
 }
