@@ -119,10 +119,16 @@ show_tokens:
 show_contracts:
 	$(call show_conf, "contracts")
 
-show_deploys:
+show_deploys_conf:
+	@npx hardhat run ./scripts/tokens/show_erc20_tokens_conf.js
+
+show_deploys_tokens:
 	@npx hardhat run ./scripts/tokens/show_erc20_tokens.js
+
+deploys_erc20:
+	@npx hardhat run ./scripts/tokens/deploy_erc20_tokens.js
 
 help:
 	@npx hardhat run scripts/helps.js
 
-.PHONY: select build clean deploy init init_main init_datas show_chain_contract show_contracts show_tokens open close use unuse  init_tokens_script clean_tokens_script show_deploys
+.PHONY: select build clean deploy init init_main init_datas show_chain_contract show_contracts show_tokens open close use unuse  init_tokens_script clean_tokens_script show_deploys_conf deploys_erc20, show_deploys_tokens
