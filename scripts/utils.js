@@ -76,6 +76,11 @@ function info(msg, title = "", kwargs = {}) {
     show_msg(msg, title, kwargs);
 }
 
+function table(msg, title = "", kwargs = {}) {
+    kwargs = __merge_kwargs(kwargs, {"format":false, "type":"table"});
+    show_msg(msg, title, kwargs);
+}
+
 function show_msg(msg, title = "", kwargs = {}) {
     type        = get_kwargs(kwargs, "type", "log");
     title_color = get_kwargs(kwargs, "title_color", "red");
@@ -177,6 +182,8 @@ module.exports = {
     debug,
     warning,
     error,
+    table,
     mkdirs_sync,
     get_files,
+
 }

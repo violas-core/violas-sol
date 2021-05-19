@@ -1,7 +1,7 @@
 output/
-datas/
 node_modules
 tags
+localhost/
 
 #Hardhat files
 cache

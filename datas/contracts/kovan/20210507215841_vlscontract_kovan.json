@@ -1,0 +1,23 @@
+{
+	"state": {
+		"name": "ViolasMProofState",
+		"address": "",
+		"deploy": true,
+		"upgrade": false,
+		"params": []
+	},
+	"datas": {
+		"name": "ViolasMProofDatas",
+		"address": "",
+		"deploy": true,
+		"upgrade": false,
+		"params": []
+	},
+	"main": {
+		"name": "ViolasMProofMain",
+		"address": "",
+		"deploy": true,
+		"upgrade": false,
+		"params": []
+	}
+}

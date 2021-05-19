@@ -25,11 +25,18 @@ async function run() {
 
     if(violas.tokens_conf != undefined) {
         const {tokens}  = require(violas.tokens_conf);
-        await show_msg(tokens,      "tokens");
+        await show_msg(tokens,      "main can use tokens");
+    } else {
+        await show_msg("tokens config not found.", "main can use tokens");
+    }
+    await show_msg(contracts_conf, "contracts");
+
+    if(violas.erc20_tokens_conf != undefined) {
+        const {tokens}  = require(violas.erc20_tokens_conf);
+        await show_msg(tokens,      "deploys erc20 tokens");
     } else {
         await show_msg("tokens config not found.", "tokens");
     }
-    await show_msg(contracts_conf, "contracts");
 }
 
 run()
