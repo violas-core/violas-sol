@@ -24,7 +24,7 @@ async function update_tokens(cobj) {
         let token = tokens[i];
         if(token.use) {
             let tokenAddress = await cobj.tokenAddress(token.name);
-            if(tokenAddress != token.address && tokenAddress.length > 0) {
+            if(true || tokenAddress != token.address && tokenAddress.length > 0) {
                 await cobj.updateToken(token.name, token.address)
                 utils.warning("upgrade " + token.name +" address: " + token.address);
             } else {
@@ -45,18 +45,20 @@ async function update_tokens(cobj) {
                 utils.info(token.name + "(" + token.address + ") max is already " + max);
             }
 
-            if (main.payee !== undefined && main.payee.length > 0) {
-                if (main.payee != await cobj.payee()) {
-                    utils.warning("upgrade payee: " + main.payee);
-                    await cobj.transferPayeeship(main.payee);
-                } else {
-                    utils.info(main.payee + " is already payee");
-                }
-            }
         }
     }
 }
 
+async function update_payee(cobj) {
+    if (main.payee !== undefined && main.payee.length > 0) {
+        if (main.payee != await cobj.payee()) {
+            utils.warning("upgrade payee: " + main.payee);
+            await cobj.transferPayeeship(main.payee);
+        } else {
+            utils.info(main.payee + " is already payee");
+        }
+    }
+}
 async function update_proof_address(cobj) {
     let proofAddress = await cobj.proofAddress();
     if (proofAddress != datas.address) {
@@ -72,6 +74,7 @@ async function run() {
 
     await update_proof_address(cobj);
     await update_tokens(cobj);
+    await update_payee(cobj);
 }
 
 run()

@@ -10,7 +10,7 @@ interface ITokenFactory{
     function tokenAddress(string calldata name) external view returns(address);
     function tokenName(address token) external view returns(string memory);
     function updateToken(string calldata name, address token) external payable returns(bool);
-    function removeToken(string calldata name) external payable returns(bool);
-    function removeToken(address name) external payable returns(bool);
+    function removeTokenWithName(string calldata name) external payable returns(bool);
+    function removeTokenWithAddress(address token) external payable returns(bool);
 }
 

@@ -90,7 +90,7 @@ async function main_env() {
         let tokenName = await cobj.validTokenNames(i);
         let validToken = {};
         if(tokenName.length > 0) {
-            utils.debug("get token " + tokenName " info...")
+            utils.debug("get token " + tokenName + " info...")
             validToken["address"] = await cobj.tokenAddress(tokenName);
             let min = await cobj.tokenMinAmount(validToken["address"]);
             let max = await cobj.tokenMaxAmount(validToken["address"]); 
