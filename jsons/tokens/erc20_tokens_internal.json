@@ -4,15 +4,106 @@
             "name": "usdt",
             "address": "0x6f08730dA8e7de49a4064d2217c6B68d7E61E727",
             "use":true,
-            "min":1,
+            "min":0,
             "max":0
         },
         {
             "name": "wbtc",
             "address": "0xB883664F0095DE55491927B6829fF9BF4ab4d8A1",
             "use":true,
-            "min":3,
+            "min":0,
             "max":0
-        }
+        },
+		{
+			"name": "hbtc",
+			"address": "0x0BE69180a4b6E757A9ef8C65f609397705Fa2Eb3",
+            "use":true,
+            "min":0,
+            "max":0
+		},
+		{
+			"name": "wfil",
+			"address": "0x1D08650804F889106BB4e928c416469D08109501",
+            "use":true,
+            "min":0,
+            "max":0
+		},
+		{
+			"name": "renbtc",
+			"address": "0x7370bcD702d375d03c6A8aFad0e0FF063294a056",
+            "use":true,
+            "min":0,
+            "max":0
+		},
+		{
+			"name": "usdc",
+			"address": "0x8940E8e8e164348c8cb393B80dEb6b3C9326D46f",
+            "use":true,
+            "min":0,
+            "max":0
+		},
+		{
+			"name": "busd",
+			"address": "0xC63A567032C13BeEF091B7198c2f21dda0e85B75",
+            "use":true,
+            "min":0,
+            "max":0
+		},
+		{
+			"name": "dai",
+			"address": "0xC141e1cFfC14279D3B140D239a977d729426DEFA",
+            "use":true,
+            "min":0,
+            "max":0
+		},
+		{
+			"name": "weth",
+			"address": "0xc1765B415F634f75Ba8E5Bc1dD1fFdeD5B813140",
+            "use":true,
+            "min":0,
+            "max":0
+		},
+		{
+			"name": "uni",
+			"address": "0x29B7c44d92FFAD7d61Fdf98C2ca2C84aC157eC49",
+            "use":true,
+            "min":0,
+            "max":0
+		},
+		{
+			"name": "sushi",
+			"address": "0xF355f746CFD120E21c4D7bf6D3b4682888D9C05E",
+            "use":true,
+            "min":0,
+            "max":0
+		},
+		{
+			"name": "link",
+			"address": "0x506B5602009F64d0a5BEcd89Fd907BF3f1391166",
+            "use":true,
+            "min":0,
+            "max":0
+		},
+		{
+			"name": "comp",
+			"address": "0x6D3BC2163db85415A87B263ED75dAA2A0cbdeeF9",
+            "use":true,
+            "min":0,
+            "max":0
+		},
+		{
+			"name": "aave",
+			"address": "0xb0a0537cefCB8C29378d25a895265f28E81b0200",
+            "use":true,
+            "min":0,
+            "max":0
+		},
+		{
+			"name": "bnb",
+			"address": "0x966cA0A662e9bb4A3C98705A1ce92B8E32E2B24C",
+            "use":true,
+            "min":0,
+            "max":0
+		}
     ]
 }

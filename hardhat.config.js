@@ -1,7 +1,7 @@
 require("@nomiclabs/hardhat-waffle");
 require('@nomiclabs/hardhat-ethers');
 require('@openzeppelin/hardhat-upgrades');
-const { key, mnemonic, key_infura } = require('./secrets.json');
+const { key, mnemonic, key_infura, key_infura_mainnet} = require('./secrets.json');
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -39,7 +39,7 @@ module.exports = {
           //}
       ]
   },
-  defaultNetwork: "localhost",
+  defaultNetwork: "internal",
   networks: {
       hardhat: {
           mining: {
@@ -64,6 +64,10 @@ module.exports = {
       },
       internal: {
           url: `https://kovan.infura.io/v3/${key_infura}`,
+          accounts :{mnemonic : mnemonic}
+      },
+      mainnet: {
+          url: `https://mainnet.infura.io/v3/${key_infura_mainnet}`,
           accounts :{mnemonic : mnemonic}
       }
   },

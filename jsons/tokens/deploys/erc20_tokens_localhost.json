@@ -30,6 +30,62 @@
 			"address": "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
 			"create": false,
 			"mint": 1000000
+		},
+		{
+			"name": "vls renbtc",
+			"symbol": "renbtc",
+			"decimals": 6
+		},
+		{
+			"name": "vls usdc",
+			"symbol": "usdc",
+			"decimals": 6
+		},
+		{
+			"name": "vls busd",
+			"symbol": "busd",
+			"decimals": 6
+		},
+		{
+			"name": "vls dai",
+			"symbol": "dai",
+			"decimals": 6
+		},
+		{
+			"name": "vls weth",
+			"symbol": "weth",
+			"decimals": 6
+		},
+		{
+			"name": "vls uni",
+			"symbol": "uni",
+			"decimals": 6
+		},
+		{
+			"name": "vls sushi",
+			"symbol": "sushi",
+			"decimals": 6
+		},
+		{
+			"name": "vls link",
+			"symbol": "link",
+			"decimals": 6
+		},
+		{
+			"name": "vls comp",
+			"symbol": "comp",
+			"decimals": 6
+		},
+		{
+			"name": "vls aave",
+			"symbol": "aave",
+			"decimals": 6
+		},
+		{
+			"name": "vls bnb",
+			"symbol": "bnb",
+			"decimals": 6
 		}
+
 	]
 }

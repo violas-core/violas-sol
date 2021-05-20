@@ -38,6 +38,13 @@ function close_upgrade(item, save = true) {
 }
 
 function show_conf() {
+    if (main.manager != undefined) {
+        let managers = ""
+        for (let i = 0; i < main.manager.length; i++) {
+            managers += main.manager[i];
+        }
+        main.manager = managers;
+    }
     data = {state : state, datas : datas, main : main};
     show_msg(data, violas.vlscontract_conf)
 }

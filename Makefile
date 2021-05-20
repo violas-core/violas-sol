@@ -131,4 +131,4 @@ deploys_erc20:
 help:
 	@npx hardhat run scripts/helps.js
 
-.PHONY: select build clean deploy init init_main init_datas show_chain_contract show_contracts show_tokens open close use unuse  init_tokens_script clean_tokens_script show_deploys_conf deploys_erc20, show_deploys_tokens
+.PHONY: select build clean deploy init init_main init_datas show_chain_contract show_contracts show_tokens open close use unuse  init_tokens_script clean_tokens_script show_deploys_conf deploys_erc20 show_deploys_tokens

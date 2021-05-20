@@ -1,5 +1,6 @@
 const utils     = require("../utils");
 const deploy    = require("./deploy.js");
+const { ethers, upgrades } = require("hardhat");
 
 async function main() {
     tokens = deploy.new_token_list();
@@ -15,9 +16,13 @@ async function main() {
         if (tokens[i].mint == undefined || tokens[i].mint > 0) {
             let dp = await deploy.get_contract(address);
             let decimals = Math.pow(10, await dp.decimals());
-            let amount = tokens[i].mint == undefined ? 1000000 * decimals : tokens[i].mint * decimals;
+            let amount_str = tokens[i].mint == undefined ? decimals.toString() + 1000000 : (tokens[i].mint).toString() + decimals.toString();
+            let amount = ethers.BigNumber.from(amount_str);
+            
+            utils.info("current totalSupply: " + (await dp.totalSupply()).toString());
             utils.info("mint " + tokens[i].symbol + " amount = " + amount);
             await dp.mint(address, amount);
+            utils.info("new totalSupply: " + (await dp.totalSupply()).toString());
         }
     }
 }
