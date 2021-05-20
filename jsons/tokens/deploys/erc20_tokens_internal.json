@@ -1,35 +1,109 @@
 {
 	"tokens": [
 		{
-			"name": "vls hbtc",
-			"symbol": "hbtc",
+			"name": "vls internal hbtc",
+			"symbol": "vlsihbtc",
 			"decimals": 18,
-			"address": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
-			"create": false,
-			"mint": 0
+			"address": "0x0BE69180a4b6E757A9ef8C65f609397705Fa2Eb3",
+			"create": false
 		},
 		{
-			"name": "vls wbtc",
-			"symbol": "wbtc",
+			"name": "vls internal wbtc",
+			"symbol": "vlsiwbtc",
+			"decimals": 8,
+			"address": "0xA1bdA81986321124b87f24c0720FA8fb0f8c9BdB",
+			"create": false
+		},
+		{
+			"name": "vls internal wfil",
+			"symbol": "vlsiwfil",
 			"decimals": 18,
-			"address": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
-			"create": false,
-			"mint": 0
+			"address": "0x1D08650804F889106BB4e928c416469D08109501",
+			"create": false
 		},
 		{
-			"name": "vls wfil",
-			"symbol": "wfil",
-			"address": "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
-			"create": false,
-			"mint": 0
-		},
-		{
-			"name": "vls usdt",
-			"symbol": "usdt",
+			"name": "vls internal usdt",
+			"symbol": "vlsiusdt",
 			"decimals": 6,
-			"address": "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
-			"create": false,
-			"mint": 1000000
+			"address": "0x1a9E65Be18138Cd54152cD02293baD2cD1b624Ec",
+			"create": false
+		},
+		{
+			"name": "vls internal renbtc",
+			"symbol": "vlsirenbtc",
+			"decimals": 8,
+			"address": "0x7370bcD702d375d03c6A8aFad0e0FF063294a056",
+			"create": false
+		},
+		{
+			"name": "vls internal usdc",
+			"symbol": "vlsiusdc",
+			"decimals": 6,
+			"address": "0x8940E8e8e164348c8cb393B80dEb6b3C9326D46f",
+			"create": false
+		},
+		{
+			"name": "vls internal busd",
+			"symbol": "vlsibusd",
+			"decimals": 18,
+			"address": "0xC63A567032C13BeEF091B7198c2f21dda0e85B75",
+			"create": false
+		},
+		{
+			"name": "vls internal dai",
+			"symbol": "vlsidai",
+			"decimals": 18,
+			"address": "0xC141e1cFfC14279D3B140D239a977d729426DEFA",
+			"create": false
+		},
+		{
+			"name": "vls internal weth",
+			"symbol": "vlsiweth",
+			"decimals": 18,
+			"address": "0xc1765B415F634f75Ba8E5Bc1dD1fFdeD5B813140",
+			"create": false
+		},
+		{
+			"name": "vls internal uni",
+			"symbol": "vlsiuni",
+			"decimals": 18,
+			"address": "0x29B7c44d92FFAD7d61Fdf98C2ca2C84aC157eC49",
+			"create": false
+		},
+		{
+			"name": "vls internal sushi",
+			"symbol": "vlsisushi",
+			"decimals": 18,
+			"address": "0xF355f746CFD120E21c4D7bf6D3b4682888D9C05E",
+			"create": false
+		},
+		{
+			"name": "vls internal link",
+			"symbol": "vlsilink",
+			"decimals": 18,
+			"address": "0x506B5602009F64d0a5BEcd89Fd907BF3f1391166",
+			"create": false
+		},
+		{
+			"name": "vls internal comp",
+			"symbol": "vlsicomp",
+			"decimals": 18,
+			"address": "0x6D3BC2163db85415A87B263ED75dAA2A0cbdeeF9",
+			"create": false
+		},
+		{
+			"name": "vls internal aave",
+			"symbol": "vlsiaave",
+			"decimals": 18,
+			"address": "0xb0a0537cefCB8C29378d25a895265f28E81b0200",
+			"create": false
+		},
+		{
+			"name": "vls internal bnb",
+			"symbol": "vlsibnb",
+			"decimals": 18,
+			"address": "0x966cA0A662e9bb4A3C98705A1ce92B8E32E2B24C",
+			"create": false
 		}
 	]
 }
