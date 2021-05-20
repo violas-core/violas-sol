@@ -157,6 +157,10 @@ contract TokenFactory is PausableUpgradeable, OwnableUpgradeable, ITokenFactory{
     internal
     returns(bool)
     {
+        if (bytes(name).length == 0) {
+            return true;
+        }
+
         for(uint32 i = 0; i < tokenMaxCount; i++) {
             string storage findName = validTokenNames[i];
             if (keccak256(abi.encodePacked(findName)) == keccak256(abi.encodePacked(name))) {
@@ -176,10 +180,8 @@ contract TokenFactory is PausableUpgradeable, OwnableUpgradeable, ITokenFactory{
     validAddress(tokenAddr) 
     returns(bool)
     {
-        address findAddr = tokens[name];
-        if (findAddr != address(0)) {
-            delete tokenNames[findAddr];
-        }
+        _deleteToken(name);
+        _deleteToken(tokenAddr);
         
         tokens[name] = tokenAddr;
         tokenNames[tokenAddr] = name;
@@ -191,11 +193,18 @@ contract TokenFactory is PausableUpgradeable, OwnableUpgradeable, ITokenFactory{
     internal
     returns(bool)
     {
-        string storage name = tokenNames[tokenAddr];
+        if (tokenAddr == address(0)) {
+            return true;
+        }
         delete tokenNames[tokenAddr];
-        delete tokens[name];
         delete _tokenMinAmount[tokenAddr];
         delete _tokenMaxAmount[tokenAddr];
+
+        string storage name = tokenNames[tokenAddr];
+        if (bytes(name).length > 0) {
+            delete tokens[name];
+            _emptyValidTokenNames(name);
+        }
         return true;
     }
     
@@ -204,10 +213,11 @@ contract TokenFactory is PausableUpgradeable, OwnableUpgradeable, ITokenFactory{
     returns(bool)
     {
         address  _tokenAddr =  tokens[name];
+        _emptyValidTokenNames(name);
         return _deleteToken(_tokenAddr);
     }
     
-    function removeToken(string calldata name) 
+    function removeTokenWithName(string calldata name) 
     external 
     payable 
     virtual 
@@ -217,23 +227,21 @@ contract TokenFactory is PausableUpgradeable, OwnableUpgradeable, ITokenFactory{
     returns(bool) 
     {
         _deleteToken(name);
-        _emptyValidTokenNames(name);
         return true;
     }
     
-    function removeToken(address tokenAddr) 
+    function removeTokenWithAddress(address token) 
     external 
     payable 
     virtual 
     override 
     onlyOwner 
-    validToken(tokenAddr) 
+    validToken(token) 
     returns(bool) 
     {
-        string storage name = tokenNames[tokenAddr];
-        _emptyValidTokenNames(name);
-        _deleteToken(tokenAddr);
+        _deleteToken(token);
         return true;
     }
+
 }
 

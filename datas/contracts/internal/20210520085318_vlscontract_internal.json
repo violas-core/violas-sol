@@ -22,7 +22,7 @@
 		"name": "ViolasMProofMain",
 		"address": "0xc6aC75b3B3f6E48Ac1228a34C2732d1F0b9BF934",
 		"deploy": false,
-		"upgrade": false,
+		"upgrade": true,
 		"payee": "0x9382690D0B835b69FD9C0bc23EB772a0Ddb3613F",
 		"params": []
 	}
