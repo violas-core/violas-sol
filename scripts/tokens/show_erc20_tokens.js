@@ -1,11 +1,11 @@
-const utils     = require("../utils");
+const logger    = require("../logger");
 const deploy    = require("./deploy.js");
 
 async function main() {
     tokens = deploy.new_token_list();
     let infos = []
     for (let i = 0; i < tokens.length; i++) {
-        utils.debug("get info: " + tokens[i].symbol);
+        logger.debug("get info: " + tokens[i].symbol);
         let address = tokens[i]["address"];
         if (address == undefined) continue;
         let dp = await deploy.get_contract(address);
@@ -17,7 +17,7 @@ async function main() {
             "totalSupply":  (await dp.totalSupply()).toString(),
         });
     }
-    utils.table(infos);
+    logger.table(infos);
 }
 
 main()

@@ -3,13 +3,14 @@ const fs        = require('fs');
 const path      = require("path");
 const program   = require('commander');
 const utils     = require("./utils");
+const logger    = require("./logger");
 const violas    = require("../violas.config.js");
 const bak_path  = violas.caches_contracts;
 const {main, datas, state}  = require(violas.vlscontract_conf);
 const {ethers, upgrades}    = require("hardhat");
 
 async function date_format(dash = "-", colon = ":", space = " ") {
-    return utils.date_format(dash, colon, space);
+    return logger.date_format(dash, colon, space);
 }
 
 async function get_contract(name, address) {
@@ -17,7 +18,7 @@ async function get_contract(name, address) {
 }
 
 async function show_msg(msg, title = "") {
-    utils.show_msg(msg, title);
+    logger.show_msg(msg, title);
 }
 
 async function write_json(filename, data) {
@@ -26,18 +27,18 @@ async function write_json(filename, data) {
 
 async function deploy(name) {
     const cf = await ethers.getContractFactory(name);
-    utils.debug("Deploying " + name + " ...");
+    logger.debug("Deploying " + name + " ...");
     const dp = await upgrades.deployProxy(cf);
     await dp.deployed();
-    utils.info(name + " deployed to: " + dp.address);
+    logger.info(name + " deployed to: " + dp.address);
     return dp
 }
 
 async function upgrade(name, address) {
     const cf = await ethers.getContractFactory(name);
-    utils.debug("Upgrading " + name + " address: " + address + " ...");
+    logger.debug("Upgrading " + name + " address: " + address + " ...");
     const up = await upgrades.upgradeProxy(address, cf);
-    utils.info(name + " upgraded");
+    logger.info(name + " upgraded");
     return up;
 }
 
@@ -48,7 +49,7 @@ async function check_and_deploy(item) {
     let address = item.address;
     let dp;
 
-    utils.info("switch: " + item.deploy, "check_and_deploy(" + name + ")")
+    logger.info("switch: " + item.deploy, "check_and_deploy(" + name + ")")
 
     if (create) {
         dp = await deploy(name, params);
@@ -68,7 +69,7 @@ async function check_and_upgrade(item) {
     let create = item.upgrade;
     let dp;
 
-    utils.info("switch: " + item.upgrade, "check_and_upgrade(" + name + ")")
+    logger.info("switch: " + item.upgrade, "check_and_upgrade(" + name + ")")
 
     if (create) {
         dp = await upgrade(name, address);
@@ -96,7 +97,7 @@ async function bak_conf(pathname) {
     let filename = path.basename(pathname)
     let new_pathname = bak_path + mark + "_" + filename;
 
-    utils.info("save old config to: " + new_pathname , "bak_conf(" + filename + ")");
+    logger.info("save old config to: " + new_pathname , "bak_conf(" + filename + ")");
     data = {state : state, datas : datas, main : main};
     if (!fs.existsSync(bak_path)) {
         mkdirs_sync(bak_path);
@@ -144,7 +145,7 @@ async function check_conf() {
     }
 }
 async function run() {
-    utils.debug("start working...", "deploy or upgrade");
+    logger.debug("start working...", "deploy or upgrade");
     await check_conf();
     await bak_conf(violas.vlscontract_conf);
     //logic for state datas and main: deploy or upgrade

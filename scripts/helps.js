@@ -1,4 +1,4 @@
-const utils = require("./utils");
+const logger = require("./logger");
 args = [
     {
         "name":     "help",
@@ -139,11 +139,11 @@ desc_kwargs     = {"format": false, "color": ""}
 premise_kwargs  = {"format": false, "color": "red"}
 alig = "\t\t";
 
-utils.show_msg("Usage: make OPTION ARGS");
+logger.show_msg("Usage: make OPTION ARGS");
 for (let i = 0; i < args.length; i++) {
-    utils.show_msg(args[i].name,  "", name_kwargs);
-    if (args[i].value) utils.show_msg(alig + "value:\t"    + args[i].value,    "", value_kwargs);
-    if (args[i].desc)    utils.show_msg(alig + args[i].desc,                     "", desc_kwargs);
-    if (args[i].premise) utils.show_msg(alig + "premise:\t"  +  args[i].premise, "", premise_kwargs);
+    logger.show_msg(args[i].name,  "", name_kwargs);
+    if (args[i].value)      logger.show_msg(alig + "value:\t"    + args[i].value,    "", value_kwargs);
+    if (args[i].desc)       logger.show_msg(alig + args[i].desc,                     "", desc_kwargs);
+    if (args[i].premise)    logger.show_msg(alig + "premise:\t"  +  args[i].premise, "", premise_kwargs);
 }
 

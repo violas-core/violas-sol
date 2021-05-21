@@ -3,17 +3,10 @@ const fs        = require('fs');
 const path      = require("path");
 const program   = require('commander');
 const utils     = require("../../utils");
+const logger    = require("../../logger");
 const violas    = require("../../../violas.config.js");
 const bak_path  = violas.caches_contracts;
 const {main, datas, state}  = require(violas.vlscontract_conf);
-
-function date_format(dash = "-", colon = ":", space = " ") {
-    return utils.date_format(dash, colon, space);
-}
-
-function show_msg(msg, title = "") {
-    utils.show_msg(msg, title, {"format": false, "type": "table"});
-}
 
 function write_json(filename, data) {
     utils.write_json(filename, data);
@@ -46,11 +39,11 @@ function show_conf() {
         main.manager = managers;
     }
     data = {state : state, datas : datas, main : main};
-    show_msg(data, violas.vlscontract_conf)
+    logger.table(data, violas.vlscontract_conf)
 }
 
 function show_conf_name() {
-    show_msg(violas.vlscontract_conf, "file name")
+    logger.info(violas.vlscontract_conf, "file name")
 }
 
 function open_deploy(item, save = true) {

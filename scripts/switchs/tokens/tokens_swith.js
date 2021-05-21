@@ -2,24 +2,13 @@ const fs        = require('fs');
 const path      = require("path");
 const program   = require('commander');
 const utils     = require("../../utils");
+const logger    = require("../../logger");
 const violas    = require("../../../violas.config.js");
 const {tokens}  = require(violas.tokens_conf);
 
-function date_format(dash = "-", colon = ":", space = " ") {
-    return utils.date_format(dash, colon, space);
-}
-
-function show_msg(msg, title = "") {
-    utils.show_msg(msg, title, {"format": false, "type": "table"});
-}
-
-function write_json(filename, data) {
-    utils.write_json(filename, data);
-}
-
 function update_conf(filename) {
     data = {tokens};
-    write_json(filename, data);
+    utils.write_json(filename, data);
 }
 
 function close_token(item, save = true) {
@@ -51,7 +40,7 @@ function update_max(item, max, save = true) {
 }
 
 function show_conf() {
-    show_msg(tokens, violas.tokens_conf)
+    logger.table(tokens, violas.tokens_conf)
 }
 
 
@@ -104,14 +93,14 @@ function update_token_max_with_name(name, min) {
 }
 
 function show_conf_name() {
-    show_msg(violas.tokens_conf, "file name")
+    logger.table(violas.tokens_conf, "file name")
 }
 
 function create_open_script(token, always = false, basepath = "") {
     let filename = path.join(basepath, "open_" + token + ".js");
     let script = "const switchs = require(\"./tokens_swith.js\");\nswitchs.open_token_with_name(\"" + token + "\");";
     if (!utils.file_exists(filename) || always) {
-        utils.debug("create_open_script: " + filename);
+        logger.debug("create_open_script: " + filename);
         utils.write_datas(filename, script);
     }
 }
@@ -120,7 +109,7 @@ function create_close_script(token, always = false, basepath = "") {
     let filename = path.join(basepath,  "close_" + token + ".js");
     let script = "const switchs = require(\"./tokens_swith.js\");\nswitchs.close_token_with_name(\"" + token + "\");";
     if (!utils.file_exists(filename) || always) {
-        utils.debug("create_close_script: " + filename);
+        logger.debug("create_close_script: " + filename);
         utils.write_datas(filename, script);
     }
 }

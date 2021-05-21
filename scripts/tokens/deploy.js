@@ -3,26 +3,15 @@ const fs        = require('fs');
 const path      = require("path");
 const program   = require('commander');
 const utils     = require("../utils");
+const logger    = require("../logger");
 const violas    = require("../../violas.config.js");
 const bak_path  = violas.caches_erc20_tokens;
 const {tokens}  = require(violas.erc20_tokens_conf);
 const {ethers, upgrades}    = require("hardhat");
 const contract_name         = "TESTERC20";
 
-async function date_format(dash = "-", colon = ":", space = " ") {
-    return utils.date_format(dash, colon, space);
-}
-
 async function get_contract(name, address) {
     return await utils.get_contract(name, address);
-}
-
-async function show_msg(msg, title = "") {
-    utils.show_msg(msg, title);
-}
-
-async function write_json(filename, data) {
-    utils.write_json(filename, data);
 }
 
 async function update_conf(filename, token) {
@@ -34,11 +23,7 @@ async function update_conf(filename, token) {
     }
 
     data = {"tokens": tokens};
-    await write_json(filename, data);
-}
-
-function mkdirs_sync(dirname) {
-    return  utils.mkdirs_sync(dirname)
+    utils.write_json(filename, data);
 }
 
 async function create_token_info(name, symbol, address, decimals) {
@@ -52,14 +37,14 @@ async function create_token_info(name, symbol, address, decimals) {
 
 async function bak_conf() {
     let pathname = violas.erc20_tokens_conf;
-    let mark = await date_format("", "", "");
+    let mark = logger.date_format("", "", "");
     let filename = path.basename(pathname)
     let new_pathname = bak_path + mark + "_" + filename;
 
     const {old_tokens}  = require(violas.erc20_tokens_conf);
-    utils.info("save old config to: " + new_pathname , "bak_conf(" + filename + ")");
+    logger.info("save old config to: " + new_pathname , "bak_conf(" + filename + ")");
     if (!fs.existsSync(bak_path)) {
-        mkdirs_sync(bak_path);
+        utils.mkdirs_sync(bak_path);
     }
     await write_json(new_pathname, old_tokens);
 }
@@ -71,10 +56,10 @@ async function get_contract(address) {
 async function deploy(name, symbol, decimals = 18) {
     await bak_conf();
     const cf = await ethers.getContractFactory(contract_name);
-    utils.debug("Deploying " + name + " ...");
+    logger.debug("Deploying " + name + " ...");
     const dp = await cf.deploy(name, symbol, decimals);
     await dp.deployed();
-    utils.info(name + " deployed to: " + dp.address);
+    logger.info(name + " deployed to: " + dp.address);
 
     token = await create_token_info(name, symbol, dp.address, decimals);
     await update_conf(violas.erc20_tokens_conf, token);
@@ -84,9 +69,9 @@ async function deploy(name, symbol, decimals = 18) {
 
 async function upgrade(address) {
     const cf = await ethers.getContractFactory(contract_name);
-    utils.debug("Upgrading " + name + " address: " + address + " ...");
+    logger.debug("Upgrading " + name + " address: " + address + " ...");
     const up = await upgrades.upgradeProxy(address, cf);
-    utils.info(name + " upgraded");
+    logger.info(name + " upgraded");
     return up;
 }
 

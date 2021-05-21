@@ -1,13 +1,9 @@
 // scripts/deploy_upgradeable_xxx.js
 const violas    = require("../violas.config.js");
-const utils     = require("./utils");
+const logger    = require("./logger");
 
 const {ethers, upgrades} = require("hardhat");
 const {main, datas, state} = require(violas.vlscontract_conf);
-
-async function show_msg(msg, title = "") {
-    utils.show_msg(msg, title, {"format": false, "type": "table"});
-}
 
 async function run() {
     let vls_conf = {
@@ -21,21 +17,21 @@ async function run() {
         state:  state
     }
 
-    await show_msg(vls_conf,    "violas");
+    logger.show_msg(vls_conf,    "violas");
 
     if(violas.tokens_conf != undefined) {
         const {tokens}  = require(violas.tokens_conf);
-        await show_msg(tokens,      "main can use tokens");
+        logger.show_msg(tokens,      "main can use tokens");
     } else {
-        await show_msg("tokens config not found.", "main can use tokens");
+        logger.show_msg("tokens config not found.", "main can use tokens");
     }
-    await show_msg(contracts_conf, "contracts");
+    logger.show_msg(contracts_conf, "contracts");
 
     if(violas.erc20_tokens_conf != undefined) {
         const {tokens}  = require(violas.erc20_tokens_conf);
-        await show_msg(tokens,      "deploys erc20 tokens");
+        logger.show_msg(tokens,      "deploys erc20 tokens");
     } else {
-        await show_msg("tokens config not found.", "tokens");
+        logger.show_msg("tokens config not found.", "tokens");
     }
 }
 
