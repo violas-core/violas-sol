@@ -2,13 +2,14 @@ const fs        = require('fs');
 const path      = require("path");
 const program   = require('commander');
 const utils     = require("./utils");
+const logger    = require("./logger");
 const violas    = require("../violas.config.js");
 const bak_path  = violas.caches_contracts;
 const {main, datas, state}  = require(violas.vlscontract_conf);
 const {ethers, upgrades}    = require("hardhat");
 
 async function date_format(dash = "-", colon = ":", space = " ") {
-    return utils.date_format(dash, colon, space);
+    return logger.date_format(dash, colon, space);
 }
 
 async function get_contract(name, address) {
@@ -16,7 +17,7 @@ async function get_contract(name, address) {
 }
 
 async function show_msg(msg, title = "") {
-    utils.show_msg(msg, title);
+    logger.show_msg(msg, title);
 }
 
 async function write_json(filename, data) {
@@ -46,7 +47,7 @@ async function stop_proof() {
         let proof = await dcobj.proofInfo(ver);
         min_start_ver = ver;
         if (await scobj.getStateName(proof.state) == "start") {
-            utils.warning("update proof version(" + ver + ")state to stop");
+            logger.warning("update proof version(" + ver + ")state to stop");
             let state = await dcobj.connect(manager).upUSState(ver, "stop");
 
             proof = await dcobj.proofInfo(ver);
@@ -57,7 +58,7 @@ async function stop_proof() {
 }
 
 async function run() {
-    utils.debug("start working...", "stop proof");
+    logger.debug("start working...", "stop proof");
     await stop_proof();
 }
 

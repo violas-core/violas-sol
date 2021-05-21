@@ -1,6 +1,7 @@
 // scripts/index.js
 const prompt    = require('prompt');
 const utils     = require("./utils");
+const logger    = require("./logger");
 
 async function chain_env() {
     let sdatas = {
@@ -34,11 +35,11 @@ async function tokens_info() {
         let cobj = await utils.get_contract("STDERC20", tokens[i].address);
         tokens[i]["decimals"] = (await cobj.decimals()).toString();
     }
-    utils.table(tokens);
+    logger.table(tokens);
 }
 
 async function run() {
-    utils.debug("start working...", "chain contract");
+    logger.debug("start working...", "chain contract");
     await tokens_info();
 }
 

@@ -1,4 +1,4 @@
-const utils     = require("../utils");
+const logger    = require("../logger");
 const deploy    = require("./deploy.js");
 const { ethers, upgrades } = require("hardhat");
 
@@ -9,7 +9,7 @@ async function main() {
 
     for (let i = 0; i < tokens.length; i++) {
         let address = tokens[i]["address"];
-        utils.table(tokens[i], "deploy:" + tokens[i].symbol)
+        logger.table(tokens[i], "deploy:" + tokens[i].symbol)
         if (tokens[i].create == undefined || tokens[i].create) {
             let decimals    = tokens[i].decimals == undefined || tokens[i].decimals <= 0 ? 18 : tokens[i].decimals;
             let dp          = await deploy.deploy(tokens[i].name, tokens[i].symbol, decimals);
@@ -22,10 +22,10 @@ async function main() {
             let amount_str  = tokens[i].mint == undefined ? decimals.toString() + 1000000 : (tokens[i].mint).toString() + decimals.toString();
             let amount      = ethers.BigNumber.from(amount_str);
             
-            utils.info("current totalSupply: " + (await dp.totalSupply()).toString());
-            utils.info("mint " + tokens[i].symbol + " amount = " + amount + " to " + owner);
+            logger.info("current totalSupply: " + (await dp.totalSupply()).toString());
+            logger.info("mint " + tokens[i].symbol + " amount = " + amount + " to " + owner);
             await dp.mint(owner, amount);
-            utils.info("new totalSupply: " + (await dp.totalSupply()).toString());
+            logger.info("new totalSupply: " + (await dp.totalSupply()).toString());
         }
     }
 }

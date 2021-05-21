@@ -2,7 +2,7 @@
 const fs        = require('fs');
 const path      = require("path");
 const program   = require('commander');
-const utils     = require("../utils");
+const logger    = require("../logger");
 const violas    = require("../../violas.config.js");
 const bak_path  = violas.caches_erc20_tokens;
 const {tokens}  = require(violas.erc20_tokens_conf);
@@ -12,5 +12,5 @@ base = {
     "bakpath" : bak_path
 }
 
-utils.table(base, "base info");
-utils.table(tokens, "deploys tokens");
+logger.table(base, "base info");
+logger.table(tokens, "deploys tokens");

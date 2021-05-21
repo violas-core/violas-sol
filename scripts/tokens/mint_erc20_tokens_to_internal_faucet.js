@@ -1,4 +1,4 @@
-const utils     = require("../utils");
+const logger    = require("../logger");
 const deploy    = require("./deploy.js");
 const { ethers, upgrades } = require("hardhat");
 
@@ -8,7 +8,7 @@ async function main() {
     let infos = [];
     for (let i = 0; i < tokens.length; i++) {
         if (tokens[i].address == undefined || tokens[i].address.length == 0) continue; 
-        utils.debug("start mint " + tokens[i].symbol + " for " + target_address);
+        logger.debug("start mint " + tokens[i].symbol + " for " + target_address);
 
         let dp = await deploy.get_contract(tokens[i].address);
         let amount = ethers.BigNumber.from((Math.pow(10, await dp.decimals())).toString() + 1000000);
@@ -21,10 +21,10 @@ async function main() {
         await dp.mint(target_address, amount);
         info["newAmount"] = (await dp.balanceOf(target_address)).toString();
         infos.push(info);
-        utils.table(info);
+        logger.table(info);
 
     }
-    utils.table(infos, "internal sender")
+    logger.table(infos, "internal sender")
 
 }
 

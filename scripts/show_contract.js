@@ -1,6 +1,7 @@
 // scripts/index.js
 const prompt    = require('prompt');
 const utils     = require("./utils");
+const logger    = require("./logger");
 const violas    = require("../violas.config.js");
 const vlscontract_conf = violas.vlscontract_conf;
 const {main, datas, state} = require(vlscontract_conf);
@@ -10,7 +11,7 @@ async function get_contract(name, address) {
 }
 
 async function show_msg(msg, title = "") {
-    utils.show_msg(msg, title, {"format": false, "type": "table"});
+    logger.show_msg(msg, title, {"format": false, "type": "table"});
 }
 
 async function chain_env() {
@@ -67,7 +68,7 @@ async function latest_proof() {
         }
         show_msg(proof_formt, "latest proof: version = " + (last_version - 1));
     } else {
-        utils.info("no proof data");
+        logger.info("no proof data");
     }
 }
 
@@ -90,7 +91,7 @@ async function main_env() {
         let tokenName = await cobj.validTokenNames(i);
         let validToken = {};
         if(tokenName.length > 0) {
-            utils.debug("get token " + tokenName + " info...")
+            logger.debug("get token " + tokenName + " info...")
             validToken["address"] = await cobj.tokenAddress(tokenName);
             let min = await cobj.tokenMinAmount(validToken["address"]);
             let max = await cobj.tokenMaxAmount(validToken["address"]); 
@@ -114,7 +115,7 @@ async function state_env() {
     show_msg(sdatas, "state");
 }
 async function run() {
-    utils.debug("start working...", "chain contract");
+    logger.debug("start working...", "chain contract");
     await latest_proof();
     await chain_env();
     await account_info();

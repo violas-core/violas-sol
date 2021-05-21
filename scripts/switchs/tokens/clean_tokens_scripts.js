@@ -1,6 +1,7 @@
 const path  = require("path");
 const fs    = require("fs");
-const utils = require("../../utils.js")
+const utils = require("../../utils")
+const logger= require("../../logger")
 
 pathname = path.join(__dirname, "./");
 const files         = utils.get_files(pathname)
@@ -19,7 +20,7 @@ for (let i = 0; i < files.length; i++) {
 
     for(let j = 0; j < startswith.length; j++) {
         if (files[i].lastIndexOf(startswith[j]) == 0) {
-            utils.debug("remove " + path.join(__dirname, files[i]));
+            logger.debug("remove " + path.join(__dirname, files[i]));
             fs.unlinkSync(path.join(__dirname, files[i]));
             break;
         }
