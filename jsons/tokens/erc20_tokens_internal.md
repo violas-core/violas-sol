@@ -1,7 +1,7 @@
 # mapping tokens in violas internal
 
 name|address|use|min|max
----|---|---|---|
+---|---|---|---|---
 usdt|0x6f08730dA8e7de49a4064d2217c6B68d7E61E727|true|0|0
 wbtc|0xB883664F0095DE55491927B6829fF9BF4ab4d8A1|true|0|0
 hbtc|0x0BE69180a4b6E757A9ef8C65f609397705Fa2Eb3|true|0|0
