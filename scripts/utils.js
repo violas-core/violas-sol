@@ -9,15 +9,24 @@ async function get_contract(name, address) {
     return c;
 }
 
-function get_files(pathname) {
-    let files = fs.readdirSync(pathname)
+function get_files(pathname, ext) {
     let file_names = new Array();
+    let files = fs.readdirSync(pathname)
     for (let i = 0; i < files.length; i++) {
-        stat = fs.statSync(path.join(pathname, files[i]));
+        let file = files[i];
+        stat = fs.statSync(path.join(pathname, file));
         if (stat.isFile()) {
-            file_names.push(files[i]);
+            if (ext != undefined) {
+                if (path.extname(path.join(pathname + file)) === ext) {
+                    file_names.push(file);
+                } 
+            } else {
+                console.log("xxx");
+                file_names.push(file);
+            }
         }
     }
+
     return file_names;
 }
 
@@ -49,6 +58,23 @@ function mkdirs_sync(dirname) {
     }
 }
 
+function filename_parse(filename) {
+    return {
+        dirname:    path.dirname(filename),
+        basename:   path.basename(filename),
+        extname:    path.extname(filename),
+        change_ext: function(ext) {
+            return path.join(this.dirname, path.basename(this.basename, this.extname) + ext);
+        }
+    }
+}
+
+function filename_join(path, filename) {
+    return path.join(path, filename);
+}
+
+function filename_change_ext(filename, ext) {
+}
 module.exports = {
     get_contract,
     file_exists,
@@ -56,5 +82,7 @@ module.exports = {
     write_datas,
     mkdirs_sync,
     get_files,
-
+    filename_change_ext,
+    filename_join,
+    filename_parse
 }
