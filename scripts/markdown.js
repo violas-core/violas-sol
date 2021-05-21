@@ -61,7 +61,7 @@ function new_markdown(name) {
             }
         
             this.append_line(keys.join("|"));
-            this.append_line((new Array(keys.length)).join("---|"));
+            this.append_line((new Array(keys.length)).join("---|") + "---");
             
             for (let i = 0; i < datas.length; i++) {
                 let line = new Array(keys.length);
