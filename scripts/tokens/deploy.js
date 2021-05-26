@@ -46,7 +46,7 @@ async function bak_conf() {
     if (!fs.existsSync(bak_path)) {
         utils.mkdirs_sync(bak_path);
     }
-    await write_json(new_pathname, old_tokens);
+    await utils.write_json(new_pathname, old_tokens);
 }
 
 async function get_contract(address) {

@@ -1,9 +1,9 @@
 const logger    = require("../logger");
 const deploy    = require("./deploy.js");
+const violas    = require("../../violas.config.js");
 const { ethers, upgrades } = require("hardhat");
 
-const target_address = "0x49999B466D7d139f88E8eFea87A6D4D227Fb243e";
-async function main() {
+async function mint(target_address, defamount = 10) {
     tokens = deploy.new_token_list();
     let infos = [];
     for (let i = 0; i < tokens.length; i++) {
@@ -11,7 +11,7 @@ async function main() {
         logger.debug("start mint " + tokens[i].symbol + " for " + target_address);
 
         let dp = await deploy.get_contract(tokens[i].address);
-        let amount = ethers.BigNumber.from((Math.pow(10, await dp.decimals())).toString() + 1000000);
+        let amount = ethers.BigNumber.from((Math.pow(defamount, await dp.decimals())).toString() + 1000000);
         
         let info = {
             tokenSymbol: tokens[i].symbol,
@@ -25,7 +25,23 @@ async function main() {
 
     }
     logger.table(infos, "internal sender")
+}
 
+async function main() {
+    let addresses = new Array();
+
+    if (violas.network == "internal") {
+        addresses.push("0x49999B466D7d139f88E8eFea87A6D4D227Fb243e");
+    } else if (violas.network == "external") {
+        addresses.push("0x5ea3C8B916aD54E5755a65E47709dD299C10641c");
+        addresses.push("0x64a5E8e26084Fd9ec9BcA5B080dD6ae071A2D44e");
+    } else {
+        throw Error("network " + violas.network + " not supported");
+    }
+
+    for (let i = 0; i < addresses.length; i++) {
+        await mint(addresses[i]);
+    }
 }
 
 main()
