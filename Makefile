@@ -74,7 +74,7 @@ init_main:
 init_datas:
 	npx hardhat run ./scripts/init_datas.js
 
-show_chain_contract:
+show_contracts:
 	npx hardhat run ./scripts/show_contract.js
 
 define hardhat_run
@@ -113,10 +113,10 @@ init_tokens_script:
 clean_tokens_script:
 	@npx hardhat run scripts/switchs/tokens/clean_tokens_scripts.js
 
-show_tokens:
+show_tokens_conf:
 	$(call show_conf, "tokens")
 
-show_contracts:
+show_contracts_conf:
 	$(call show_conf, "contracts")
 
 show_deploys_conf:
@@ -128,7 +128,13 @@ show_deploys_tokens:
 deploys_erc20:
 	@npx hardhat run ./scripts/tokens/deploy_erc20_tokens.js
 
+mint_to_senders:
+	@npx hardhat run ./scripts/tokens/mint_erc20_tokens_to_sender.js
+
+mint_to_faucet:
+	@npx hardhat run ./scripts/tokens/mint_erc20_tokens_to_faucet.js
+
 help:
 	@npx hardhat run scripts/helps.js
 
-.PHONY: select build clean deploy init init_main init_datas show_chain_contract show_contracts show_tokens open close use unuse  init_tokens_script clean_tokens_script show_deploys_conf deploys_erc20 show_deploys_tokens
+.PHONY: select build clean deploy init init_main init_datas show_contracts show_contracts_conf show_tokens_conf open close use unuse  init_tokens_script clean_tokens_script show_deploys_conf deploys_erc20 show_deploys_tokens

@@ -67,12 +67,6 @@ args = [
         "premise":  "",
     },
     {
-        "name":     "show_chain_contract",
-        "value":    "",
-        "desc":     "show contracts info in blockchain(chain = hardhat.conf.js:defaultNetwork)",
-        "premise":  "hardhat.conf.js:defaultNetwork",
-    },
-    {
         "name":     "open",
         "value":    "target=[deploy | upgrade] index=[main | datas | state]",
         "desc":     "open switchs in jsons/contracts/vlscontract_NETWORK.json",
@@ -109,16 +103,22 @@ args = [
         "premise":  "",
     },
     {
-        "name":     "show_tokens",
+        "name":     "show_tokens_conf",
         "value":    "",
         "desc":     "show jsons/tokens/erc20_tokens_NETWORK.json info",
         "premise":  "",
     },
     {
-        "name":     "show_contracts",
+        "name":     "show_contracts_conf",
         "value":    "",
         "desc":     "show jsons/contracts/vlscontract_NETWORK.json info",
         "premise":  "",
+    },
+    {
+        "name":     "show_contracts",
+        "value":    "",
+        "desc":     "show contracts info in blockchain(chain = hardhat.conf.js:defaultNetwork)",
+        "premise":  "hardhat.conf.js:defaultNetwork",
     },
     {
         "name":     "deploys_erc20",

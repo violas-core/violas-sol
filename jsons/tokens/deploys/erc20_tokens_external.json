@@ -1,3 +1,109 @@
 {
-    "tokens": []
+	"tokens": [
+		{
+			"name": "vls external hbtc",
+			"symbol": "vlsehbtc",
+			"decimals": 18,
+			"create": false,
+			"address": "0x32151E6e827C086A45042FeB659DfA2d4c50163d"
+		},
+		{
+			"name": "vls external wbtc",
+			"symbol": "vlsewbtc",
+			"decimals": 8,
+			"create": false,
+			"address": "0xE46Cc634e1C5A92b185455509E6b9a12F36E3d7e"
+		},
+		{
+			"name": "vls external wfil",
+			"symbol": "vlsewfil",
+			"decimals": 18,
+			"create": false,
+			"address": "0xbDA2923dD4073d9C43EAC0d0652defAaBFD0fc36"
+		},
+		{
+			"name": "vls external usdt",
+			"symbol": "vlseusdt",
+			"decimals": 6,
+			"create": false,
+			"address": "0x09fFcaaa0E0875e2Cd2E4288FE0Cce40ae9753B3"
+		},
+		{
+			"name": "vls external renbtc",
+			"symbol": "vlserenbtc",
+			"decimals": 8,
+			"create": false,
+			"address": "0x66B42AE87d8EEf98E91e2f54D5AD298b3d9a9b39"
+		},
+		{
+			"name": "vls external usdc",
+			"symbol": "vlseusdc",
+			"decimals": 6,
+			"create": false,
+			"address": "0xcDeACF72c3B877200a15bb7bA727F7Fe0DC6CdE7"
+		},
+		{
+			"name": "vls external busd",
+			"symbol": "vlsebusd",
+			"decimals": 18,
+			"create": false,
+			"address": "0x2c779855e97349573188305786A351C9379E91E9"
+		},
+		{
+			"name": "vls external dai",
+			"symbol": "vlsedai",
+			"decimals": 18,
+			"create": false,
+			"address": "0x6C1641be0465b92de85554c9486472faE2c6c7F1"
+		},
+		{
+			"name": "vls external weth",
+			"symbol": "vlseweth",
+			"decimals": 18,
+			"create": false,
+			"address": "0x11A9b1061636377B93a1A4fc83aE0C14CB8F120e"
+		},
+		{
+			"name": "vls enternal uni",
+			"symbol": "vlseuni",
+			"decimals": 18,
+			"create": false,
+			"address": "0x41F740c916ddce8b54B7F2541188CAbA28f44377"
+		},
+		{
+			"name": "vls external sushi",
+			"symbol": "vlsesushi",
+			"decimals": 18,
+			"create": false,
+			"address": "0xAB9B4ea3C66130705CFfbDDea0eC2fC19408A2A6"
+		},
+		{
+			"name": "vls external link",
+			"symbol": "vlselink",
+			"decimals": 18,
+			"create": false,
+			"address": "0xA0e3845Bd3C1A63BdEA05a2168B16bA630f36998"
+		},
+		{
+			"name": "vls external comp",
+			"symbol": "vlsecomp",
+			"decimals": 18,
+			"create": false,
+			"address": "0xdD500d405C6AEE6D739d725B5f7A671E733BC471"
+		},
+		{
+			"name": "vls external aave",
+			"symbol": "vlsiaave",
+			"decimals": 18,
+			"create": false,
+			"address": "0x9E55db9062AceF4b3417E126e47446336BDF108B"
+		},
+		{
+			"name": "vls external bnb",
+			"symbol": "vlsebnb",
+			"decimals": 18,
+			"create": false,
+			"address": "0xc0297e49944a559fA13D7bDcdc993E592ba94245"
+		}
+	]
 }
