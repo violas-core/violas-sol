@@ -121,15 +121,33 @@ args = [
         "premise":  "hardhat.conf.js:defaultNetwork",
     },
     {
+        "name":     "show_deploys_conf",
+        "value":    "",
+        "desc":     "show deploys erc20 tokens conf jsons/tokens/deploys/erc20_tokens_NETWORK.json",
+        "premise":  "",
+    },
+    {
+        "name":     "show_deploys_tokens",
+        "value":    "",
+        "desc":     "show deploys erc20 tokens info in blockchain",
+        "premise":  "",
+    },
+    {
         "name":     "deploys_erc20",
         "value":    "",
         "desc":     "deploys erc20 tokens jsons/tokens/deploys/erc20_tokens_NETWORK.json",
         "premise":  "",
     },
     {
-        "name":     "show_deploys",
+        "name":     "mint_to_senders",
         "value":    "",
-        "desc":     "show deploys erc20 tokens jsons/tokens/deploys/erc20_tokens_NETWORK.json",
+        "desc":     "mint all tokens to senders",
+        "premise":  "",
+    },
+    {
+        "name":     "mint_to_faucet",
+        "value":    "",
+        "desc":     "mint all tokens to faucet account",
         "premise":  "",
     },
 ]
