@@ -21,7 +21,6 @@ function get_files(pathname, ext) {
                     file_names.push(file);
                 } 
             } else {
-                console.log("xxx");
                 file_names.push(file);
             }
         }
