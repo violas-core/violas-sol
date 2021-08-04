@@ -29,63 +29,84 @@
 			"decimals": 6,
 			"address": "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
 			"create": false,
-			"mint": 1000000
+			"mint": 0
 		},
 		{
 			"name": "vls renbtc",
 			"symbol": "renbtc",
-			"decimals": 6
+			"decimals": 6,
+			"address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+			"create": false
 		},
 		{
 			"name": "vls usdc",
 			"symbol": "usdc",
-			"decimals": 6
+			"decimals": 6,
+			"address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+			"create": false
 		},
 		{
 			"name": "vls busd",
 			"symbol": "busd",
-			"decimals": 6
+			"decimals": 6,
+			"address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+			"create": false
 		},
 		{
 			"name": "vls dai",
 			"symbol": "dai",
-			"decimals": 6
+			"decimals": 6,
+			"address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+			"create": false
 		},
 		{
 			"name": "vls weth",
 			"symbol": "weth",
-			"decimals": 6
+			"decimals": 6,
+			"address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+			"create": false
 		},
 		{
 			"name": "vls uni",
 			"symbol": "uni",
-			"decimals": 6
+			"decimals": 6,
+			"address": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+			"create": false
 		},
 		{
 			"name": "vls sushi",
 			"symbol": "sushi",
-			"decimals": 6
+			"decimals": 6,
+			"address": "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
+			"create": false
 		},
 		{
 			"name": "vls link",
 			"symbol": "link",
-			"decimals": 6
+			"decimals": 6,
+			"address": "0x9A676e781A523b5d0C0e43731313A708CB607508",
+			"create": false
 		},
 		{
 			"name": "vls comp",
 			"symbol": "comp",
-			"decimals": 6
+			"decimals": 6,
+			"address": "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1",
+			"create": false
 		},
 		{
 			"name": "vls aave",
 			"symbol": "aave",
-			"decimals": 6
+			"decimals": 6,
+			"address": "0x68B1D87F95878fE05B998F19b66F4baba5De1aed",
+			"create": false
 		},
 		{
 			"name": "vls bnb",
 			"symbol": "bnb",
-			"decimals": 6
+			"decimals": 6,
+			"address": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+			"create": false
 		}
-
 	]
 }

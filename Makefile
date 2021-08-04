@@ -6,6 +6,9 @@ ifneq ($(use_solc), true)
 	HARDHAT=1
 endif
 
+#erc  erc20(e=20) erc721(e=721)
+e = 20
+
 all: main
 
 
@@ -120,21 +123,21 @@ show_contracts_conf:
 	$(call show_conf, "contracts")
 
 show_deploys_conf:
-	@npx hardhat run ./scripts/tokens/show_erc20_tokens_conf.js
+	@npx hardhat run ./scripts/tokens/show_erc$(e)_tokens_conf.js
 
 show_deploys_tokens:
-	@npx hardhat run ./scripts/tokens/show_erc20_tokens.js
+	@npx hardhat run ./scripts/tokens/show_erc&(e)_tokens.js
 
-deploys_erc20:
-	@npx hardhat run ./scripts/tokens/deploy_erc20_tokens.js
+deploys_tokens:
+	@npx hardhat run ./scripts/tokens/deploy_erc$(e)_tokens.js
 
 mint_to_senders:
-	@npx hardhat run ./scripts/tokens/mint_erc20_tokens_to_sender.js
+	@npx hardhat run ./scripts/tokens/mint_erc$(e)_tokens_to_sender.js
 
 mint_to_faucet:
-	@npx hardhat run ./scripts/tokens/mint_erc20_tokens_to_faucet.js
+	@npx hardhat run ./scripts/tokens/mint_erc$(e)_tokens_to_faucet.js
 
 help:
 	@npx hardhat run scripts/helps.js
 
-.PHONY: select build clean deploy init init_main init_datas show_contracts show_contracts_conf show_tokens_conf open close use unuse  init_tokens_script clean_tokens_script show_deploys_conf deploys_erc20 show_deploys_tokens
+.PHONY: select build clean deploy init init_main init_datas show_contracts show_contracts_conf show_tokens_conf open close use unuse  init_tokens_script clean_tokens_script show_deploys_conf deploys_tokens show_deploys_tokens
