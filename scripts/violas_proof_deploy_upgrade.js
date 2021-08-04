@@ -6,7 +6,7 @@ const utils     = require("./utils");
 const logger    = require("./logger");
 const violas    = require("../violas.config.js");
 const bak_path  = violas.caches_contracts;
-const {main, datas, state}  = require(violas.vlscontract_conf);
+const {main, datas, state, nft721}  = require(violas.vlscontract_conf);
 const {ethers, upgrades}    = require("hardhat");
 
 async function date_format(dash = "-", colon = ":", space = " ") {
@@ -84,7 +84,7 @@ async function check_and_upgrade(item) {
 }
 
 async function update_conf(filename) {
-    data = {state : state, datas : datas, main : main};
+    data = {state : state, datas : datas, main : main, nft721 : nft721};
     await write_json(filename, data);
 }
 
@@ -98,7 +98,7 @@ async function bak_conf(pathname) {
     let new_pathname = bak_path + mark + "_" + filename;
 
     logger.info("save old config to: " + new_pathname , "bak_conf(" + filename + ")");
-    data = {state : state, datas : datas, main : main};
+    data = {state : state, datas : datas, main : main, nft721 : nft721};
     if (!fs.existsSync(bak_path)) {
         mkdirs_sync(bak_path);
     }
@@ -132,7 +132,7 @@ async function check_upgrade_value(item) {
 }
 
 async function check_conf() {
-    let items = [state, datas, main];
+    let items = [state, datas, main, nft721];
     let has_work = false;
     for (let i = 0; i < items.length; i++) {
         await check_deploy_upgrade_value(items[i]);
@@ -156,6 +156,8 @@ async function run() {
     await close_deploy(datas, d_datas.address);
     const d_main  = await check_and_deploy(main);
     await close_deploy(main, d_main.address);
+    const d_nft721  = await check_and_deploy(nft721);
+    await close_deploy(nft721, d_nft721.address);
 
     
     //u_xxx must have contract 
@@ -165,6 +167,8 @@ async function run() {
     await close_upgrade(datas);
     const u_main  = await check_and_upgrade(main);
     await close_upgrade(main);
+    const u_nft721  = await check_and_upgrade(nft721);
+    await close_upgrade(nft721);
 }
 
 run()

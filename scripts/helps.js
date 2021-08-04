@@ -51,7 +51,7 @@ args = [
     {
         "name":     "init",
         "value":    "",
-        "desc":     "init main and datas contract with jsons/contracts/vlscontract_NETWORK.json",
+        "desc":     "init nft721 main and datas contract with jsons/contracts/vlscontract_NETWORK.json",
         "premise":  "",
     },
     {
@@ -68,13 +68,13 @@ args = [
     },
     {
         "name":     "open",
-        "value":    "target=[deploy | upgrade] index=[main | datas | state]",
+        "value":    "target=[deploy | upgrade] index=[main | datas | state | nft721]",
         "desc":     "open switchs in jsons/contracts/vlscontract_NETWORK.json",
         "premise":  "",
     },
     {
         "name":     "close",
-        "value":    "[target=[deploy | upgrade | | all]] index=[main | datas | state |]",
+        "value":    "[target=[deploy | upgrade | | all]] index=[main | datas | state | nft721]",
         "desc":     "open switchs in jsons/contracts/vlscontract_NETWORK.json",
         "premise":  "",
     },
@@ -133,9 +133,9 @@ args = [
         "premise":  "",
     },
     {
-        "name":     "deploys_erc20",
+        "name":     "deploys_tokens",
         "value":    "",
-        "desc":     "deploys erc20 tokens jsons/tokens/deploys/erc20_tokens_NETWORK.json",
+        "desc":     "deploys ercXXX tokens jsons/tokens/deploys/erc$(e)_tokens_NETWORK.json",
         "premise":  "",
     },
     {

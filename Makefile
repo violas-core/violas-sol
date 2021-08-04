@@ -126,7 +126,7 @@ show_deploys_conf:
 	@npx hardhat run ./scripts/tokens/show_erc$(e)_tokens_conf.js
 
 show_deploys_tokens:
-	@npx hardhat run ./scripts/tokens/show_erc&(e)_tokens.js
+	@npx hardhat run ./scripts/tokens/show_erc$(e)_tokens.js
 
 deploys_tokens:
 	@npx hardhat run ./scripts/tokens/deploy_erc$(e)_tokens.js

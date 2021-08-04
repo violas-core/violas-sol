@@ -10,7 +10,7 @@ async function show_accounts() {
 }
 
 async function run() {
-    logger.debug("start working...", "init_main");
+    logger.debug("start working...", "init_datas");
 
     let cobj = await utils.get_contract(datas.name, datas.address);
 

@@ -1,21 +1,28 @@
 {
 	"state": {
 		"name": "ViolasMProofState",
-		"address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+		"address": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
 		"deploy": false,
 		"upgrade": false,
 		"params": []
 	},
 	"datas": {
 		"name": "ViolasMProofDatas",
-		"address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+		"address": "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
 		"deploy": false,
 		"upgrade": false,
 		"params": []
 	},
 	"main": {
 		"name": "ViolasMProofMain",
-		"address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+		"address": "0x9A676e781A523b5d0C0e43731313A708CB607508",
+		"deploy": false,
+		"upgrade": false,
+		"params": []
+	},
+	"nft721": {
+		"name": "TEMPLETEERC721",
+		"address": "0x3Aa5ebB10DC797CAC828524e59A333d0A371443c",
 		"deploy": false,
 		"upgrade": false,
 		"params": []
