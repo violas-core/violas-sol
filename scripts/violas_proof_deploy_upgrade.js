@@ -6,7 +6,7 @@ const utils     = require("./utils");
 const logger    = require("./logger");
 const violas    = require("../violas.config.js");
 const bak_path  = violas.caches_contracts;
-const {main, datas, state, nft721}  = require(violas.vlscontract_conf);
+const {main, datas, state, nft721, nft1155}  = require(violas.vlscontract_conf);
 const {ethers, upgrades}    = require("hardhat");
 
 async function date_format(dash = "-", colon = ":", space = " ") {
@@ -84,7 +84,7 @@ async function check_and_upgrade(item) {
 }
 
 async function update_conf(filename) {
-    data = {state : state, datas : datas, main : main, nft721 : nft721};
+    data = {state : state, datas : datas, main : main, nft721 : nft721, nft1155 : nft1155};
     await write_json(filename, data);
 }
 
@@ -98,7 +98,7 @@ async function bak_conf(pathname) {
     let new_pathname = bak_path + mark + "_" + filename;
 
     logger.info("save old config to: " + new_pathname , "bak_conf(" + filename + ")");
-    data = {state : state, datas : datas, main : main, nft721 : nft721};
+    data = {state : state, datas : datas, main : main, nft721 : nft721, nft1155 : nft1155};
     if (!fs.existsSync(bak_path)) {
         mkdirs_sync(bak_path);
     }
@@ -132,7 +132,7 @@ async function check_upgrade_value(item) {
 }
 
 async function check_conf() {
-    let items = [state, datas, main, nft721];
+    let items = [state, datas, main, nft721, nft1155];
     let has_work = false;
     for (let i = 0; i < items.length; i++) {
         await check_deploy_upgrade_value(items[i]);
@@ -150,25 +150,29 @@ async function run() {
     await bak_conf(violas.vlscontract_conf);
     //logic for state datas and main: deploy or upgrade
     //d_xxx must have address
-    const d_state = await check_and_deploy(state);
+    const d_state   = await check_and_deploy(state);
     await close_deploy(state, d_state.address);
-    const d_datas = await check_and_deploy(datas);
+    const d_datas   = await check_and_deploy(datas);
     await close_deploy(datas, d_datas.address);
-    const d_main  = await check_and_deploy(main);
+    const d_main    = await check_and_deploy(main);
     await close_deploy(main, d_main.address);
     const d_nft721  = await check_and_deploy(nft721);
     await close_deploy(nft721, d_nft721.address);
+    const d_nft1155 = await check_and_deploy(nft1155);
+    await close_deploy(nft1155, d_nft1155.address);
 
     
     //u_xxx must have contract 
-    const u_state = await check_and_upgrade(state);
+    const u_state   = await check_and_upgrade(state);
     await close_upgrade(state);
-    const u_datas = await check_and_upgrade(datas);
+    const u_datas   = await check_and_upgrade(datas);
     await close_upgrade(datas);
-    const u_main  = await check_and_upgrade(main);
+    const u_main    = await check_and_upgrade(main);
     await close_upgrade(main);
     const u_nft721  = await check_and_upgrade(nft721);
     await close_upgrade(nft721);
+    const u_nft1155 = await check_and_upgrade(nft1155);
+    await close_upgrade(nft1155);
 }
 
 run()

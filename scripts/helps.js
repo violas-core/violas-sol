@@ -51,7 +51,7 @@ args = [
     {
         "name":     "init",
         "value":    "",
-        "desc":     "init nft721 main and datas contract with jsons/contracts/vlscontract_NETWORK.json",
+        "desc":     "init main and datas contract with jsons/contracts/vlscontract_NETWORK.json",
         "premise":  "",
     },
     {
@@ -68,13 +68,13 @@ args = [
     },
     {
         "name":     "open",
-        "value":    "target=[deploy | upgrade] index=[main | datas | state | nft721]",
+        "value":    "target=[deploy | upgrade] index=[main | datas | state | nft721 | nft1155]",
         "desc":     "open switchs in jsons/contracts/vlscontract_NETWORK.json",
         "premise":  "",
     },
     {
         "name":     "close",
-        "value":    "[target=[deploy | upgrade | | all]] index=[main | datas | state | nft721]",
+        "value":    "[target=[deploy | upgrade | | all]] index=[main | datas | state | nft721 | nft1155]",
         "desc":     "open switchs in jsons/contracts/vlscontract_NETWORK.json",
         "premise":  "",
     },

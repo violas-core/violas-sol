@@ -26,20 +26,20 @@ module.exports = {
       compilers: [
           {
             version: "0.8.0",
-            //settings: {
-            //    optimizer: {
-            //        enabled: true,
-            //        runs: 200,
-            //    }
-            //}
+            settings: {
+                optimizer: {
+                    enabled: true,
+                    runs: 200,
+                }
+            }
+          },
+          {
+            version: "0.6.0",
+            settings: {}
           }
-          //{
-          //  version: "0.6.0",
-          //  settings: {}
-          //}
       ]
   },
-  defaultNetwork: "localhost",
+  defaultNetwork: "internal",
   networks: {
       hardhat: {
           mining: {

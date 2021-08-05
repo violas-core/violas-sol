@@ -4,7 +4,7 @@ const utils     = require("./utils");
 const logger    = require("./logger");
 const violas    = require("../violas.config.js");
 const vlscontract_conf = violas.vlscontract_conf;
-const {main, datas, state, nft721} = require(vlscontract_conf);
+const {main, datas, state, nft721, nft1155} = require(vlscontract_conf);
 
 async function get_contract(name, address) {
     return await utils.get_contract(name, address);
@@ -125,6 +125,17 @@ async function nft721_env() {
     }
     show_msg(sdatas, "nft721");
 }
+
+async function nft1155_env() {
+    let cobj = await get_contract(nft1155.name, nft1155.address);
+    let sdatas = {
+        name: nft1155.name,
+        contracturi: await cobj.uri(0),
+        contractAddress: nft1155.address,
+    }
+    show_msg(sdatas, "nft1155");
+}
+
 async function run() {
     logger.debug("start working...", "chain contract");
     await latest_proof();
@@ -134,6 +145,7 @@ async function run() {
     await datas_env();
     await main_env();
     await nft721_env();
+    await nft1155_env();
 }
 
 run()

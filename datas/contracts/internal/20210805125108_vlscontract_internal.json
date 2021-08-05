@@ -28,14 +28,14 @@
 	},
 	"nft721": {
 		"name": "ViolasNft721",
-		"address": "0xcec77283Db3F65A21181d4942216Dd9006F3dccd",
-		"deploy": false,
+		"address": "",
+		"deploy": true,
 		"upgrade": false,
 		"params": []
 	},
 	"nft1155": {
 		"name": "ViolasNft1155",
-		"address": "0x89997c006F09d0497910102Ec9eD33008D2b95ea",
+		"address": "",
 		"deploy": false,
 		"upgrade": false,
 		"params": []
