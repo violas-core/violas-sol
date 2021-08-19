@@ -137,6 +137,9 @@ mint_to_senders:
 mint_to_faucet:
 	@npx hardhat run ./scripts/tokens/mint_erc$(e)_tokens_to_faucet.js
 
+run_local_node:
+	@npx hardhat node
+
 help:
 	@npx hardhat run scripts/helps.js
 

@@ -132,8 +132,15 @@ async function nft1155_env() {
         name: nft1155.name,
         contracturi: await cobj.uri(0),
         contractAddress: nft1155.address,
+        mint_role: (await cobj.MINTER_ROLE()).toString(),
+        token_count: (await cobj.tokenCount()).toString(),
     }
     show_msg(sdatas, "nft1155");
+}
+
+async function run_fix() {
+
+    await nft1155_env();
 }
 
 async function run() {
@@ -148,7 +155,7 @@ async function run() {
     await nft1155_env();
 }
 
-run()
+run_fix()
     .then(() => process.exit(0))
     .catch(error => {
         console.error(error);

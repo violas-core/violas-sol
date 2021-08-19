@@ -25,10 +25,10 @@ async function write_json(filename, data) {
     utils.write_json(filename, data);
 }
 
-async function deploy(name) {
+async function deploy(name, params = []) {
     const cf = await ethers.getContractFactory(name);
     logger.debug("Deploying " + name + " ...");
-    const dp = await upgrades.deployProxy(cf);
+    const dp = await upgrades.deployProxy(cf, params);
     await dp.deployed();
     logger.info(name + " deployed to: " + dp.address);
     return dp

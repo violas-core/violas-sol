@@ -38,6 +38,8 @@
 		"address": "0x89997c006F09d0497910102Ec9eD33008D2b95ea",
 		"deploy": false,
 		"upgrade": false,
-		"params": []
+		"params": [
+			"http://vs.testnet.violas.io/"
+		]
 	}
 }
