@@ -39,7 +39,7 @@ module.exports = {
           }
       ]
   },
-  defaultNetwork: "localhost",
+  defaultNetwork: "internal",
   networks: {
       hardhat: {
           mining: {

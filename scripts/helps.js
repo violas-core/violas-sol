@@ -69,25 +69,25 @@ args = [
     {
         "name":     "open",
         "value":    "target=[deploy | upgrade] index=[main | datas | state | nft721 | nft1155]",
-        "desc":     "open switchs in jsons/contracts/vlscontract_NETWORK.json",
+        "desc":     "make violas contract can deploy. open switchs in jsons/contracts/vlscontract_NETWORK.json",
         "premise":  "",
     },
     {
         "name":     "close",
         "value":    "[target=[deploy | upgrade | | all]] index=[main | datas | state | nft721 | nft1155]",
-        "desc":     "open switchs in jsons/contracts/vlscontract_NETWORK.json",
+        "desc":     "make violas contract can't deploy. open switchs in jsons/contracts/vlscontract_NETWORK.json",
         "premise":  "",
     },
     {
         "name":     "use",
         "value":    "target=[usdt | wbtc |...]",
-        "desc":     "open switch(use=true) in jsons/tokens/erc20_tokens_NETWORK.json",
+        "desc":     "make main proof include token(erc20). open switch(use=true) in jsons/tokens/erc20_tokens_NETWORK.json",
         "premise":  "init_tokens_script",
     },
     {
         "name":     "unuse",
         "value":    "target=[usdt | wbtc |...| all]",
-        "desc":     "close switch(use=true) in jsons/tokens/erc20_tokens_NETWORK.json",
+        "desc":     "make main proof non-include token(erc20) .close switch(use=true) in jsons/tokens/erc20_tokens_NETWORK.json",
         "premise":  "",
     },
     {
@@ -111,7 +111,7 @@ args = [
     {
         "name":     "show_contracts_conf",
         "value":    "",
-        "desc":     "show jsons/contracts/vlscontract_NETWORK.json info",
+        "desc":     "show violas contracts info .show jsons/contracts/vlscontract_NETWORK.json info",
         "premise":  "",
     },
     {
