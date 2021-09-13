@@ -367,19 +367,26 @@ contract ViolasNft1155 is ERC1155PresetMinterPauserUpgradeable{
     returns(uint256)
     {
         IdFields memory ifs = _splitId(id);
+        address operator = _msgSender();
         
         uint256 quality_id = _createId(ifs.brand, ifs.btype, ifs.quality, ifs.nfttype, ifs.quality_index, 0);
         uint64 timestamp = uint64(block.timestamp);
 
         require(_unique_ids[quality_id] == true, "id is not exist");
         require(_blind_box_ids[ifs.nfttype] == true, "id is not blind box type");
-        require(balanceOf(to, id) == 1, "amount is not 1. ");
+        require(balanceOf(operator, id) == 1, "amount is not 1. ");
+
+        super.burn(operator, id, 1);
 
         quality_id = _createId(ifs.brand, _selectType(timestamp), _selectQuality(timestamp), _newQuality(_NORMAL_TYPE), ifs.quality_index, 0);
 
         //这里应该是赋予兑换的功能。不应该是mint
-        //mintSubToken(to, id, 1, data);
-        return quality_id;
+        require(_unique_ids[quality_id] == true, "quality id is not exist");
+
+        uint256 sub_id = quality_id + _subtokenIndex(quality_id);
+        _mint(to, sub_id, 1, data);
+
+        return sub_id;
     }
     
 
