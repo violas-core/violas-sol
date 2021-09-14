@@ -32,6 +32,9 @@ async function account_info() {
 }
 
 async function datas_env() {
+    if (data.use == true) {
+        logger.info("not show datas info");
+    }
     let cobj = await get_contract(datas.name, datas.address);
     let managers = "";
     for (let i = 0; i < await cobj.managerMaxCount(); i++) {
@@ -56,6 +59,9 @@ async function datas_env() {
 }
 
 async function latest_proof() {
+    if (data.use == true) {
+        logger.info("not show datas proof info");
+    }
     let cobj = await get_contract(datas.name, datas.address);
     let managers = "";
     let last_version = await cobj.nextVersion();
@@ -73,6 +79,9 @@ async function latest_proof() {
 }
 
 async function main_env() {
+    if (main.use == true) {
+        logger.info("not show main info");
+    }
     let cobj = await get_contract(main.name, main.address);
     let sdatas = {
         name:           main.name,
@@ -104,6 +113,9 @@ async function main_env() {
 }
 
 async function state_env() {
+    if (state.use == true) {
+        logger.info("not show state info");
+    }
     let cobj = await get_contract(state.name, state.address);
     let sdatas = {
         name: state.name,
@@ -116,6 +128,9 @@ async function state_env() {
 }
 
 async function nft721_env() {
+    if (nft721.use == true) {
+        logger.info("not show nft721 info");
+    }
     let cobj = await get_contract(nft721.name, nft721.address);
     let sdatas = {
         name: nft721.name,
@@ -127,6 +142,9 @@ async function nft721_env() {
 }
 
 async function nft1155_env() {
+    if (nft1155.use == true) {
+        logger.info("not show nft1155 info");
+    }
     let cobj = await get_contract(nft1155.name, nft1155.address);
     let sdatas = {
         name: nft1155.name,

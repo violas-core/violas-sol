@@ -35,8 +35,8 @@
 	},
 	"nft1155": {
 		"name": "ViolasNft1155",
-		"address": "0xd2D76505Da870f12cDd5887eD5e9887cB8be22c7",
-		"deploy": false,
+		"address": "0x86b1cb084C1Cd70CF92E090F1aE47e4d9C38B55A",
+		"deploy": true,
 		"upgrade": false,
 		"params": [
 			"http://vs.testnet.violas.io/"

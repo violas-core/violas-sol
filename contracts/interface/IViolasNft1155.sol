@@ -23,11 +23,14 @@ interface IViolasNft1155 {
     function nftTypeCount() external view returns(uint16);
     function nftTypeName(uint16 id) external view returns(string memory);
     function nftTypeId(string calldata name) external view returns(uint16);
+    function isBlindBox(uint16 nfttype) external view returns(bool);
+    function isExchange(uint16 nfttype) external view returns(bool);
 
     function mintBrand(address to, string calldata brand, bytes calldata data) external payable returns(uint256);
     function mintType(address to, string calldata brand, string calldata btype, bytes calldata data) external payable returns(uint256);
     function mintQuality(address to, string calldata brand, string calldata btype, string calldata quality, string calldata nfttype, bytes calldata data) external payable returns(uint256);
     function mintSubToken(address to, uint256 qualityid, uint256 amount, bytes calldata data) external payable returns(uint256);
     function exchangeBlindBox(address to, uint256 id, bytes calldata data) external payable returns(uint256);
+    function appendBlindBoxId(string calldata nfttype) external payable returns(uint16);
+    function cancelBlindBoxId(string calldata nfttype) external payable returns(uint16);
 }
-    //function setBlindBoxId(string calldata nfttype) external returns(uint16);

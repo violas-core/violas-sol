@@ -44,9 +44,9 @@ contract ViolasNft1155 is ERC1155PresetMinterPauserUpgradeable{
     mapping(string => uint16) private _quality_names;
 
     //nft type
-    uint16   private _nft_type;
-    mapping(uint16 => string) private _nft_type_ids;
-    mapping(string => uint16) private _nft_type_names;
+    uint16   private _nfttype_pos;
+    mapping(uint16 => string) private _nfttype_ids;
+    mapping(string => uint16) private _nfttype_names;
     mapping(uint16 => bool)   private _blind_box_ids;
 
     //token_id(quality) index
@@ -58,7 +58,8 @@ contract ViolasNft1155 is ERC1155PresetMinterPauserUpgradeable{
     //unique ids
     mapping(uint256 => bool)   private _unique_ids;
 
-    string constant private _NORMAL_TYPE = "nomal";
+    string constant private _NORMAL_TYPE = "normal";
+    string constant private _EXCHANGE_TYPE = "exchange";
     struct IdFields {
         uint64 mark; 
         uint32 version; 
@@ -89,8 +90,6 @@ contract ViolasNft1155 is ERC1155PresetMinterPauserUpgradeable{
         if (from == address(0) && to != address(0)) {
             for (uint256 i = 0; i < ids.length; i++) {
                 uint256 id = ids[i];
-
-                require(_unique_ids[id] == false, "id is exist, can not mint unique id.");
 
                 if (!_token_exists[id]) {
                     _tokens[_token_index] = id;
@@ -243,7 +242,7 @@ contract ViolasNft1155 is ERC1155PresetMinterPauserUpgradeable{
     view
     virtual
     returns(uint16) {
-        return _nft_type;
+        return _nfttype_pos;
     }
 
     function nftTypeName(
@@ -254,7 +253,7 @@ contract ViolasNft1155 is ERC1155PresetMinterPauserUpgradeable{
     virtual
     returns(string memory) 
     {
-        return _nft_type_ids[id];
+        return _nfttype_ids[id];
     }
 
     function nftTypeId(
@@ -264,7 +263,25 @@ contract ViolasNft1155 is ERC1155PresetMinterPauserUpgradeable{
     view
     virtual
     returns(uint16) {
-        return _nft_type_names[name];
+        return _nfttype_names[name];
+    }
+
+    function isBlindBox(
+        uint16 nfttype
+    ) 
+    external 
+    view returns(bool)
+    {
+        return _blind_box_ids[nfttype];
+    }
+
+    function isExchange(
+        uint16 nfttype
+    ) 
+    external 
+    view returns(bool)
+    {
+        return nfttype == _nfttype_names[_EXCHANGE_TYPE];
     }
 
     function mintBrand(
@@ -280,7 +297,7 @@ contract ViolasNft1155 is ERC1155PresetMinterPauserUpgradeable{
         uint32 brand_id = _newBrand(brand);
         uint256 id = _createId(brand_id, 0, 0, 0, 0, 0);
 
-        require(_unique_ids[id] == false, "id is exists");
+        require(_unique_ids[id] == false, "brand id is exists");
         _unique_ids[id] = true;
 
         super.mint(to, id, 1, data);
@@ -303,9 +320,10 @@ contract ViolasNft1155 is ERC1155PresetMinterPauserUpgradeable{
         require(brand_id > 0, "brand is not exist, mint brand first.");
 
         uint16 type_id = _newType(btype);
+        require(type_id  > 0, "type id is 0");
         uint256 id = _createId(brand_id, type_id, 0, 0, 0, 0);
 
-        require(_unique_ids[id] == false, "id is exist");
+        require(_unique_ids[id] == false, "type id is exist");
         _unique_ids[id] = true;
 
         super.mint(to, id, 1, data);
@@ -350,10 +368,16 @@ contract ViolasNft1155 is ERC1155PresetMinterPauserUpgradeable{
     {
         require(_unique_ids[qualityid] == true, "quality id is not exist");
 
-        uint256 id = qualityid + _subtokenIndex(qualityid);
-        super.mint(to, id, amount, data);
+        uint256 start_id = 0;
+        for(uint256 i = 0; i < amount; i++) {
+            uint256 id = qualityid + _subtokenIndex(qualityid);
+            if (start_id == 0) {
+                start_id = id;
+            }
+            super.mint(to, id, 1, data);
+        }
 
-        return id;
+        return start_id;
     }
     
     function exchangeBlindBox(
@@ -372,16 +396,14 @@ contract ViolasNft1155 is ERC1155PresetMinterPauserUpgradeable{
         uint256 quality_id = _createId(ifs.brand, ifs.btype, ifs.quality, ifs.nfttype, ifs.quality_index, 0);
         uint64 timestamp = uint64(block.timestamp);
 
+        require(ifs.subtoken_index > 0, "must subtoken can exchange");
         require(_unique_ids[quality_id] == true, "id is not exist");
         require(_blind_box_ids[ifs.nfttype] == true, "id is not blind box type");
         require(balanceOf(operator, id) == 1, "amount is not 1. ");
 
         super.burn(operator, id, 1);
 
-        quality_id = _createId(ifs.brand, _selectType(timestamp), _selectQuality(timestamp), _newQuality(_NORMAL_TYPE), ifs.quality_index, 0);
-
-        //这里应该是赋予兑换的功能。不应该是mint
-        require(_unique_ids[quality_id] == true, "quality id is not exist");
+        quality_id = _createId(ifs.brand, _selectType(timestamp), _selectQuality(timestamp), _newNftType(_EXCHANGE_TYPE), ifs.quality_index, 0);
 
         uint256 sub_id = quality_id + _subtokenIndex(quality_id);
         _mint(to, sub_id, 1, data);
@@ -390,19 +412,32 @@ contract ViolasNft1155 is ERC1155PresetMinterPauserUpgradeable{
     }
     
 
-    /*
-    function setBlindBoxId(
+    function appendBlindBoxId(
         string calldata nfttype
     )
     external 
+    payable 
     virtual
     returns(uint16)
     {
-        require(_nft_type_names[nfttype] > 0, "not found nfttype, mint quality with nfttype");
-        _blind_box_ids[_nft_type_names[nfttype]] = true;
-        return _nft_type_names[nfttype];
+        require(_nfttype_names[nfttype] > 0, "not found nfttype, mint quality with nfttype");
+        _blind_box_ids[_nfttype_names[nfttype]] = true;
+        return _nfttype_names[nfttype];
     }
-    */
+
+    function cancelBlindBoxId(
+        string calldata nfttype
+    ) 
+    external 
+    payable 
+    virtual
+    returns(uint16)
+    {
+        require(_nfttype_names[nfttype] > 0, "not found nfttype, mint quality with nfttype");
+        _blind_box_ids[_nfttype_names[nfttype]] = false;
+        return _nfttype_names[nfttype];
+    }
+
     //-------------------f-internal----------------------------------------
     function _newQuality(
         string memory name
@@ -411,11 +446,6 @@ contract ViolasNft1155 is ERC1155PresetMinterPauserUpgradeable{
     virtual
     returns(uint16) 
     {
-        //normal type is fix 1
-        if(_quality_names[_NORMAL_TYPE] == 0) {
-            _quality_pos = _quality_pos + 1;
-            _quality_names[_NORMAL_TYPE] = _quality_pos;
-        }
 
         if(_quality_names[name] > 0) {
             return _quality_names[name];
@@ -491,14 +521,27 @@ contract ViolasNft1155 is ERC1155PresetMinterPauserUpgradeable{
     virtual
     returns(uint16) 
     {
-        if(_nft_type_names[name] > 0) {
-            return _nft_type_names[name];
+        //normal type is fix 1
+        if(_nfttype_names[_NORMAL_TYPE] == 0) {
+            _nfttype_pos = _nfttype_pos + 1;
+            _nfttype_names[_NORMAL_TYPE]    = _nfttype_pos;
+            _nfttype_ids[_nfttype_pos]      = _NORMAL_TYPE;
         }
 
-        _nft_type = _nft_type + 1;
-        _nft_type_ids[_nft_type]    = name;
-        _nft_type_names[name]       = _nft_type;
-        return _nft_type;
+        if(_nfttype_names[_EXCHANGE_TYPE] == 0) {
+            _nfttype_pos = _nfttype_pos + 1;
+            _nfttype_names[_EXCHANGE_TYPE]  = _nfttype_pos;
+            _nfttype_ids[_nfttype_pos]      = _EXCHANGE_TYPE;
+        }
+
+        if(_nfttype_names[name] > 0) {
+            return _nfttype_names[name];
+        }
+
+        _nfttype_pos = _nfttype_pos + 1;
+        _nfttype_ids[_nfttype_pos]    = name;
+        _nfttype_names[name]          = _nfttype_pos;
+        return _nfttype_pos;
     }
 
     function _qualityIndex(
@@ -530,14 +573,14 @@ contract ViolasNft1155 is ERC1155PresetMinterPauserUpgradeable{
     virtual
     returns(IdFields memory ifs)
     {
-        ifs.mark    = uint64(id >> 191);
-        ifs.version = uint32(id >> 159);
-        ifs.reserve = uint16(id >> 143);
-        ifs.brand   = uint32(id >> 111);
-        ifs.btype   = uint16(id >> 95);
-        ifs.quality = uint16(id >> 79);
-        ifs.nfttype = uint16(id >> 63);
-        ifs.quality_index = uint32(id >> 31);
+        ifs.mark    = uint64(id >> 192);
+        ifs.version = uint32(id >> 160);
+        ifs.reserve = uint16(id >> 144);
+        ifs.brand   = uint32(id >> 112);
+        ifs.btype   = uint16(id >> 96);
+        ifs.quality = uint16(id >> 80);
+        ifs.nfttype = uint16(id >> 64);
+        ifs.quality_index = uint32(id >> 32);
         ifs.subtoken_index = uint32(id);
     }
 
@@ -553,21 +596,18 @@ contract ViolasNft1155 is ERC1155PresetMinterPauserUpgradeable{
     virtual
     returns(uint256) 
     {
-        if (_nft_mark == 0) {
-            _nft_mark       = 0x8000000000000000;
-            _nft_version    = 0;
-            _nft_reserve    = 0;
-        }
+        _nft_mark       = 0x8000000000000000;
+        _nft_version    = 0;
+        _nft_reserve    = 0;
 
-        uint256 id = 0;
-        id =_nft_mark       << 191 + 
-            _nft_version    << 159 + 
-            _nft_reserve    << 143 +
-            brand           << 111 +
-            btype           <<  95 +
-            quality         <<  79 + 
-            nfttype         <<  63 +
-            quality_index   <<  31 +
+        uint256 id = (uint256(_nft_mark) << 192) + 
+            (uint256(_nft_version)   << 160) + 
+            (uint256(_nft_reserve)   << 144) +
+            (uint256(brand)          << 112) +
+            (uint256(btype)          <<  96) +
+            (uint256(quality)        <<  80) + 
+            (uint256(nfttype)        <<  64) +
+            (uint256(quality_index)  <<  32) +
             subtoken_index;
 
         return id;

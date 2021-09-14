@@ -1,18 +1,20 @@
-require("@nomiclabs/hardhat-waffle");
+//require("@nomiclabs/hardhat-waffle");
+require("@nomiclabs/hardhat-truffle5");
 require('@nomiclabs/hardhat-ethers');
+require('@nomiclabs/hardhat-web3');
 require('@openzeppelin/hardhat-upgrades');
+
 const { key, mnemonic, key_infura, key_infura_mainnet} = require('./secrets.json');
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
-task("accounts", "Prints the list of accounts", async () => {
-  const accounts = await ethers.getSigners();
+task("accountss", "Prints the list of accounts", async () => {
+  //const accounts = await ethers.getSigners();
+  const accounts = await web3.eth.getAccounts();
 
   for (const account of accounts) {
     console.log(account.address);
   }
-
-  console.log(ethers.networks);
 });
 
 // You need to export an object to set up your config

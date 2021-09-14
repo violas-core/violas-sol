@@ -1,5 +1,5 @@
 #! /usr/bin/bash
-echo "will copy json file to bvexchange project for abi and contracts address."
+echo "will copy json file to project for abi and contracts address."
 
 if [ $# -eq 1 ]
 then

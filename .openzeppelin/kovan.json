@@ -19,6 +19,16 @@
       "address": "0x86b1cb084C1Cd70CF92E090F1aE47e4d9C38B55A",
       "txHash": "0xd4b8d324e1ecac86211fc766b02aac72351fdd211813ada0c6d8d55dd9514260",
       "kind": "transparent"
+    },
+    {
+      "address": "0x4c7BD5D3b866AE5b3D468cdA970D2D2ac64dD0f1",
+      "txHash": "0x947bdee31a029081c12331f8755319d4a1af49a700ff1cf2c6cffd91b11f8cb2",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xd2D76505Da870f12cDd5887eD5e9887cB8be22c7",
+      "txHash": "0x45bf9e6a3ad7a0015b20c0aaf79786c79f2ea4cb198a6725b11f9c72eb1f9a89",
+      "kind": "transparent"
     }
   ],
   "impls": {
@@ -2698,6 +2708,750 @@
           },
           "t_string_storage": {
             "label": "string"
+          },
+          "t_array(t_uint256)47_storage": {
+            "label": "uint256[47]"
+          },
+          "t_mapping(t_bytes32,t_struct(AddressSet)4808_storage)": {
+            "label": "mapping(bytes32 => struct EnumerableSetUpgradeable.AddressSet)"
+          },
+          "t_bytes32": {
+            "label": "bytes32"
+          },
+          "t_struct(AddressSet)4808_storage": {
+            "label": "struct EnumerableSetUpgradeable.AddressSet",
+            "members": [
+              {
+                "label": "_inner",
+                "type": "t_struct(Set)4533_storage"
+              }
+            ]
+          },
+          "t_struct(Set)4533_storage": {
+            "label": "struct EnumerableSetUpgradeable.Set",
+            "members": [
+              {
+                "label": "_values",
+                "type": "t_array(t_bytes32)dyn_storage"
+              },
+              {
+                "label": "_indexes",
+                "type": "t_mapping(t_bytes32,t_uint256)"
+              }
+            ]
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]"
+          },
+          "t_mapping(t_bytes32,t_uint256)": {
+            "label": "mapping(bytes32 => uint256)"
+          },
+          "t_mapping(t_bytes32,t_struct(RoleData)302_storage)": {
+            "label": "mapping(bytes32 => struct AccessControlUpgradeable.RoleData)"
+          },
+          "t_struct(RoleData)302_storage": {
+            "label": "struct AccessControlUpgradeable.RoleData",
+            "members": [
+              {
+                "label": "members",
+                "type": "t_mapping(t_address,t_bool)"
+              },
+              {
+                "label": "adminRole",
+                "type": "t_bytes32"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "00dafe070191ed48e4b7d11c47ae3e1d8953e712cba2cda01dea005d59f1fc26": {
+      "address": "0xd8f7DF9620369f5B329a32944602C66A9050b702",
+      "txHash": "0x2396ea86e27387804e3bcda3a5c4716422ab3b1f18fe2c2c8324d0dd3ac5c8aa",
+      "layout": {
+        "storage": [
+          {
+            "contract": "Initializable",
+            "label": "_initialized",
+            "type": "t_bool",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:23"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initializing",
+            "type": "t_bool",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:28"
+          },
+          {
+            "contract": "ContextUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:31"
+          },
+          {
+            "contract": "ERC165Upgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol:35"
+          },
+          {
+            "contract": "AccessControlUpgradeable",
+            "label": "_roles",
+            "type": "t_mapping(t_bytes32,t_struct(RoleData)302_storage)",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol:73"
+          },
+          {
+            "contract": "AccessControlUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)49_storage",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol:252"
+          },
+          {
+            "contract": "AccessControlEnumerableUpgradeable",
+            "label": "_roleMembers",
+            "type": "t_mapping(t_bytes32,t_struct(AddressSet)4808_storage)",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol:32"
+          },
+          {
+            "contract": "AccessControlEnumerableUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)49_storage",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol:97"
+          },
+          {
+            "contract": "ERC1155Upgradeable",
+            "label": "_balances",
+            "type": "t_mapping(t_uint256,t_mapping(t_address,t_uint256))",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC1155/ERC1155Upgradeable.sol:24"
+          },
+          {
+            "contract": "ERC1155Upgradeable",
+            "label": "_operatorApprovals",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_bool))",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC1155/ERC1155Upgradeable.sol:27"
+          },
+          {
+            "contract": "ERC1155Upgradeable",
+            "label": "_uri",
+            "type": "t_string_storage",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC1155/ERC1155Upgradeable.sol:30"
+          },
+          {
+            "contract": "ERC1155Upgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)47_storage",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC1155/ERC1155Upgradeable.sol:405"
+          },
+          {
+            "contract": "ERC1155BurnableUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155BurnableUpgradeable.sol:40"
+          },
+          {
+            "contract": "PausableUpgradeable",
+            "label": "_paused",
+            "type": "t_bool",
+            "src": "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol:28"
+          },
+          {
+            "contract": "PausableUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)49_storage",
+            "src": "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol:96"
+          },
+          {
+            "contract": "ERC1155PausableUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155PausableUpgradeable.sol:51"
+          },
+          {
+            "contract": "ERC1155PresetMinterPauserUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC1155/presets/ERC1155PresetMinterPauserUpgradeable.sol:127"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_token_index",
+            "type": "t_uint256",
+            "src": "contracts/ViolasNft1155.sol:11"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_tokens",
+            "type": "t_mapping(t_uint256,t_uint256)",
+            "src": "contracts/ViolasNft1155.sol:14"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_totle_amount",
+            "type": "t_mapping(t_uint256,t_uint256)",
+            "src": "contracts/ViolasNft1155.sol:17"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_token_exists",
+            "type": "t_mapping(t_uint256,t_bool)",
+            "src": "contracts/ViolasNft1155.sol:20"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_nft_mark",
+            "type": "t_uint64",
+            "src": "contracts/ViolasNft1155.sol:23"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_nft_version",
+            "type": "t_uint32",
+            "src": "contracts/ViolasNft1155.sol:26"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_nft_reserve",
+            "type": "t_uint16",
+            "src": "contracts/ViolasNft1155.sol:29"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_brand_pos",
+            "type": "t_uint32",
+            "src": "contracts/ViolasNft1155.sol:32"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_brand_ids",
+            "type": "t_mapping(t_uint32,t_string_storage)",
+            "src": "contracts/ViolasNft1155.sol:33"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_brand_names",
+            "type": "t_mapping(t_string_memory_ptr,t_uint32)",
+            "src": "contracts/ViolasNft1155.sol:34"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_type_pos",
+            "type": "t_uint16",
+            "src": "contracts/ViolasNft1155.sol:37"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_type_ids",
+            "type": "t_mapping(t_uint16,t_string_storage)",
+            "src": "contracts/ViolasNft1155.sol:38"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_type_names",
+            "type": "t_mapping(t_string_memory_ptr,t_uint16)",
+            "src": "contracts/ViolasNft1155.sol:39"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_quality_pos",
+            "type": "t_uint16",
+            "src": "contracts/ViolasNft1155.sol:42"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_quality_ids",
+            "type": "t_mapping(t_uint16,t_string_storage)",
+            "src": "contracts/ViolasNft1155.sol:43"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_quality_names",
+            "type": "t_mapping(t_string_memory_ptr,t_uint16)",
+            "src": "contracts/ViolasNft1155.sol:44"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_nft_type",
+            "type": "t_uint16",
+            "src": "contracts/ViolasNft1155.sol:47"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_nft_type_ids",
+            "type": "t_mapping(t_uint16,t_string_storage)",
+            "src": "contracts/ViolasNft1155.sol:48"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_nft_type_names",
+            "type": "t_mapping(t_string_memory_ptr,t_uint16)",
+            "src": "contracts/ViolasNft1155.sol:49"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_blind_box_ids",
+            "type": "t_mapping(t_uint16,t_bool)",
+            "src": "contracts/ViolasNft1155.sol:50"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_quality_index",
+            "type": "t_mapping(t_uint256,t_uint32)",
+            "src": "contracts/ViolasNft1155.sol:53"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_subtoken_index",
+            "type": "t_mapping(t_uint256,t_uint32)",
+            "src": "contracts/ViolasNft1155.sol:56"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_unique_ids",
+            "type": "t_mapping(t_uint256,t_bool)",
+            "src": "contracts/ViolasNft1155.sol:59"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "contracts/ViolasNft1155.sol:581"
+          }
+        ],
+        "types": {
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_mapping(t_uint256,t_uint256)": {
+            "label": "mapping(uint256 => uint256)"
+          },
+          "t_mapping(t_uint256,t_bool)": {
+            "label": "mapping(uint256 => bool)"
+          },
+          "t_bool": {
+            "label": "bool"
+          },
+          "t_uint64": {
+            "label": "uint64"
+          },
+          "t_uint32": {
+            "label": "uint32"
+          },
+          "t_uint16": {
+            "label": "uint16"
+          },
+          "t_mapping(t_uint32,t_string_storage)": {
+            "label": "mapping(uint32 => string)"
+          },
+          "t_string_storage": {
+            "label": "string"
+          },
+          "t_mapping(t_string_memory_ptr,t_uint32)": {
+            "label": "mapping(string => uint32)"
+          },
+          "t_mapping(t_uint16,t_string_storage)": {
+            "label": "mapping(uint16 => string)"
+          },
+          "t_mapping(t_string_memory_ptr,t_uint16)": {
+            "label": "mapping(string => uint16)"
+          },
+          "t_mapping(t_uint16,t_bool)": {
+            "label": "mapping(uint16 => bool)"
+          },
+          "t_mapping(t_uint256,t_uint32)": {
+            "label": "mapping(uint256 => uint32)"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]"
+          },
+          "t_mapping(t_uint256,t_mapping(t_address,t_uint256))": {
+            "label": "mapping(uint256 => mapping(address => uint256))"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)"
+          },
+          "t_address": {
+            "label": "address"
+          },
+          "t_mapping(t_address,t_mapping(t_address,t_bool))": {
+            "label": "mapping(address => mapping(address => bool))"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)"
+          },
+          "t_array(t_uint256)47_storage": {
+            "label": "uint256[47]"
+          },
+          "t_mapping(t_bytes32,t_struct(AddressSet)4808_storage)": {
+            "label": "mapping(bytes32 => struct EnumerableSetUpgradeable.AddressSet)"
+          },
+          "t_bytes32": {
+            "label": "bytes32"
+          },
+          "t_struct(AddressSet)4808_storage": {
+            "label": "struct EnumerableSetUpgradeable.AddressSet",
+            "members": [
+              {
+                "label": "_inner",
+                "type": "t_struct(Set)4533_storage"
+              }
+            ]
+          },
+          "t_struct(Set)4533_storage": {
+            "label": "struct EnumerableSetUpgradeable.Set",
+            "members": [
+              {
+                "label": "_values",
+                "type": "t_array(t_bytes32)dyn_storage"
+              },
+              {
+                "label": "_indexes",
+                "type": "t_mapping(t_bytes32,t_uint256)"
+              }
+            ]
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]"
+          },
+          "t_mapping(t_bytes32,t_uint256)": {
+            "label": "mapping(bytes32 => uint256)"
+          },
+          "t_mapping(t_bytes32,t_struct(RoleData)302_storage)": {
+            "label": "mapping(bytes32 => struct AccessControlUpgradeable.RoleData)"
+          },
+          "t_struct(RoleData)302_storage": {
+            "label": "struct AccessControlUpgradeable.RoleData",
+            "members": [
+              {
+                "label": "members",
+                "type": "t_mapping(t_address,t_bool)"
+              },
+              {
+                "label": "adminRole",
+                "type": "t_bytes32"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "bb4a1ea99eef7439b92f8434f45379d18123fae635db1fc81fe1b3337a479657": {
+      "address": "0xa4e1924Afd5Ff920750f4C0326f70647186Df8d9",
+      "txHash": "0x09fb5991718c00564af46f75683faac66fb400ead780770e79fa64df53bebab2",
+      "layout": {
+        "storage": [
+          {
+            "contract": "Initializable",
+            "label": "_initialized",
+            "type": "t_bool",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:23"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initializing",
+            "type": "t_bool",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:28"
+          },
+          {
+            "contract": "ContextUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:31"
+          },
+          {
+            "contract": "ERC165Upgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol:35"
+          },
+          {
+            "contract": "AccessControlUpgradeable",
+            "label": "_roles",
+            "type": "t_mapping(t_bytes32,t_struct(RoleData)302_storage)",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol:73"
+          },
+          {
+            "contract": "AccessControlUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)49_storage",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol:252"
+          },
+          {
+            "contract": "AccessControlEnumerableUpgradeable",
+            "label": "_roleMembers",
+            "type": "t_mapping(t_bytes32,t_struct(AddressSet)4808_storage)",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol:32"
+          },
+          {
+            "contract": "AccessControlEnumerableUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)49_storage",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol:97"
+          },
+          {
+            "contract": "ERC1155Upgradeable",
+            "label": "_balances",
+            "type": "t_mapping(t_uint256,t_mapping(t_address,t_uint256))",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC1155/ERC1155Upgradeable.sol:24"
+          },
+          {
+            "contract": "ERC1155Upgradeable",
+            "label": "_operatorApprovals",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_bool))",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC1155/ERC1155Upgradeable.sol:27"
+          },
+          {
+            "contract": "ERC1155Upgradeable",
+            "label": "_uri",
+            "type": "t_string_storage",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC1155/ERC1155Upgradeable.sol:30"
+          },
+          {
+            "contract": "ERC1155Upgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)47_storage",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC1155/ERC1155Upgradeable.sol:405"
+          },
+          {
+            "contract": "ERC1155BurnableUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155BurnableUpgradeable.sol:40"
+          },
+          {
+            "contract": "PausableUpgradeable",
+            "label": "_paused",
+            "type": "t_bool",
+            "src": "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol:28"
+          },
+          {
+            "contract": "PausableUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)49_storage",
+            "src": "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol:96"
+          },
+          {
+            "contract": "ERC1155PausableUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155PausableUpgradeable.sol:51"
+          },
+          {
+            "contract": "ERC1155PresetMinterPauserUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC1155/presets/ERC1155PresetMinterPauserUpgradeable.sol:127"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_token_index",
+            "type": "t_uint256",
+            "src": "contracts/ViolasNft1155.sol:11"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_tokens",
+            "type": "t_mapping(t_uint256,t_uint256)",
+            "src": "contracts/ViolasNft1155.sol:14"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_totle_amount",
+            "type": "t_mapping(t_uint256,t_uint256)",
+            "src": "contracts/ViolasNft1155.sol:17"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_token_exists",
+            "type": "t_mapping(t_uint256,t_bool)",
+            "src": "contracts/ViolasNft1155.sol:20"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_nft_mark",
+            "type": "t_uint64",
+            "src": "contracts/ViolasNft1155.sol:23"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_nft_version",
+            "type": "t_uint32",
+            "src": "contracts/ViolasNft1155.sol:26"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_nft_reserve",
+            "type": "t_uint16",
+            "src": "contracts/ViolasNft1155.sol:29"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_brand_pos",
+            "type": "t_uint32",
+            "src": "contracts/ViolasNft1155.sol:32"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_brand_ids",
+            "type": "t_mapping(t_uint32,t_string_storage)",
+            "src": "contracts/ViolasNft1155.sol:33"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_brand_names",
+            "type": "t_mapping(t_string_memory_ptr,t_uint32)",
+            "src": "contracts/ViolasNft1155.sol:34"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_type_pos",
+            "type": "t_uint16",
+            "src": "contracts/ViolasNft1155.sol:37"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_type_ids",
+            "type": "t_mapping(t_uint16,t_string_storage)",
+            "src": "contracts/ViolasNft1155.sol:38"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_type_names",
+            "type": "t_mapping(t_string_memory_ptr,t_uint16)",
+            "src": "contracts/ViolasNft1155.sol:39"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_quality_pos",
+            "type": "t_uint16",
+            "src": "contracts/ViolasNft1155.sol:42"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_quality_ids",
+            "type": "t_mapping(t_uint16,t_string_storage)",
+            "src": "contracts/ViolasNft1155.sol:43"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_quality_names",
+            "type": "t_mapping(t_string_memory_ptr,t_uint16)",
+            "src": "contracts/ViolasNft1155.sol:44"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_nfttype_pos",
+            "type": "t_uint16",
+            "src": "contracts/ViolasNft1155.sol:47"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_nfttype_ids",
+            "type": "t_mapping(t_uint16,t_string_storage)",
+            "src": "contracts/ViolasNft1155.sol:48"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_nfttype_names",
+            "type": "t_mapping(t_string_memory_ptr,t_uint16)",
+            "src": "contracts/ViolasNft1155.sol:49"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_blind_box_ids",
+            "type": "t_mapping(t_uint16,t_bool)",
+            "src": "contracts/ViolasNft1155.sol:50"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_quality_index",
+            "type": "t_mapping(t_uint256,t_uint32)",
+            "src": "contracts/ViolasNft1155.sol:53"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_subtoken_index",
+            "type": "t_mapping(t_uint256,t_uint32)",
+            "src": "contracts/ViolasNft1155.sol:56"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "_unique_ids",
+            "type": "t_mapping(t_uint256,t_bool)",
+            "src": "contracts/ViolasNft1155.sol:59"
+          },
+          {
+            "contract": "ViolasNft1155",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "contracts/ViolasNft1155.sol:616"
+          }
+        ],
+        "types": {
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_mapping(t_uint256,t_uint256)": {
+            "label": "mapping(uint256 => uint256)"
+          },
+          "t_mapping(t_uint256,t_bool)": {
+            "label": "mapping(uint256 => bool)"
+          },
+          "t_bool": {
+            "label": "bool"
+          },
+          "t_uint64": {
+            "label": "uint64"
+          },
+          "t_uint32": {
+            "label": "uint32"
+          },
+          "t_uint16": {
+            "label": "uint16"
+          },
+          "t_mapping(t_uint32,t_string_storage)": {
+            "label": "mapping(uint32 => string)"
+          },
+          "t_string_storage": {
+            "label": "string"
+          },
+          "t_mapping(t_string_memory_ptr,t_uint32)": {
+            "label": "mapping(string => uint32)"
+          },
+          "t_mapping(t_uint16,t_string_storage)": {
+            "label": "mapping(uint16 => string)"
+          },
+          "t_mapping(t_string_memory_ptr,t_uint16)": {
+            "label": "mapping(string => uint16)"
+          },
+          "t_mapping(t_uint16,t_bool)": {
+            "label": "mapping(uint16 => bool)"
+          },
+          "t_mapping(t_uint256,t_uint32)": {
+            "label": "mapping(uint256 => uint32)"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]"
+          },
+          "t_mapping(t_uint256,t_mapping(t_address,t_uint256))": {
+            "label": "mapping(uint256 => mapping(address => uint256))"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)"
+          },
+          "t_address": {
+            "label": "address"
+          },
+          "t_mapping(t_address,t_mapping(t_address,t_bool))": {
+            "label": "mapping(address => mapping(address => bool))"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)"
           },
           "t_array(t_uint256)47_storage": {
             "label": "uint256[47]"

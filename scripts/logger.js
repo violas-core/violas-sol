@@ -88,6 +88,9 @@ function show_msg(msg, title = "", kwargs = {}) {
 
     if (type == "table" || type == "t") {
         console.table(msg);
+    } else if (type == "json") {
+        msg = JSON.stringify(msg, null, 4);
+        console.log(msg);
     } else {
         if (format) {
             msg = JSON.stringify(msg);

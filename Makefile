@@ -77,6 +77,9 @@ init_main:
 init_datas:
 	npx hardhat run ./scripts/init_datas.js
 
+init_nft:
+	npx hardhat run ./scripts/init_nft1155.js
+
 show_contracts:
 	npx hardhat run ./scripts/show_contract.js
 
