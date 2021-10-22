@@ -1,4 +1,5 @@
 // scripts/index.js
+var BigNumber = require('bignumber.js')
 const utils  = require("./utils");
 const logger = require("./logger");
 const violas = require("../violas.config.js");
@@ -140,7 +141,53 @@ async function exchange_all_blind_tokens() {
         }
     }
 }
+//
+async function exchange_blind_token() {
+    let cobj = await get_contract(nft1155.name, nft1155.address);
+    const accounts = await ethers.provider.listAccounts();
+    let id  = await cobj.tokenId(601);
+    let owner = accounts[0];
+    //let id = new BigNumber("0x8000000000000000000000000000000000010002000300030000000100000024")
+    logger.info(id)
+    let nfttype = await cobj.isBlindBox(get_nfttype(id));
+    let subtoken = is_subtoken(id);
+    if (nfttype && subtoken) {
+        let balance = await cobj.balanceOf(owner, id);
+        if(balance > 0) {
+            logger.info("start")
+            await cobj.exchangeBlindBox(owner, id, []);
+            logger.info("end")
+        } else {
+            logger.info("balance is error: banlance = " + balance.toString())
+        }
+    } else {
+        logger.info("type is error: nfttype: " + nfttype.toString() + " subtoken: " + subtoken.toString())
+    }
+}
 
+async function show_last_id() {
+    let cobj = await get_contract(nft1155.name, nft1155.address);
+    const accounts = await ethers.provider.listAccounts();
+    let token_count = await cobj.tokenCount();
+    let id  = await cobj.tokenId(token_count - 1);
+    let owner = accounts[0];
+    //let id = new BigNumber("0x8000000000000000000000000000000000010002000300030000000100000024")
+    logger.info(id)
+    let nfttype = await cobj.isBlindBox(get_nfttype(id));
+    let subtoken = is_subtoken(id);
+    let balance = await cobj.balanceOf(owner, id);
+    logger.info("banlance = " + balance.toString())
+    logger.info("nfttype: " + nfttype.toString() + " subtoken: " + subtoken.toString())
+}
+async function toBN() {
+    let cobj = await get_contract(nft1155.name, nft1155.address);
+    const accounts = await ethers.provider.listAccounts();
+    let owner = accounts[0];
+    let id = new BigNumber("0x8000000000000000000000000000000000010002000300030000000100000024")
+
+    logger.info(web3.utils.isBigNumber(id))
+    logger.info(id.toHexString())
+}
 async function nft1155_init() {
     if (nft1155.use == true) {
         logger.info("not show nft1155 info");
@@ -214,9 +261,9 @@ async function nft1155_init() {
                 nfttype_name = nfttype_names[nfttype_idx];
                 let id = type_name + "_" + quality_name + "_" + nfttype_name;
                 sub_ids[id] = {};
-                let amount = 50;
+                let amount = 5;
                 if (nfttype_name == "blind") {
-                    amount = 50;
+                    amount = 5;
                 }
                 let q_id = quality_ids[id];
                 let sub_id = await cobj.mintSubToken(owner, q_id, amount, []);
@@ -256,7 +303,7 @@ async function run() {
 
     await nft1155_env();
     //await nft1155_init();
-    await show_all_tokens();
+    //await show_all_tokens();
     //await show_parent_tokens();
     //await set_blind_box_name();
     //await cancel_blind_box_name();
@@ -264,6 +311,9 @@ async function run() {
     //await show_all_exchange_tokens();
     //await show_nfttypes();
     //await exchange_all_blind_tokens();
+    //await toBN()
+    //await exchange_blind_token();
+    await show_last_id()
 }
 
 run()

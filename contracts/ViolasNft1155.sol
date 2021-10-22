@@ -394,7 +394,6 @@ contract ViolasNft1155 is ERC1155PresetMinterPauserUpgradeable{
         address operator = _msgSender();
         
         uint256 quality_id = _createId(ifs.brand, ifs.btype, ifs.quality, ifs.nfttype, ifs.quality_index, 0);
-        uint64 timestamp = uint64(block.timestamp);
 
         require(ifs.subtoken_index > 0, "must subtoken can exchange");
         require(_unique_ids[quality_id] == true, "id is not exist");
@@ -403,7 +402,7 @@ contract ViolasNft1155 is ERC1155PresetMinterPauserUpgradeable{
 
         super.burn(operator, id, 1);
 
-        quality_id = _createId(ifs.brand, _selectType(timestamp), _selectQuality(timestamp), _newNftType(_EXCHANGE_TYPE), ifs.quality_index, 0);
+        quality_id = _createId(ifs.brand, _selectType(quality_id), _selectQuality(id), _newNftType(_EXCHANGE_TYPE), ifs.quality_index, 0);
 
         uint256 sub_id = quality_id + _subtokenIndex(quality_id);
         _mint(to, sub_id, 1, data);
@@ -458,23 +457,24 @@ contract ViolasNft1155 is ERC1155PresetMinterPauserUpgradeable{
     }
 
     function _selectType(
-        uint64 timestamp
+        uint256 seed
     )
     internal
     virtual
     returns(uint16) 
     {
-        return uint16((timestamp % _type_pos) + 1);
+        return uint16((uint256(keccak256(abi.encodePacked(block.timestamp, seed))) %  _type_pos) + 1);
     }
 
     function _selectQuality(
-        uint64 timestamp
+        uint256 seed
     )
     internal
     virtual
     returns(uint16) 
     {
-        return uint16((timestamp % _quality_pos) + 1);
+        return uint16((uint256(keccak256(abi.encodePacked(block.timestamp, seed))) %  _quality_pos) + 1);
+        //return uint16((timestamp % _quality_pos) + 1);
     }
 
     function _newType(
