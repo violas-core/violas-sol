@@ -171,8 +171,6 @@ async function show_last_id() {
     let token_count = await cobj.tokenCount();
     let id  = await cobj.tokenId(token_count - 1);
     let owner = accounts[0];
-    //let id = new BigNumber("0x8000000000000000000000000000000000010002000300030000000100000024")
-    logger.info(id)
     let nfttype = await cobj.isBlindBox(get_nfttype(id));
     let subtoken = is_subtoken(id);
     let balance = await cobj.balanceOf(owner, id);
@@ -285,6 +283,25 @@ async function nft1155_init() {
     show_msg(sdatas, "datas");
 }
 
+async function mint_subtoken(quality_idx, amount) {
+    let sub_ids = {}
+    const accounts = await ethers.provider.listAccounts();
+    let owner = accounts[0];
+    logger.info("owner: " + accounts[0]);
+    let cobj = await get_contract(nft1155.name, nft1155.address);
+    q_id = await cobj.tokenId(quality_idx);
+    let sub_id = await cobj.mintSubToken(owner, q_id, amount, []);
+    await show_last_token(cobj);
+    sub_ids["start_id"] = q_id.toHexString();
+    sub_ids["amount"] = amount;
+    let sdatas = {
+        network:    await ethers.provider.getNetwork(),
+        owner: owner,
+        sub_ids: sub_ids
+    }
+    show_msg(sdatas, "datas");
+    
+}
 async function set_blind_box_name() {
     let cobj = await get_contract(nft1155.name, nft1155.address);
     let tran = await cobj.appendBlindBoxId("blind");
@@ -313,7 +330,9 @@ async function run() {
     //await exchange_all_blind_tokens();
     //await toBN()
     //await exchange_blind_token();
-    await show_last_id()
+    //await show_last_id()
+    await mint_subtoken(711, 9) //800000000000000000000000000000000002000300010001000000010000000m
+
 }
 
 run()

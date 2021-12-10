@@ -60,6 +60,10 @@ contract ViolasNft1155 is ERC1155PresetMinterPauserUpgradeable{
 
     string constant private _NORMAL_TYPE = "normal";
     string constant private _EXCHANGE_TYPE = "exchange";
+
+    //make sure quality is had when mint sub token
+    mapping(uint256 => bool)   private _quality_ids_had;
+
     struct IdFields {
         uint64 mark; 
         uint32 version; 
@@ -351,6 +355,9 @@ contract ViolasNft1155 is ERC1155PresetMinterPauserUpgradeable{
 
         _unique_ids[id] = true;
 
+        //only qualityid is true, mintSubToken can work
+        _quality_ids_had[id] = true;
+
         super.mint(to, id, 1, data);
         return id;
     }
@@ -367,6 +374,9 @@ contract ViolasNft1155 is ERC1155PresetMinterPauserUpgradeable{
     returns(uint256)
     {
         require(_unique_ids[qualityid] == true, "quality id is not exist");
+
+        //check qualityid is invalid !!!!!!!
+        require(_quality_ids_had[qualityid] == true, "quality id is not exist");
 
         uint256 start_id = 0;
         for(uint256 i = 0; i < amount; i++) {
